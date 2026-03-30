@@ -17,7 +17,6 @@ body {
   color: #1f2937;
 }
 
-/* HEADINGS */
 h1 {
   font-family: 'Clash Display', sans-serif;
   font-size: 46px;
@@ -92,7 +91,7 @@ hr {
   font-size: 18px;
 }
 
-/* INSIGHT (FIXED CLEAN VERSION) */
+/* INSIGHT */
 .insight {
   margin: 100px 0;
   padding: 50px 60px;
@@ -115,12 +114,43 @@ hr {
   max-width: 520px;
 }
 
-/* PAIN POINTS */
+/* FLOW SECTION */
+.flow-section {
+  margin-top: 80px;
+}
+
+.flow-row {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  margin-bottom: 80px;
+}
+
+.flow-row.reverse {
+  flex-direction: row-reverse;
+}
+
+.flow-text h4 {
+  font-family: 'Clash Display', sans-serif;
+  font-size: 22px;
+  margin-bottom: 10px;
+}
+
+.flow-text p {
+  color: #555;
+}
+
+.flow-video video {
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+}
+
+/* PAIN */
 .pain-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
-  margin-top: 30px;
 }
 
 .pain {
@@ -136,22 +166,11 @@ hr {
   margin-bottom: 10px;
 }
 
-.pain strong {
-  display: block;
-  margin-bottom: 6px;
-}
-
-.pain p {
-  font-size: 14px;
-  color: #6b7280;
-}
-
 /* SCREENS */
 .screens {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 30px;
-  margin-top: 40px;
 }
 
 .screens img {
@@ -159,7 +178,7 @@ hr {
   border-radius: 20px;
 }
 
-/* SCROLL */
+/* REVEAL */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
@@ -171,9 +190,11 @@ hr {
   transform: translateY(0);
 }
 
+/* MOBILE */
 @media (max-width: 768px) {
-  .screens, .cards, .pain-grid {
+  .screens, .cards, .pain-grid, .flow-row {
     grid-template-columns: 1fr;
+    flex-direction: column;
   }
 }
 </style>
@@ -206,12 +227,12 @@ A seamless mobile experience for discovering artworks and connecting with artist
 
 <div class="reveal">
 <h3>Overview</h3>
-<p>Vanguard Gallery is a mobile app concept designed to deepen the connection between users and artists by enabling intuitive browsing.</p>
+<p>Vanguard Gallery is a mobile app concept designed to deepen the connection between users and artists.</p>
 </div>
 
 <div class="reveal">
 <h3>Problem</h3>
-<p>Users can view artworks but often lack context about the artist, creating a disconnected experience.</p>
+<p>Users can view artworks but lack context about the artist, creating a disconnected experience.</p>
 </div>
 
 <!-- INSIGHT -->
@@ -223,29 +244,56 @@ A seamless mobile experience for discovering artworks and connecting with artist
   </p>
 </div>
 
-<div class="reveal">
-<h3>Goal</h3>
-<p>Design a seamless discovery experience that connects artwork, artist information, and further exploration.</p>
+<!-- 🎬 FLOW SECTION -->
+<div class="flow-section reveal">
+  <h3>Experience Flow</h3>
+
+  <div class="flow-row">
+    <div class="flow-text">
+      <h4>Discovery</h4>
+      <p>Users explore artworks but lack clear direction forward.</p>
+    </div>
+    <div class="flow-video">
+      <video autoplay muted loop playsinline>
+        <source src="images/flow-1.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+
+  <div class="flow-row reverse">
+    <div class="flow-text">
+      <h4>Deep Exploration</h4>
+      <p>Users want to move from artwork to artist and continue exploring seamlessly.</p>
+    </div>
+    <div class="flow-video">
+      <video autoplay muted loop playsinline>
+        <source src="images/flow-2.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
 </div>
 
-<!-- PAIN POINTS -->
+<div class="reveal">
+<h3>Goal</h3>
+<p>Design a seamless discovery experience connecting artwork, artist, and exploration.</p>
+</div>
+
+<!-- PAIN -->
 <div class="reveal">
 <h3>Pain Points</h3>
 
 <div class="pain-grid">
   <div class="pain"><div class="line"></div><strong>Information Overload</strong><p>Too many artworks without structure.</p></div>
-  <div class="pain"><div class="line"></div><strong>Dead-Ends</strong><p>No clear way to continue browsing.</p></div>
-  <div class="pain"><div class="line"></div><strong>Hesitation</strong><p>Users unsure of next actions.</p></div>
-  <div class="pain"><div class="line"></div><strong>Unclear UI</strong><p>Interactive elements not obvious.</p></div>
+  <div class="pain"><div class="line"></div><strong>Dead-Ends</strong><p>No clear way forward.</p></div>
+  <div class="pain"><div class="line"></div><strong>Hesitation</strong><p>Users unsure of next steps.</p></div>
+  <div class="pain"><div class="line"></div><strong>Unclear UI</strong><p>Interactions not obvious.</p></div>
 </div>
 </div>
 
 <div class="reveal">
 <h3>Design Decisions</h3>
 <p>
-1. Continuous exploration flow<br>
-2. Clear next steps<br>
-3. Improved interaction clarity
+Continuous exploration flow, clear next steps, and improved interaction clarity.
 </p>
 </div>
 
@@ -263,7 +311,7 @@ A seamless mobile experience for discovering artworks and connecting with artist
 
 <div class="reveal">
 <h3>Outcome</h3>
-<p>The final design creates a more intuitive and connected browsing experience.</p>
+<p>A smoother, more intuitive experience that keeps users engaged.</p>
 </div>
 
 <script>
