@@ -11,32 +11,32 @@
 
 <style>
 
+/* BASE */
 body {
   margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
   background: #f5f5f5;
   color: #111;
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
   padding: 40px 20px;
 }
 
 /* HEADINGS */
 h1 {
-  font-family: 'Clash Display', sans-serif;
+  font-family: 'Clash Display';
   font-size: 42px;
 }
 
 h2 {
-  font-family: 'Clash Display', sans-serif;
-  font-size: 22px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
+  font-family: 'Clash Display';
+  font-size: 20px;
   color: #6b7280;
+  letter-spacing: 1px;
 }
 
 h3 {
-  font-family: 'Clash Display', sans-serif;
+  font-family: 'Clash Display';
   font-size: 24px;
 }
 
@@ -48,21 +48,19 @@ h3 {
 }
 
 .hero-main img {
-  width: 280px;
+  width: 260px;
   animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
-  0% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
-  100% { transform: translateY(0px); }
+  50% { transform: translateY(-18px); }
 }
 
 /* REVEAL */
 .reveal {
   opacity: 0;
   transform: translateY(40px);
-  transition: 0.8s ease;
+  transition: all 0.8s ease;
 }
 
 .reveal.active {
@@ -85,9 +83,9 @@ h3 {
 }
 
 .insight-box h2 {
-  font-size: 34px;
+  font-size: 30px;
   margin-top: 20px;
-  line-height: 1.3;
+  line-height: 1.4;
 }
 
 /* PAIN POINTS */
@@ -99,50 +97,52 @@ h3 {
 
 .pain-card {
   background: #fff;
-  padding: 25px;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+  padding: 22px;
+  border-radius: 16px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
 }
 
-/* EXPERIENCE FLOW (🔥 FIXED) */
+/* FLOW */
 .flow-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
-  gap: 80px;
-  margin-bottom: 120px;
+  gap: 70px;
+  margin: 120px 0;
 }
 
 .flow-row.reverse {
   direction: rtl;
 }
 
-.flow-row.reverse .flow-text,
-.flow-row.reverse .flow-video {
+.flow-row.reverse * {
   direction: ltr;
-}
-
-.flow-text h3 {
-  margin-bottom: 10px;
 }
 
 /* VIDEO */
 .flow-video {
   display: flex;
-}
-
-.flow-video.left {
-  justify-content: flex-start;
+  min-height: 260px;
 }
 
 .flow-video.right {
   justify-content: flex-end;
 }
 
+.flow-video.left {
+  justify-content: flex-start;
+}
+
 .flow-video video {
-  width: 220px;
-  border-radius: 30px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+  width: 230px;
+  border-radius: 28px;
+  display: block;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+}
+
+/* hide if video fails */
+.flow-video video:empty {
+  display: none;
 }
 
 /* FINAL SCREENS */
@@ -155,6 +155,7 @@ h3 {
 .screens img {
   width: 100%;
   border-radius: 20px;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.08);
 }
 
 /* MOBILE */
@@ -211,11 +212,11 @@ h3 {
   </p>
 </div>
 
-<!-- 🔥 INSIGHT -->
+<!-- INSIGHT -->
 <div class="insight-box reveal">
   <small>Key Insight</small>
   <h2>
-    Users could navigate the app. <br>
+    Users could navigate the app.<br>
     But they didn’t always know what to do next.
   </h2>
 </div>
@@ -232,35 +233,35 @@ h3 {
   </div>
 </div>
 
-<!-- 🔥 EXPERIENCE FLOW -->
+<!-- EXPERIENCE FLOW -->
 <div class="reveal">
   <h3>Experience Flow</h3>
 </div>
 
 <!-- ROW 1 -->
 <div class="flow-row reveal">
-  <div class="flow-text">
+  <div>
     <h3>Discovery</h3>
     <p>Users explore artworks but lack clear direction forward.</p>
   </div>
 
   <div class="flow-video right">
     <video autoplay muted loop playsinline>
-      <source src="videos/video1.mp4" type="video/mp4">
+      <source src="videos/flow-1.mp4" type="video/mp4">
     </video>
   </div>
 </div>
 
 <!-- ROW 2 -->
 <div class="flow-row reverse reveal">
-  <div class="flow-text">
+  <div>
     <h3>Deep Exploration</h3>
     <p>Users want to move from artwork to artist seamlessly.</p>
   </div>
 
   <div class="flow-video left">
     <video autoplay muted loop playsinline>
-      <source src="videos/video2.mp4" type="video/mp4">
+      <source src="videos/flow-2.mp4" type="video/mp4">
     </video>
   </div>
 </div>
@@ -281,11 +282,11 @@ h3 {
 <div class="reveal">
   <h3>Outcome</h3>
   <p>
-    A more intuitive and connected browsing experience that enables continuous exploration.
+    A more intuitive and connected browsing experience enabling continuous exploration.
   </p>
 </div>
 
-<!-- SCROLL JS -->
+<!-- JS -->
 <script>
 const reveals = document.querySelectorAll(".reveal");
 
