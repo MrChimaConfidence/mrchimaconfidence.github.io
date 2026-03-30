@@ -50,7 +50,6 @@
 
     .intro {
       font-size: 18px;
-      margin-top: 10px;
     }
 
     hr {
@@ -62,9 +61,9 @@
     /* HERO */
     .hero {
       margin: 80px 0 40px;
-      padding: 60px 20px;
-      border-radius: 30px;
-      background: radial-gradient(circle at center, #ffffff 0%, #f0f0f0 100%);
+      padding: 70px 20px;
+      border-radius: 40px;
+      background: radial-gradient(circle at center, #ffffff 0%, #ededed 100%);
       display: flex;
       justify-content: center;
     }
@@ -72,13 +71,12 @@
     .hero img {
       width: 340px;
       max-width: 100%;
-      display: block;
-      filter: drop-shadow(0 40px 60px rgba(0,0,0,0.2));
-      transition: transform 0.4s ease;
+      filter: drop-shadow(0 50px 70px rgba(0,0,0,0.18));
+      transition: transform 0.5s cubic-bezier(.22,1,.36,1);
     }
 
     .hero img:hover {
-      transform: translateY(-12px) scale(1.03);
+      transform: translateY(-14px) scale(1.04);
     }
 
     .caption {
@@ -90,27 +88,33 @@
 
     /* FINAL SCREENS */
     .screens {
-      margin-top: 30px;
+      margin-top: 40px;
       display: grid;
       grid-template-columns: repeat(2, 1fr);
-      gap: 20px;
+      gap: 24px;
     }
 
     .screens img {
       width: 100%;
-      border-radius: 18px;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.1);
+      border-radius: 20px;
+      box-shadow: 0 30px 60px rgba(0,0,0,0.1);
 
-      /* ANIMATION START STATE */
+      /* smoother animation start */
       opacity: 0;
-      transform: translateY(40px);
-      transition: all 0.6s ease;
+      transform: translateY(60px) scale(0.98);
+      transition: all 0.9s cubic-bezier(.22,1,.36,1);
     }
 
-    /* WHEN VISIBLE */
+    /* reveal */
     .screens img.show {
       opacity: 1;
-      transform: translateY(0);
+      transform: translateY(0) scale(1);
+    }
+
+    /* hover = subtle premium lift */
+    .screens img:hover {
+      transform: translateY(-10px) scale(1.03);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.15);
     }
 
     /* MOBILE */
@@ -196,20 +200,23 @@
 
   </div>
 
-  <!-- SCROLL ANIMATION SCRIPT -->
+  <!-- SMOOTH SCROLL REVEAL -->
   <script>
     const images = document.querySelectorAll(".screens img");
 
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, index) => {
         if (entry.isIntersecting) {
+
           setTimeout(() => {
             entry.target.classList.add("show");
-          }, index * 150); // stagger effect
+          }, index * 180);
+
+          observer.unobserve(entry.target); // stops repeating
         }
       });
     }, {
-      threshold: 0.2
+      threshold: 0.15
     });
 
     images.forEach(img => observer.observe(img));
