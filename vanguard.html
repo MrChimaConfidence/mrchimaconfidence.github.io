@@ -2,30 +2,35 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Vanguard Gallery</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=plus-jakarta-sans@300,400,500,600&display=swap" rel="stylesheet">
+<title>Vanguard Gallery</title>
+
+<!-- FONTS -->
+<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500,600&display=swap" rel="stylesheet">
 
 <style>
+
 body {
+  margin: 0;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  padding: 40px;
+  background: #f5f5f5;
+  color: #111;
   max-width: 900px;
   margin: auto;
-  line-height: 1.75;
-  color: #1f2937;
+  padding: 40px 20px;
 }
 
+/* HEADINGS */
 h1 {
   font-family: 'Clash Display', sans-serif;
-  font-size: 46px;
+  font-size: 42px;
 }
 
 h2 {
   font-family: 'Clash Display', sans-serif;
-  font-size: 14px;
-  letter-spacing: 2px;
+  font-size: 22px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: #6b7280;
 }
@@ -33,18 +38,6 @@ h2 {
 h3 {
   font-family: 'Clash Display', sans-serif;
   font-size: 24px;
-  margin-top: 60px;
-}
-
-p {
-  font-size: 16px;
-  color: #374151;
-}
-
-hr {
-  margin: 50px 0;
-  border: none;
-  border-top: 1px solid #eee;
 }
 
 /* HERO */
@@ -55,157 +48,14 @@ hr {
 }
 
 .hero-main img {
-  width: 300px;
+  width: 280px;
   animation: float 6s ease-in-out infinite;
 }
 
 @keyframes float {
   0% { transform: translateY(0px); }
-  50% { transform: translateY(-25px); }
+  50% { transform: translateY(-20px); }
   100% { transform: translateY(0px); }
-}
-
-/* CARDS */
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  margin: 50px 0;
-}
-
-.card {
-  padding: 25px;
-  border-radius: 16px;
-  background: #f9fafb;
-  text-align: center;
-}
-
-.card h4 {
-  font-size: 12px;
-  color: #9ca3af;
-  margin-bottom: 10px;
-  letter-spacing: 2px;
-}
-
-.card p {
-  font-size: 18px;
-}
-
-/* INSIGHT */
-.insight {
-  margin: 100px 0;
-  padding: 50px 60px;
-  border-radius: 20px;
-  background: #111;
-}
-
-.insight-label {
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: #9ca3af;
-  margin-bottom: 18px;
-}
-
-.insight-text {
-  font-family: 'Clash Display', sans-serif;
-  font-size: 26px;
-  line-height: 1.6;
-  color: #fff;
-  max-width: 520px;
-}
-
-/* FLOW SECTION */
-.flow-section {
-  margin-top: 80px;
-}
-
-.flow-row {
-  display: flex;
-  align-items: center;
-  gap: 80px;
-  margin-bottom: 100px;
-}
-
-.flow-row.reverse {
-  flex-direction: row-reverse;
-}
-
-.flow-text h4 {
-  font-family: 'Clash Display', sans-serif;
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-.flow-text p {
-  color: #555;
-  max-width: 320px;
-}
-
-/* 🔥 VIDEO SYSTEM (FIXED + PREMIUM) */
-.flow-video {
-  display: flex;
-  background: #f3f4f6;
-  padding: 20px;
-  border-radius: 24px;
-
-  box-shadow:
-    0 20px 40px rgba(0,0,0,0.12),
-    inset 0 0 20px rgba(0,0,0,0.05);
-
-  transition: transform 0.4s ease;
-}
-
-.flow-video:hover {
-  transform: translateY(-8px) scale(1.02);
-}
-
-/* directional alignment */
-.flow-row .flow-video {
-  justify-content: flex-start;
-}
-
-.flow-row.reverse .flow-video {
-  justify-content: flex-end;
-}
-
-.flow-video video {
-  width: 240px;
-  border-radius: 20px;
-  object-fit: cover;
-  background: #000;
-  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
-}
-
-/* PAIN */
-.pain-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-
-.pain {
-  padding: 28px;
-  border-radius: 18px;
-  background: #f9fafb;
-}
-
-.line {
-  width: 30px;
-  height: 3px;
-  background: #111;
-  margin-bottom: 10px;
-}
-
-/* SCREENS */
-.screens {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-}
-
-.screens img {
-  width: 100%;
-  border-radius: 20px;
 }
 
 /* REVEAL */
@@ -220,144 +70,228 @@ hr {
   transform: translateY(0);
 }
 
+/* INSIGHT */
+.insight-box {
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  padding: 60px;
+  border-radius: 24px;
+  margin: 80px 0;
+}
+
+.insight-box small {
+  opacity: 0.6;
+  letter-spacing: 2px;
+}
+
+.insight-box h2 {
+  font-size: 34px;
+  margin-top: 20px;
+  line-height: 1.3;
+}
+
+/* PAIN POINTS */
+.pain-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.pain-card {
+  background: #fff;
+  padding: 25px;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* EXPERIENCE FLOW (🔥 FIXED) */
+.flow-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 80px;
+  margin-bottom: 120px;
+}
+
+.flow-row.reverse {
+  direction: rtl;
+}
+
+.flow-row.reverse .flow-text,
+.flow-row.reverse .flow-video {
+  direction: ltr;
+}
+
+.flow-text h3 {
+  margin-bottom: 10px;
+}
+
+/* VIDEO */
+.flow-video {
+  display: flex;
+}
+
+.flow-video.left {
+  justify-content: flex-start;
+}
+
+.flow-video.right {
+  justify-content: flex-end;
+}
+
+.flow-video video {
+  width: 220px;
+  border-radius: 30px;
+  box-shadow: 0 30px 60px rgba(0,0,0,0.15);
+}
+
+/* FINAL SCREENS */
+.screens {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.screens img {
+  width: 100%;
+  border-radius: 20px;
+}
+
 /* MOBILE */
-@media (max-width: 768px) {
-  .screens, .cards, .pain-grid {
+@media(max-width:768px) {
+  .flow-row {
     grid-template-columns: 1fr;
   }
 
-  .flow-row {
-    flex-direction: column;
-    gap: 40px;
+  .pain-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .screens {
+    grid-template-columns: 1fr;
   }
 }
+
 </style>
 </head>
 
 <body>
 
-<a href="index.html">← Back to Home</a>
+<a href="index.html">← Back</a>
 
 <h1>Vanguard Gallery</h1>
 <h2>Mobile UX Case Study</h2>
 
-<p style="font-size:18px; max-width:500px;">
-A seamless mobile experience for discovering artworks and connecting with artists.
-</p>
-
 <!-- HERO -->
-<div class="hero-main">
+<div class="hero-main reveal">
   <img src="images/vanguard-mockup-removebg-preview.png">
 </div>
 
-<!-- CARDS -->
-<div class="cards reveal">
-  <div class="card"><h4>ROLE</h4><p>UX Designer</p></div>
-  <div class="card"><h4>DURATION</h4><p>4 Weeks</p></div>
-  <div class="card"><h4>TOOLS</h4><p>Figma · Google Forms · Slides</p></div>
-</div>
-
-<hr>
-
+<!-- OVERVIEW -->
 <div class="reveal">
-<h3>Overview</h3>
-<p>Vanguard Gallery is a mobile app concept designed to deepen the connection between users and artists.</p>
-</div>
-
-<div class="reveal">
-<h3>Problem</h3>
-<p>Users can view artworks but lack context about the artist, creating a disconnected experience.</p>
-</div>
-
-<!-- INSIGHT -->
-<div class="insight reveal">
-  <p class="insight-label">Key Insight</p>
-  <p class="insight-text">
-    Users could navigate the app,<br>
-    but they didn’t always know what to do next.
+  <h3>Overview</h3>
+  <p>
+    A seamless mobile experience for discovering artworks and connecting with artists.
   </p>
 </div>
 
-<!-- FLOW -->
-<div class="flow-section reveal">
+<!-- PROBLEM -->
+<div class="reveal">
+  <h3>Problem</h3>
+  <p>
+    Users can view artworks but often lack context about the artist, creating a disconnected experience.
+  </p>
+</div>
+
+<!-- GOAL -->
+<div class="reveal">
+  <h3>Goal</h3>
+  <p>
+    Design a seamless discovery experience connecting artwork, artist, and exploration.
+  </p>
+</div>
+
+<!-- 🔥 INSIGHT -->
+<div class="insight-box reveal">
+  <small>Key Insight</small>
+  <h2>
+    Users could navigate the app. <br>
+    But they didn’t always know what to do next.
+  </h2>
+</div>
+
+<!-- PAIN POINTS -->
+<div class="reveal">
+  <h3>Pain Points</h3>
+
+  <div class="pain-grid">
+    <div class="pain-card">Too many artworks without structure</div>
+    <div class="pain-card">No clear next steps</div>
+    <div class="pain-card">Users hesitate</div>
+    <div class="pain-card">Unclear interactions</div>
+  </div>
+</div>
+
+<!-- 🔥 EXPERIENCE FLOW -->
+<div class="reveal">
   <h3>Experience Flow</h3>
+</div>
 
-  <div class="flow-row">
-    <div class="flow-text">
-      <h4>Discovery</h4>
-      <p>
-        Users explore artworks  
-        <strong>but lack clear direction forward.</strong>
-      </p>
-    </div>
-    <div class="flow-video">
-      <video autoplay muted loop playsinline>
-        <source src="images/flow-1.mp4" type="video/mp4">
-      </video>
-    </div>
+<!-- ROW 1 -->
+<div class="flow-row reveal">
+  <div class="flow-text">
+    <h3>Discovery</h3>
+    <p>Users explore artworks but lack clear direction forward.</p>
   </div>
 
-  <div class="flow-row reverse">
-    <div class="flow-text">
-      <h4>Deep Exploration</h4>
-      <p>
-        Users move between artwork and artist  
-        <strong>but need a smoother exploration flow.</strong>
-      </p>
-    </div>
-    <div class="flow-video">
-      <video autoplay muted loop playsinline>
-        <source src="images/flow-2.mp4" type="video/mp4">
-      </video>
-    </div>
+  <div class="flow-video right">
+    <video autoplay muted loop playsinline>
+      <source src="videos/video1.mp4" type="video/mp4">
+    </video>
   </div>
 </div>
 
+<!-- ROW 2 -->
+<div class="flow-row reverse reveal">
+  <div class="flow-text">
+    <h3>Deep Exploration</h3>
+    <p>Users want to move from artwork to artist seamlessly.</p>
+  </div>
+
+  <div class="flow-video left">
+    <video autoplay muted loop playsinline>
+      <source src="videos/video2.mp4" type="video/mp4">
+    </video>
+  </div>
+</div>
+
+<!-- FINAL SCREENS -->
 <div class="reveal">
-<h3>Goal</h3>
-<p>Design a seamless discovery experience connecting artwork, artist, and exploration.</p>
+  <h3>Final Screens</h3>
+
+  <div class="screens">
+    <img src="images/vanguard-hero-1.png">
+    <img src="images/vanguard-hero-2.png">
+    <img src="images/vanguard-hero-3.png">
+    <img src="images/vanguard-hero-4.png">
+  </div>
 </div>
 
-<!-- PAIN -->
+<!-- OUTCOME -->
 <div class="reveal">
-<h3>Pain Points</h3>
-
-<div class="pain-grid">
-  <div class="pain"><div class="line"></div><strong>Information Overload</strong><p>Too many artworks without structure.</p></div>
-  <div class="pain"><div class="line"></div><strong>Dead-Ends</strong><p>No clear way forward.</p></div>
-  <div class="pain"><div class="line"></div><strong>Hesitation</strong><p>Users unsure of next steps.</p></div>
-  <div class="pain"><div class="line"></div><strong>Unclear UI</strong><p>Interactions not obvious.</p></div>
-</div>
+  <h3>Outcome</h3>
+  <p>
+    A more intuitive and connected browsing experience that enables continuous exploration.
+  </p>
 </div>
 
-<div class="reveal">
-<h3>Design Decisions</h3>
-<p>
-Continuous exploration flow, clear next steps, and improved interaction clarity.
-</p>
-</div>
-
-<!-- SCREENS -->
-<div class="reveal">
-<h3>Final Screens</h3>
-
-<div class="screens">
-  <img src="images/vanguard-hero-1.png">
-  <img src="images/vanguard-hero-2.png">
-  <img src="images/vanguard-hero-3.png">
-  <img src="images/vanguard-hero-4.png">
-</div>
-</div>
-
-<div class="reveal">
-<h3>Outcome</h3>
-<p>A smoother, more intuitive experience that keeps users engaged.</p>
-</div>
-
+<!-- SCROLL JS -->
 <script>
+const reveals = document.querySelectorAll(".reveal");
+
 function revealOnScroll() {
-  document.querySelectorAll(".reveal").forEach(el => {
-    if (el.getBoundingClientRect().top < window.innerHeight - 80) {
+  reveals.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
       el.classList.add("active");
     }
   });
