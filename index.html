@@ -1,283 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Confidence Chima</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <title>Confidence Chima</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500&display=swap" rel="stylesheet">
+  <style>
 
-<style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+      background: #f8f8f8;
+      color: #111;
+    }
 
-body {
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  background: #f7f7f7;
-  color: #111;
-  line-height: 1.6;
-}
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 60px 20px;
+    }
 
-/* NAV */
-.nav {
-  position: sticky;
-  top: 0;
-  background: rgba(247,247,247,0.8);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid #eee;
-  z-index: 1000;
-}
+    /* HERO */
 
-.nav-container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 16px 24px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+    .hero h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
+    }
 
-.logo {
-  font-family: 'Clash Display';
-  font-weight: 600;
-}
+    .hero h2 {
+      font-size: 22px;
+      font-weight: 500;
+      color: #555;
+      margin-bottom: 20px;
+    }
 
-.nav-links a {
-  margin-left: 20px;
-  text-decoration: none;
-  color: #333;
-  font-size: 14px;
-  position: relative;
-}
+    .hero p {
+      font-size: 18px;
+      color: #666;
+      max-width: 500px;
+      line-height: 1.6;
+    }
 
-.nav-links a::after {
-  content: '';
-  position: absolute;
-  width: 0%;
-  height: 1px;
-  left: 0;
-  bottom: -4px;
-  background: #111;
-  transition: 0.3s;
-}
+    /* SECTION TITLE */
 
-.nav-links a:hover::after {
-  width: 100%;
-}
+    .section-title {
+      font-size: 28px;
+      margin: 80px 0 30px;
+    }
 
-/* CONTAINER */
-.container {
-  max-width: 1100px;
-  margin: 0 auto;
-  padding: 80px 24px;
-}
+    /* PROJECT GRID */
 
-/* HERO */
-.hero {
-  margin-bottom: 60px;
-}
+    .projects {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
 
-.hero h1 {
-  font-family: 'Clash Display';
-  font-size: 64px;
-  margin-bottom: 10px;
-  letter-spacing: -1px;
-}
+    .project-card {
+      position: relative;
+      overflow: hidden;
+      border-radius: 16px;
+      cursor: pointer;
+      text-decoration: none;
+    }
 
-.hero h2 {
-  font-size: 22px;
-  margin-bottom: 20px;
-  color: #555;
-}
+    .project-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
 
-.hero p {
-  max-width: 580px;
-  font-size: 18px;
-  color: #555;
-}
+    .project-card:hover img {
+      transform: scale(1.05);
+    }
 
-/* SECTION */
-.section-title {
-  font-family: 'Clash Display';
-  font-size: 28px;
-  margin: 100px 0 30px;
-}
+    /* OVERLAY */
 
-/* GRID */
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 28px;
-}
+    .overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: 0.3s ease;
+    }
 
-/* CARD */
-.card {
-  background: white;
-  border-radius: 20px;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-  transition: all 0.35s ease;
-  opacity: 0;
-  transform: translateY(40px);
-}
+    .project-card:hover .overlay {
+      opacity: 1;
+    }
 
-.card.show {
-  opacity: 1;
-  transform: translateY(0);
-}
+    .overlay h3 {
+      color: white;
+      font-size: 20px;
+      text-align: center;
+      padding: 0 10px;
+    }
 
-.card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 25px 50px rgba(0,0,0,0.08);
-}
+    /* ADDITIONAL WORK */
 
-.card img {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  transition: 0.4s ease;
-}
+    .additional {
+      margin-top: 40px;
+    }
 
-.card:hover img {
-  transform: scale(1.05);
-}
+    .additional-item {
+      margin-bottom: 24px;
+    }
 
-.card-content {
-  padding: 20px;
-}
+    .additional-item h4 {
+      margin-bottom: 6px;
+      font-size: 18px;
+    }
 
-.card-content h4 {
-  font-family: 'Clash Display';
-  margin-bottom: 10px;
-}
+    .additional-item p {
+      margin: 0;
+      color: #666;
+      font-size: 15px;
+    }
 
-.card-content p {
-  font-size: 14px;
-  color: #555;
-  margin-bottom: 16px;
-}
+    /* MOBILE TAP SUPPORT */
 
-/* BUTTON */
-.btn {
-  display: inline-block;
-  padding: 10px 18px;
-  border-radius: 10px;
-  background: #2f4858;
-  color: white;
-  text-decoration: none;
-  font-size: 14px;
-  transition: 0.25s;
-}
+    .project-card:active .overlay {
+      opacity: 1;
+    }
 
-.btn:hover {
-  background: #1e323e;
-  transform: translateY(-2px);
-}
-
-/* MINI */
-.mini-card {
-  background: white;
-  padding: 20px;
-  border-radius: 16px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.04);
-  transition: 0.3s;
-}
-
-.mini-card:hover {
-  transform: translateY(-4px);
-}
-
-</style>
+  </style>
 </head>
 
 <body>
 
-<nav class="nav">
-  <div class="nav-container">
-    <div class="logo">Confidence</div>
-    <div class="nav-links">
-      <a href="index.html">Home</a>
-      <a href="about.html">About</a>
-      <a href="contact.html">Contact</a>
+  <div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+      <h1>Confidence Chima</h1>
+      <h2>UI/UX Designer</h2>
+
+      <p>
+        I design clear, structured experiences that help users move forward with confidence.
+      </p>
+    </section>
+
+    <!-- FEATURED -->
+    <h2 class="section-title">Selected Work</h2>
+
+    <div class="projects">
+
+      <!-- VANGUARD -->
+      <a href="vanguard.html" class="project-card">
+        <img src="images/vanguard-mockup-removebg-preview.png" alt="Vanguard Gallery">
+        <div class="overlay">
+          <h3>Vanguard Gallery</h3>
+        </div>
+      </a>
+
+      <!-- MINDCARE -->
+      <a href="mindcare.html" class="project-card">
+        <img src="images/mindcare.png" alt="MindCare">
+        <div class="overlay">
+          <h3>MindCare</h3>
+        </div>
+      </a>
+
+      <!-- PROFILE STUDIO -->
+      <a href="profilestudio.html" class="project-card">
+        <img src="images/profilestudio.png" alt="Profile Studio">
+        <div class="overlay">
+          <h3>Profile Studio</h3>
+        </div>
+      </a>
+
     </div>
-  </div>
-</nav>
 
-<div class="container">
+    <!-- ADDITIONAL WORK -->
+    <h2 class="section-title">Additional Work</h2>
 
-  <section class="hero">
-    <h1>Confidence Chima</h1>
-    <h2>UI/UX Designer</h2>
-    <p>
-      I design clear, structured experiences that help users move forward with confidence.
-    </p>
-  </section>
+    <div class="additional">
 
-  <h3 class="section-title">Featured Case Studies</h3>
-
-  <div class="grid">
-
-    <div class="card">
-      <img src="images/vanguard-cover.jpg">
-      <div class="card-content">
-        <h4>Vanguard Gallery</h4>
-        <p>Mobile UX for discovering and connecting with artists.</p>
-        <a href="vanguard.html" class="btn">View Case Study</a>
+      <div class="additional-item">
+        <h4>Chimreff</h4>
+        <p>Service app UI focused on clarity and usability.</p>
       </div>
-    </div>
 
-    <div class="card">
-      <img src="images/mindcare-cover.jpg">
-      <div class="card-content">
-        <h4>MindCare</h4>
-        <p>A guided mental health experience helping users move from confusion to clarity.</p>
-        <a href="mindcare.html" class="btn">View Case Study</a>
+      <div class="additional-item">
+        <h4>Paperboy Music</h4>
+        <p>Music platform concept exploring structure and discovery.</p>
       </div>
-    </div>
 
-    <div class="card">
-      <img src="images/profile-cover.jpg">
-      <div class="card-content">
-        <h4>Profile Studio</h4>
-        <p>A structured experience helping professionals improve their LinkedIn presence.</p>
-        <a href="profilestudio.html" class="btn">View Case Study</a>
-      </div>
     </div>
 
   </div>
-
-  <h3 class="section-title">Additional Work</h3>
-
-  <div class="grid">
-    <div class="mini-card">
-      <h4>Chimreff</h4>
-      <p>Service app UI focused on clarity and usability.</p>
-    </div>
-
-    <div class="mini-card">
-      <h4>Paperboy Music</h4>
-      <p>Music platform concept exploring structure and discovery.</p>
-    </div>
-  </div>
-
-</div>
-
-<script>
-const cards = document.querySelectorAll('.card');
-
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add('show');
-    }
-  });
-}, { threshold: 0.2 });
-
-cards.forEach(card => observer.observe(card));
-</script>
 
 </body>
 </html>
