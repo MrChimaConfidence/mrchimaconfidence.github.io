@@ -59,7 +59,7 @@
       border-top: 1px solid #eaeaea;
     }
 
-    /* HERO (TRANSPARENT IMAGE STYLE) */
+    /* HERO */
     .hero {
       margin: 80px 0 40px;
       padding: 60px 20px;
@@ -73,7 +73,6 @@
       width: 340px;
       max-width: 100%;
       display: block;
-      margin: auto;
       filter: drop-shadow(0 40px 60px rgba(0,0,0,0.2));
       transition: transform 0.4s ease;
     }
@@ -101,11 +100,17 @@
       width: 100%;
       border-radius: 18px;
       box-shadow: 0 25px 50px rgba(0,0,0,0.1);
-      transition: all 0.3s ease;
+
+      /* ANIMATION START STATE */
+      opacity: 0;
+      transform: translateY(40px);
+      transition: all 0.6s ease;
     }
 
-    .screens img:hover {
-      transform: translateY(-8px) scale(1.02);
+    /* WHEN VISIBLE */
+    .screens img.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     /* MOBILE */
@@ -135,7 +140,7 @@
 
     <!-- HERO -->
     <div class="hero">
-      <img src="images/vanguard-mockup-removebg-preview.png" alt="Vanguard Mockup">
+      <img src="images/vanguard-mockup-removebg-preview.png">
     </div>
 
     <p class="caption">A preview of the Vanguard Gallery experience</p>
@@ -186,9 +191,29 @@
 
     <h3>Outcome</h3>
     <p>
-      The final design creates a more intuitive and connected browsing experience, allowing users to move seamlessly from viewing artwork to deeper exploration.
+      The final design creates a more intuitive and connected browsing experience.
     </p>
 
   </div>
+
+  <!-- SCROLL ANIMATION SCRIPT -->
+  <script>
+    const images = document.querySelectorAll(".screens img");
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, index) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add("show");
+          }, index * 150); // stagger effect
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+
+    images.forEach(img => observer.observe(img));
+  </script>
+
 </body>
 </html>
