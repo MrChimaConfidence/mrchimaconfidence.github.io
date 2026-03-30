@@ -2,60 +2,58 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <title>Vanguard Gallery</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
+  body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    max-width: 800px;
+    margin: auto;
+    line-height: 1.6;
+  }
+
   .hero {
+    margin: 60px 0;
     display: flex;
     justify-content: center;
-    align-items: center;
-    gap: 24px;
-    margin: 60px 0;
-    flex-wrap: wrap;
   }
 
   .hero img {
-    border-radius: 16px;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
+    width: 100%;
+    max-width: 500px;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
   }
 
-  .hero img:hover {
-    transform: translateY(-6px);
+  hr {
+    margin: 40px 0;
   }
 
-  .hero .big {
-    width: 280px;
-  }
-
-  .hero .small {
-    width: 200px;
+  h2 {
+    color: gray;
   }
   </style>
-
-  <title>Vanguard Gallery</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 
-<body style="font-family: Arial; padding: 40px; max-width: 800px; margin: auto; line-height: 1.6;">
+<body>
 
   <a href="index.html">← Back to Home</a>
 
   <h1 style="margin-top: 30px;">Vanguard Gallery</h1>
-  <h2 style="color: gray;">Mobile UX Case Study</h2>
+  <h2>Mobile UX Case Study</h2>
 
   <p style="font-size: 18px;">
     A seamless mobile experience for discovering artworks and connecting with artists.
   </p>
 
-  <!-- HERO SECTION -->
+  <!-- CLEAN HERO -->
   <div class="hero">
-    <img src="images/vanguard-hero-1.png" class="small">
-    <img src="images/vanguard-hero-2.png" class="big">
-    <img src="images/vanguard-hero-3.png" class="small">
-    <img src="images/vanguard-hero-4.png" class="small">
+    <img src="images/vanguard-hero-2.png">
   </div>
 
-  <hr style="margin: 40px 0;">
+  <hr>
 
   <h3>Overview</h3>
   <p>
