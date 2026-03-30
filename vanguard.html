@@ -7,15 +7,15 @@
 
   <!-- FONTS -->
   <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 
   <style>
   body {
-    font-family: 'Inter', sans-serif;
+    font-family: 'Plus Jakarta Sans', sans-serif;
     padding: 40px;
     max-width: 900px;
     margin: auto;
-    line-height: 1.7;
+    line-height: 1.8;
     background: #f8f8f8;
     color: #111;
   }
@@ -26,24 +26,34 @@
   }
 
   h1 {
-    font-size: 42px;
+    font-size: 44px;
     margin-top: 30px;
   }
 
-  h2 {
-    color: #777;
-    font-weight: 400;
+  /* 🔥 THIS FIXES "Mobile UX Case Study" */
+  .subtitle {
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #999;
     margin-top: -10px;
+    font-weight: 500;
   }
 
   h3 {
     font-size: 24px;
-    margin-top: 60px;
+    margin-top: 70px;
   }
 
   p {
     font-size: 17px;
     color: #333;
+    max-width: 700px;
+  }
+
+  .intro {
+    font-size: 18px;
+    color: #222;
   }
 
   a {
@@ -53,7 +63,7 @@
   }
 
   hr {
-    margin: 50px 0;
+    margin: 60px 0;
     border: none;
     border-top: 1px solid #eaeaea;
   }
@@ -62,7 +72,7 @@
   .hero-main {
     display: flex;
     justify-content: center;
-    margin: 80px 0;
+    margin: 90px 0;
     perspective: 1000px;
   }
 
@@ -82,7 +92,7 @@
 
   .caption {
     text-align: center;
-    font-size: 14px;
+    font-size: 13px;
     color: #888;
   }
 
@@ -105,7 +115,7 @@
     transform: translateY(-8px) scale(1.02);
   }
 
-  /* SCROLL ANIMATION */
+  /* SCROLL */
   .reveal {
     opacity: 0;
     transform: translateY(50px);
@@ -134,13 +144,12 @@
   <a href="index.html">← Back to Home</a>
 
   <h1>Vanguard Gallery</h1>
-  <h2>Mobile UX Case Study</h2>
+  <div class="subtitle">Mobile UX Case Study</div>
 
-  <p style="font-size: 18px;">
+  <p class="intro">
     A seamless mobile experience for discovering artworks and connecting with artists.
   </p>
 
-  <!-- HERO -->
   <div class="hero-main">
     <img src="images/vanguard-mockup-removebg-preview.png">
   </div>
@@ -161,14 +170,14 @@
   <div class="reveal">
     <h3>Problem</h3>
     <p>
-      Users can view artworks but often lack context about the artist and struggle to explore further works, creating a disconnected experience.
+      Users can view artworks but often lack context about the artist and struggle to explore further works.
     </p>
   </div>
 
   <div class="reveal">
     <h3>Goal</h3>
     <p>
-      Design a seamless discovery experience that connects artwork, artist information, and further exploration.
+      Design a seamless discovery experience connecting artwork, artist, and exploration.
     </p>
   </div>
 
@@ -182,14 +191,14 @@
   <div class="reveal">
     <h3>Design Decisions</h3>
 
-    <p><strong>1. Continuous exploration flow</strong><br>
-    Connected artwork, artist, and related works to reduce drop-off.</p>
+    <p><strong>Continuous exploration flow</strong><br>
+    Connected artwork, artist, and related works.</p>
 
-    <p><strong>2. Clear next steps</strong><br>
-    Added strong actions to guide users forward.</p>
+    <p><strong>Clear next steps</strong><br>
+    Guided users forward with strong actions.</p>
 
-    <p><strong>3. Improved interaction clarity</strong><br>
-    Enhanced visual cues to make interactions obvious.</p>
+    <p><strong>Improved interaction clarity</strong><br>
+    Enhanced visual cues for usability.</p>
   </div>
 
   <div class="reveal">
@@ -209,7 +218,7 @@
   <div class="reveal">
     <h3>Outcome</h3>
     <p>
-      The final design creates a more intuitive and connected browsing experience, allowing users to move seamlessly from viewing artwork to deeper exploration.
+      The final design enables a seamless transition from viewing artwork to deeper exploration.
     </p>
   </div>
 
