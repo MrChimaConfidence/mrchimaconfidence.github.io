@@ -22,7 +22,7 @@
     margin: 40px 0;
   }
 
-  /* HERO GRID (FIXED) */
+  /* HERO GRID */
   .hero {
     margin: 60px 0;
     display: grid;
@@ -38,16 +38,22 @@
     transition: transform 0.3s ease;
   }
 
+  /* Default hover */
   .hero img:hover {
     transform: translateY(-6px);
   }
 
-  /* Make center image stand out */
+  /* Make center image bigger */
   .hero img:nth-child(2) {
     transform: scale(1.05);
   }
 
-  /* Responsive (VERY IMPORTANT) */
+  /* FIX: keep scale + add hover movement */
+  .hero img:nth-child(2):hover {
+    transform: scale(1.05) translateY(-6px);
+  }
+
+  /* Responsive */
   @media (max-width: 768px) {
     .hero {
       grid-template-columns: 1fr 1fr;
@@ -73,7 +79,7 @@
     A seamless mobile experience for discovering artworks and connecting with artists.
   </p>
 
-  <!-- 4 IMAGE HERO -->
+  <!-- HERO -->
   <div class="hero">
     <img src="images/vanguard-hero-1.png">
     <img src="images/vanguard-hero-2.png">
