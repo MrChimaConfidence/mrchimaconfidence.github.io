@@ -1,198 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Confidence Chima</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<title>Confidence Chima</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
+<style>
 
-    body {
-      margin: 0;
-      font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #f8f8f8;
-      color: #111;
-    }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+  margin: 0;
+  background: #f8f8f8;
+  color: #111;
+}
 
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 60px 20px;
-    }
+/* HERO */
 
-    /* HERO */
+.hero {
+  padding: 80px 20px 40px;
+  max-width: 900px;
+  margin: auto;
+}
 
-    .hero h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-    }
+.hero h1 {
+  font-size: 42px;
+  margin-bottom: 10px;
+}
 
-    .hero h2 {
-      font-size: 22px;
-      font-weight: 500;
-      color: #555;
-      margin-bottom: 20px;
-    }
+.hero h2 {
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
 
-    .hero p {
-      font-size: 18px;
-      color: #666;
-      max-width: 500px;
-      line-height: 1.6;
-    }
+.hero p {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #444;
+}
 
-    /* SECTION TITLE */
+/* SECTION */
 
-    .section-title {
-      font-size: 28px;
-      margin: 80px 0 30px;
-    }
+.section {
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 0 20px;
+}
 
-    /* PROJECT GRID */
+.section h3 {
+  font-size: 22px;
+  margin-bottom: 20px;
+}
 
-    .projects {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 24px;
-    }
+/* GRID */
 
-    .project-card {
-      position: relative;
-      overflow: hidden;
-      border-radius: 16px;
-      cursor: pointer;
-      text-decoration: none;
-    }
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
 
-    .project-card img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      transition: transform 0.4s ease;
-    }
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
 
-    .project-card:hover img {
-      transform: scale(1.05);
-    }
+/* PROJECT CARD */
 
-    /* OVERLAY */
+.project {
+  position: relative;
+  overflow: hidden;
+  border-radius: 12px;
+  cursor: pointer;
+}
 
-    .overlay {
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transition: 0.3s ease;
-    }
+.project img {
+  width: 100%;
+  display: block;
+}
 
-    .project-card:hover .overlay {
-      opacity: 1;
-    }
+/* OVERLAY */
 
-    .overlay h3 {
-      color: white;
-      font-size: 20px;
-      text-align: center;
-      padding: 0 10px;
-    }
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.3s ease;
+}
 
-    /* ADDITIONAL WORK */
+.project:hover .overlay {
+  opacity: 1;
+}
 
-    .additional {
-      margin-top: 40px;
-    }
+.overlay h4 {
+  color: white;
+  font-size: 22px;
+}
 
-    .additional-item {
-      margin-bottom: 24px;
-    }
+/* MOBILE TAP EFFECT */
 
-    .additional-item h4 {
-      margin-bottom: 6px;
-      font-size: 18px;
-    }
+.project:active .overlay {
+  opacity: 1;
+}
 
-    .additional-item p {
-      margin: 0;
-      color: #666;
-      font-size: 15px;
-    }
+/* ADDITIONAL WORK */
 
-    /* MOBILE TAP SUPPORT */
+.additional div {
+  margin-bottom: 25px;
+}
 
-    .project-card:active .overlay {
-      opacity: 1;
-    }
+.additional h4 {
+  margin-bottom: 5px;
+}
 
-  </style>
+.additional p {
+  color: #555;
+}
+
+a {
+  color: #5b6cff;
+  text-decoration: none;
+}
+
+</style>
 </head>
 
 <body>
 
-  <div class="container">
+<!-- HERO -->
 
-    <!-- HERO -->
-    <section class="hero">
-      <h1>Confidence Chima</h1>
-      <h2>UI/UX Designer</h2>
+<div class="hero">
+  <h1>Confidence Chima</h1>
+  <h2>UI/UX Designer</h2>
+  <p>
+    I design clear, structured experiences that help users move forward with confidence.
+  </p>
+</div>
 
-      <p>
-        I design clear, structured experiences that help users move forward with confidence.
-      </p>
-    </section>
+<!-- FEATURED -->
 
-    <!-- FEATURED -->
-    <h2 class="section-title">Selected Work</h2>
+<div class="section">
+  <h3>Featured Case Studies</h3>
 
-    <div class="projects">
+  <div class="grid">
 
-      <!-- VANGUARD -->
-      <a href="vanguard.html" class="project-card">
-        <img src="images/vanguard-mockup-removebg-preview.png" alt="Vanguard Gallery">
-        <div class="overlay">
-          <h3>Vanguard Gallery</h3>
-        </div>
-      </a>
+    <!-- VANGUARD -->
+    <a href="vanguard.html" class="project">
+      <img src="images/vanguard-mockup-removebg-preview.png">
+      <div class="overlay">
+        <h4>Vanguard Gallery</h4>
+      </div>
+    </a>
 
-      <!-- MINDCARE -->
-      <a href="mindcare.html" class="project-card">
-        <img src="images/mindcare.png" alt="MindCare">
-        <div class="overlay">
-          <h3>MindCare</h3>
-        </div>
-      </a>
+    <!-- MINDCARE -->
+    <a href="mindcare.html" class="project">
+      <img src="images/mindcare-mockup.jpg">
+      <div class="overlay">
+        <h4>MindCare</h4>
+      </div>
+    </a>
 
-      <!-- PROFILE STUDIO -->
-      <a href="profilestudio.html" class="project-card">
-        <img src="images/profilestudio.png" alt="Profile Studio">
-        <div class="overlay">
-          <h3>Profile Studio</h3>
-        </div>
-      </a>
+    <!-- PROFILE STUDIO -->
+    <a href="profilestudio.html" class="project">
+      <img src="images/profilestudio-mockup.jpg">
+      <div class="overlay">
+        <h4>Profile Studio</h4>
+      </div>
+    </a>
 
-    </div>
-
-    <!-- ADDITIONAL WORK -->
-    <h2 class="section-title">Additional Work</h2>
-
-    <div class="additional">
-
-      <div class="additional-item">
+    <!-- CHIMREFF -->
+    <a href="#" class="project">
+      <img src="images/chimreff-mockup.jpg">
+      <div class="overlay">
         <h4>Chimreff</h4>
-        <p>Service app UI focused on clarity and usability.</p>
       </div>
+    </a>
 
-      <div class="additional-item">
+    <!-- PAPERBOY -->
+    <a href="#" class="project">
+      <img src="images/paperboymusic-mockup.jpg">
+      <div class="overlay">
         <h4>Paperboy Music</h4>
-        <p>Music platform concept exploring structure and discovery.</p>
       </div>
-
-    </div>
+    </a>
 
   </div>
+</div>
+
+<!-- ADDITIONAL WORK -->
+
+<div class="section additional">
+  <h3>Additional Work</h3>
+
+  <div>
+    <h4>Chimreff</h4>
+    <p>Service app UI focused on clarity and usability.</p>
+  </div>
+
+  <div>
+    <h4>Paperboy Music</h4>
+    <p>Music platform concept exploring structure and discovery.</p>
+  </div>
+
+</div>
 
 </body>
 </html>
