@@ -6,171 +6,127 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <style>
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-      margin: 0;
-      padding: 40px 20px;
-      background: #f5f5f7;
-      color: #111;
-      line-height: 1.7;
-    }
+  body {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    max-width: 900px;
+    margin: auto;
+    line-height: 1.6;
+  }
 
-    .container {
-      max-width: 900px;
-      margin: auto;
-    }
+  h2 {
+    color: gray;
+  }
 
-    a {
-      text-decoration: none;
-      color: #555;
-      font-size: 14px;
-    }
+  hr {
+    margin: 40px 0;
+  }
 
-    h1 {
-      margin-top: 30px;
-      font-size: 40px;
-      letter-spacing: -1px;
-    }
+  /* HERO */
+  .hero-main {
+    display: flex;
+    justify-content: center;
+    margin: 60px 0;
+  }
 
-    h2 {
-      color: #777;
-      font-weight: 400;
-      margin-top: -10px;
-    }
+  .hero-main img {
+    width: 280px;
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,0.15));
+    animation: float 6s ease-in-out infinite;
+  }
 
-    h3 {
-      margin-top: 50px;
-      font-size: 22px;
-    }
+  @keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+    100% { transform: translateY(0px); }
+  }
 
-    p {
-      font-size: 17px;
-      color: #333;
-    }
+  /* FINAL SCREENS GRID */
+  .screens {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 30px;
+    margin-top: 40px;
+  }
 
-    .intro {
-      font-size: 18px;
-    }
+  .screens img {
+    width: 100%;
+    border-radius: 20px;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.12);
+  }
 
-    hr {
-      margin: 60px 0;
-      border: none;
-      border-top: 1px solid #eaeaea;
-    }
+  /* SCROLL ANIMATION */
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s ease;
+  }
 
-    /* HERO */
-    .hero {
-      margin: 80px 0 40px;
-      padding: 70px 20px;
-      border-radius: 40px;
-      background: radial-gradient(circle at center, #ffffff 0%, #ededed 100%);
-      display: flex;
-      justify-content: center;
-    }
+  .reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+  }
 
-    .hero img {
-      width: 340px;
-      max-width: 100%;
-      filter: drop-shadow(0 50px 70px rgba(0,0,0,0.18));
-      transition: transform 0.5s cubic-bezier(.22,1,.36,1);
-    }
-
-    .hero img:hover {
-      transform: translateY(-14px) scale(1.04);
-    }
-
-    .caption {
-      text-align: center;
-      font-size: 14px;
-      color: #888;
-      margin-bottom: 20px;
-    }
-
-    /* FINAL SCREENS */
+  /* MOBILE */
+  @media (max-width: 768px) {
     .screens {
-      margin-top: 40px;
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 24px;
+      grid-template-columns: 1fr;
     }
-
-    .screens img {
-      width: 100%;
-      border-radius: 20px;
-      box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-
-      /* smoother animation start */
-      opacity: 0;
-      transform: translateY(60px) scale(0.98);
-      transition: all 0.9s cubic-bezier(.22,1,.36,1);
-    }
-
-    /* reveal */
-    .screens img.show {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-
-    /* hover = subtle premium lift */
-    .screens img:hover {
-      transform: translateY(-10px) scale(1.03);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.15);
-    }
-
-    /* MOBILE */
-    @media (max-width: 600px) {
-      h1 {
-        font-size: 30px;
-      }
-
-      .screens {
-        grid-template-columns: 1fr;
-      }
-    }
+  }
   </style>
 </head>
 
 <body>
-  <div class="container">
 
-    <a href="index.html">← Back to Home</a>
+  <a href="index.html">← Back to Home</a>
 
-    <h1>Vanguard Gallery</h1>
-    <h2>Mobile UX Case Study</h2>
+  <h1 style="margin-top: 30px;">Vanguard Gallery</h1>
+  <h2>Mobile UX Case Study</h2>
 
-    <p class="intro">
-      A seamless mobile experience for discovering artworks and connecting with artists.
-    </p>
+  <p style="font-size: 18px;">
+    A seamless mobile experience for discovering artworks and connecting with artists.
+  </p>
 
-    <!-- HERO -->
-    <div class="hero">
-      <img src="images/vanguard-mockup-removebg-preview.png">
-    </div>
+  <!-- HERO -->
+  <div class="hero-main reveal">
+    <img src="images/vanguard-mockup-removebg-preview.png">
+  </div>
 
-    <p class="caption">A preview of the Vanguard Gallery experience</p>
+  <p style="text-align:center; color: gray; font-size: 14px;" class="reveal">
+    A preview of the Vanguard Gallery experience
+  </p>
 
-    <hr>
+  <hr>
 
+  <div class="reveal">
     <h3>Overview</h3>
     <p>
       Vanguard Gallery is a mobile app concept designed to deepen the connection between users and artists by enabling intuitive browsing and exploration.
     </p>
+  </div>
 
+  <div class="reveal">
     <h3>Problem</h3>
     <p>
       Users can view artworks but often lack context about the artist and struggle to explore further works, creating a disconnected experience.
     </p>
+  </div>
 
+  <div class="reveal">
     <h3>Goal</h3>
     <p>
       Design a seamless discovery experience that connects artwork, artist information, and further exploration.
     </p>
+  </div>
 
+  <div class="reveal">
     <h3>Key Insight</h3>
     <p>
       Users don’t just want to view art — they want context and continuity.
     </p>
+  </div>
 
+  <div class="reveal">
     <h3>Design Decisions</h3>
 
     <p><strong>1. Continuous exploration flow</strong><br>
@@ -181,10 +137,14 @@
 
     <p><strong>3. Improved interaction clarity</strong><br>
     Enhanced visual cues to make interactions obvious.</p>
+  </div>
 
-    <!-- FINAL SCREENS -->
+  <!-- FINAL SCREENS -->
+  <div class="reveal">
     <h3>Final Screens</h3>
-    <p class="caption">Key moments from the Vanguard Gallery experience</p>
+    <p style="text-align:center; color: gray; font-size: 14px;">
+      Key moments from the Vanguard Gallery experience
+    </p>
 
     <div class="screens">
       <img src="images/vanguard-hero-1.png">
@@ -192,34 +152,32 @@
       <img src="images/vanguard-hero-3.png">
       <img src="images/vanguard-hero-4.png">
     </div>
-
-    <h3>Outcome</h3>
-    <p>
-      The final design creates a more intuitive and connected browsing experience.
-    </p>
-
   </div>
 
-  <!-- SMOOTH SCROLL REVEAL -->
+  <div class="reveal">
+    <h3>Outcome</h3>
+    <p>
+      The final design creates a more intuitive and connected browsing experience, allowing users to move seamlessly from viewing artwork to deeper exploration.
+    </p>
+  </div>
+
+  <!-- JS FOR SCROLL -->
   <script>
-    const images = document.querySelectorAll(".screens img");
+    const reveals = document.querySelectorAll(".reveal");
 
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
+    function revealOnScroll() {
+      for (let i = 0; i < reveals.length; i++) {
+        let windowHeight = window.innerHeight;
+        let elementTop = reveals[i].getBoundingClientRect().top;
+        let elementVisible = 100;
 
-          setTimeout(() => {
-            entry.target.classList.add("show");
-          }, index * 180);
-
-          observer.unobserve(entry.target); // stops repeating
+        if (elementTop < windowHeight - elementVisible) {
+          reveals[i].classList.add("active");
         }
-      });
-    }, {
-      threshold: 0.15
-    });
+      }
+    }
 
-    images.forEach(img => observer.observe(img));
+    window.addEventListener("scroll", revealOnScroll);
   </script>
 
 </body>
