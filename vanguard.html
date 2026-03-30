@@ -141,17 +141,35 @@ hr {
   max-width: 320px;
 }
 
-/* 🔥 VIDEO FIX */
+/* 🔥 VIDEO SYSTEM (FIXED + PREMIUM) */
 .flow-video {
   display: flex;
-  justify-content: center;
   background: #f3f4f6;
   padding: 20px;
   border-radius: 24px;
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.12),
+    inset 0 0 20px rgba(0,0,0,0.05);
+
+  transition: transform 0.4s ease;
+}
+
+.flow-video:hover {
+  transform: translateY(-8px) scale(1.02);
+}
+
+/* directional alignment */
+.flow-row .flow-video {
+  justify-content: flex-start;
+}
+
+.flow-row.reverse .flow-video {
+  justify-content: flex-end;
 }
 
 .flow-video video {
-  width: 260px;
+  width: 240px;
   border-radius: 20px;
   object-fit: cover;
   background: #000;
@@ -255,7 +273,7 @@ A seamless mobile experience for discovering artworks and connecting with artist
 <div class="insight reveal">
   <p class="insight-label">Key Insight</p>
   <p class="insight-text">
-    Users could navigate the app,
+    Users could navigate the app,<br>
     but they didn’t always know what to do next.
   </p>
 </div>
@@ -267,7 +285,10 @@ A seamless mobile experience for discovering artworks and connecting with artist
   <div class="flow-row">
     <div class="flow-text">
       <h4>Discovery</h4>
-      <p>Users explore artworks but lack clear direction forward.</p>
+      <p>
+        Users explore artworks  
+        <strong>but lack clear direction forward.</strong>
+      </p>
     </div>
     <div class="flow-video">
       <video autoplay muted loop playsinline>
@@ -279,7 +300,10 @@ A seamless mobile experience for discovering artworks and connecting with artist
   <div class="flow-row reverse">
     <div class="flow-text">
       <h4>Deep Exploration</h4>
-      <p>Users want to move from artwork to artist and continue exploring seamlessly.</p>
+      <p>
+        Users move between artwork and artist  
+        <strong>but need a smoother exploration flow.</strong>
+      </p>
     </div>
     <div class="flow-video">
       <video autoplay muted loop playsinline>
