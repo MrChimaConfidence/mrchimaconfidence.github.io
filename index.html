@@ -6,7 +6,7 @@
 
 <title>Confidence Chima</title>
 
-<!-- GOOGLE FONT (Homepage Identity) -->
+<!-- GOOGLE FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -89,7 +89,7 @@
     display: block;
   }
 
-  /* HOVER OVERLAY */
+  /* OVERLAY */
   .overlay {
     position: absolute;
     inset: 0;
@@ -111,15 +111,37 @@
     opacity: 1;
   }
 
-  /* LINK WRAP */
-  .card a {
-    display: block;
+  /* CUSTOM CURSOR */
+  .cursor {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.7);
+    position: fixed;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease;
+    z-index: 999;
+  }
+
+  .cursor.grow {
+    transform: translate(-50%, -50%) scale(2);
+  }
+
+  /* HIDE ON MOBILE */
+  @media (max-width: 768px) {
+    .cursor {
+      display: none;
+    }
   }
 
 </style>
 </head>
 
 <body>
+
+<!-- CURSOR -->
+<div class="cursor"></div>
 
 <!-- NAV -->
 <nav>
@@ -141,21 +163,18 @@ I design clear, structured experiences that help users move forward with confide
 <h3>Featured Case Study</h3>
 
 <div class="grid">
-
   <div class="card">
     <a href="vanguard.html">
       <img src="images/vanguard-mockup-removebg-preview.png">
       <div class="overlay"><span>Vanguard Gallery</span></div>
     </a>
   </div>
-
 </div>
 
-<!-- SELECTED WORK -->
+<!-- SELECTED -->
 <h3>Selected Work</h3>
 
 <div class="grid">
-
   <div class="card">
     <a href="mindcare.html">
       <img src="images/mindcare-mockup.jpg">
@@ -169,14 +188,12 @@ I design clear, structured experiences that help users move forward with confide
       <div class="overlay"><span>Profile Studio</span></div>
     </a>
   </div>
-
 </div>
 
 <!-- ADDITIONAL -->
 <h3>Additional Work</h3>
 
 <div class="grid">
-
   <div class="card">
     <img src="images/chimreff-mockup.jpg">
     <div class="overlay"><span>Chimreff</span></div>
@@ -186,13 +203,14 @@ I design clear, structured experiences that help users move forward with confide
     <img src="images/paperboymusic-mockup.jpg">
     <div class="overlay"><span>Paperboy Music</span></div>
   </div>
-
 </div>
 
-<!-- SCRIPT: SCROLL REVEAL -->
+<!-- SCRIPTS -->
 <script>
   const cards = document.querySelectorAll('.card');
+  const cursor = document.querySelector('.cursor');
 
+  /* SCROLL REVEAL */
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting){
@@ -201,8 +219,18 @@ I design clear, structured experiences that help users move forward with confide
     });
   });
 
-  cards.forEach(card => {
-    observer.observe(card);
+  cards.forEach(card => observer.observe(card));
+
+  /* CURSOR FOLLOW */
+  document.addEventListener('mousemove', (e) => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+  });
+
+  /* CURSOR GROW ON HOVER */
+  document.querySelectorAll('.card, a').forEach(el => {
+    el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+    el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
   });
 </script>
 
