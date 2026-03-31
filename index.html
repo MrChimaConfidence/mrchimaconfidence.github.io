@@ -3,147 +3,144 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>Confidence Chima</title>
-
-<!-- GOOGLE FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-
 <style>
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Space Grotesk', sans-serif;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', sans-serif;
+}
 
+body {
+  background: #f7f7f7;
+  color: #111;
+  padding: 24px;
+  max-width: 1100px;
+  margin: auto;
+  cursor: none; /* 🔥 THIS FIXES EVERYTHING */
+}
+
+/* NAV */
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 40px;
+}
+
+nav a {
+  text-decoration: none;
+  color: #111;
+  font-weight: 600;
+  margin-left: 20px;
+}
+
+/* HERO */
+h1 {
+  font-size: 48px;
+  line-height: 1.1;
+}
+
+h2 {
+  color: #777;
+  margin: 10px 0 20px;
+}
+
+p {
+  max-width: 550px;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+/* SECTIONS */
+h3 {
+  margin: 60px 0 20px;
+  font-size: 22px;
+}
+
+/* GRID */
+.grid {
+  display: grid;
+  gap: 24px;
+}
+
+/* CARD */
+.card {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.6s ease;
+}
+
+.card.show {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.card img {
+  width: 100%;
+  display: block;
+}
+
+/* OVERLAY */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+.overlay span {
+  color: white;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+/* 🔥 PREMIUM CURSOR */
+.cursor {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.7);
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9999;
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+}
+
+/* HOVER STATE */
+.cursor.grow {
+  width: 40px;
+  height: 40px;
+  background: rgba(0,0,0,0.2);
+}
+
+/* MOBILE FIX */
+@media (max-width: 768px) {
   body {
-    background: #f7f7f7;
-    color: #111;
-    padding: 24px;
-    max-width: 1100px;
-    margin: auto;
+    cursor: auto;
   }
 
-  /* NAV */
-  nav {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 40px;
-  }
-
-  nav a {
-    text-decoration: none;
-    color: #111;
-    font-weight: 600;
-    margin-left: 20px;
-  }
-
-  /* HERO */
-  h1 {
-    font-size: 48px;
-    line-height: 1.1;
-  }
-
-  h2 {
-    color: #777;
-    margin: 10px 0 20px;
-  }
-
-  p {
-    max-width: 550px;
-    line-height: 1.6;
-    margin-bottom: 40px;
-  }
-
-  /* SECTIONS */
-  h3 {
-    margin: 60px 0 20px;
-    font-size: 22px;
-  }
-
-  /* GRID */
-  .grid {
-    display: grid;
-    gap: 24px;
-  }
-
-  /* CARD */
-  .card {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    cursor: pointer;
-    transform: translateY(40px);
-    opacity: 0;
-    transition: all 0.6s ease;
-  }
-
-  .card.show {
-    transform: translateY(0);
-    opacity: 1;
-  }
-
-  .card img {
-    width: 100%;
-    display: block;
-  }
-
-  /* OVERLAY */
-  .overlay {
-    position: absolute;
-    inset: 0;
-    background: rgba(0,0,0,0.6);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: 0.3s ease;
-  }
-
-  .overlay span {
-    color: white;
-    font-size: 20px;
-    font-weight: 600;
-  }
-
-  .card:hover .overlay {
-    opacity: 1;
-  }
-
-  /* CUSTOM CURSOR */
   .cursor {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.7);
-    position: fixed;
-    pointer-events: none;
-    transform: translate(-50%, -50%);
-    transition: transform 0.15s ease;
-    z-index: 999;
+    display: none;
   }
-
-  .cursor.grow {
-    transform: translate(-50%, -50%) scale(2);
-  }
-
-  /* HIDE ON MOBILE */
-  @media (max-width: 768px) {
-    .cursor {
-      display: none;
-    }
-  }
-
+}
 </style>
 </head>
-
 <body>
-
-<!-- CURSOR -->
 <div class="cursor"></div>
-
-<!-- NAV -->
 <nav>
   <div><strong>Confidence</strong></div>
   <div>
@@ -151,17 +148,12 @@
     <a href="contact.html">Contact</a>
   </div>
 </nav>
-
-<!-- HERO -->
 <h1>Confidence Chima</h1>
 <h2>UI/UX Designer</h2>
 <p>
 I design clear, structured experiences that help users move forward with confidence.
 </p>
-
-<!-- FEATURED -->
 <h3>Featured Case Study</h3>
-
 <div class="grid">
   <div class="card">
     <a href="vanguard.html">
@@ -170,10 +162,7 @@ I design clear, structured experiences that help users move forward with confide
     </a>
   </div>
 </div>
-
-<!-- SELECTED -->
 <h3>Selected Work</h3>
-
 <div class="grid">
   <div class="card">
     <a href="mindcare.html">
@@ -181,7 +170,6 @@ I design clear, structured experiences that help users move forward with confide
       <div class="overlay"><span>MindCare</span></div>
     </a>
   </div>
-
   <div class="card">
     <a href="profilestudio.html">
       <img src="images/profilestudio-mockup.jpg">
@@ -189,50 +177,60 @@ I design clear, structured experiences that help users move forward with confide
     </a>
   </div>
 </div>
-
-<!-- ADDITIONAL -->
 <h3>Additional Work</h3>
-
 <div class="grid">
   <div class="card">
     <img src="images/chimreff-mockup.jpg">
     <div class="overlay"><span>Chimreff</span></div>
   </div>
-
   <div class="card">
     <img src="images/paperboymusic-mockup.jpg">
     <div class="overlay"><span>Paperboy Music</span></div>
   </div>
 </div>
-
-<!-- SCRIPTS -->
 <script>
-  const cards = document.querySelectorAll('.card');
-  const cursor = document.querySelector('.cursor');
+const cards = document.querySelectorAll('.card');
+const cursor = document.querySelector('.cursor');
 
-  /* SCROLL REVEAL */
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting){
-        entry.target.classList.add('show');
-      }
-    });
+/* SCROLL REVEAL */
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if(entry.isIntersecting){
+      entry.target.classList.add('show');
+    }
   });
+});
 
-  cards.forEach(card => observer.observe(card));
+cards.forEach(card => observer.observe(card));
 
-  /* CURSOR FOLLOW */
-  document.addEventListener('mousemove', (e) => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-  });
+/* 🔥 SMOOTH CURSOR (LIKE HERS) */
+let mouseX = 0;
+let mouseY = 0;
+let posX = 0;
+let posY = 0;
 
-  /* CURSOR GROW ON HOVER */
-  document.querySelectorAll('.card, a').forEach(el => {
-    el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-    el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
-  });
+document.addEventListener('mousemove', (e) => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+});
+
+function animateCursor() {
+  posX += (mouseX - posX) * 0.2;
+  posY += (mouseY - posY) * 0.2;
+
+  cursor.style.left = posX + 'px';
+  cursor.style.top = posY + 'px';
+
+  requestAnimationFrame(animateCursor);
+}
+
+animateCursor();
+
+/* HOVER EFFECT */
+document.querySelectorAll('.card, a').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+});
 </script>
-
 </body>
 </html>
