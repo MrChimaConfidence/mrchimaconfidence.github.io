@@ -3,8 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Confidence Chima</title>
+
+<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
 <style>
 * {
   margin: 0;
@@ -13,20 +17,26 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 
+/* HIDE DEFAULT CURSOR (REAL EFFECT) */
 body {
+  cursor: none;
   background: #f7f7f7;
   color: #111;
   padding: 24px;
   max-width: 1100px;
   margin: auto;
-  cursor: none; /* 🔥 THIS FIXES EVERYTHING */
 }
 
-/* NAV */
+/* NAV (STICKY) */
 nav {
+  position: sticky;
+  top: 0;
+  background: #f7f7f7;
+  padding: 10px 0;
   display: flex;
   justify-content: space-between;
-  margin-bottom: 40px;
+  margin-bottom: 60px;
+  z-index: 100;
 }
 
 nav a {
@@ -34,11 +44,28 @@ nav a {
   color: #111;
   font-weight: 600;
   margin-left: 20px;
+  position: relative;
+}
+
+/* NAV HOVER LINE */
+nav a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 0;
+  height: 2px;
+  background: black;
+  transition: 0.3s;
+}
+
+nav a:hover::after {
+  width: 100%;
 }
 
 /* HERO */
 h1 {
-  font-size: 48px;
+  font-size: 52px;
   line-height: 1.1;
 }
 
@@ -48,21 +75,21 @@ h2 {
 }
 
 p {
-  max-width: 550px;
-  line-height: 1.6;
-  margin-bottom: 40px;
+  max-width: 560px;
+  line-height: 1.7;
+  margin-bottom: 30px;
 }
 
 /* SECTIONS */
 h3 {
-  margin: 60px 0 20px;
+  margin: 80px 0 16px;
   font-size: 22px;
 }
 
 /* GRID */
 .grid {
   display: grid;
-  gap: 24px;
+  gap: 28px;
 }
 
 /* CARD */
@@ -70,9 +97,9 @@ h3 {
   position: relative;
   border-radius: 20px;
   overflow: hidden;
-  transform: translateY(40px);
+  transform: translateY(60px);
   opacity: 0;
-  transition: all 0.6s ease;
+  transition: all 0.8s ease;
 }
 
 .card.show {
@@ -80,21 +107,28 @@ h3 {
   opacity: 1;
 }
 
+/* IMAGE */
 .card img {
   width: 100%;
   display: block;
+  transition: transform 0.6s ease;
+}
+
+/* HOVER ZOOM */
+.card:hover img {
+  transform: scale(1.05);
 }
 
 /* OVERLAY */
 .overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0,0,0,0.6);
+  background: rgba(0,0,0,0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
-  transition: 0.3s ease;
+  transition: 0.4s ease;
 }
 
 .overlay span {
@@ -107,40 +141,54 @@ h3 {
   opacity: 1;
 }
 
-/* 🔥 PREMIUM CURSOR */
+/* TEXT UNDER PROJECT */
+.desc {
+  font-size: 14px;
+  color: #666;
+  margin-top: 8px;
+}
+
+/* LINKS */
+.card a {
+  display: block;
+  color: inherit;
+  text-decoration: none;
+}
+
+/* CUSTOM CURSOR (REAL REPLACEMENT) */
 .cursor {
-  width: 14px;
-  height: 14px;
+  width: 12px;
+  height: 12px;
+  background: black;
   border-radius: 50%;
-  background: rgba(0,0,0,0.7);
   position: fixed;
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  transition: transform 0.15s ease, background 0.3s;
 }
 
-/* HOVER STATE */
-.cursor.grow {
-  width: 40px;
-  height: 40px;
-  background: rgba(0,0,0,0.2);
+/* CURSOR EXPAND */
+.cursor.hover {
+  transform: translate(-50%, -50%) scale(2.5);
+  background: rgba(0,0,0,0.6);
 }
 
-/* MOBILE FIX */
+/* MOBILE: RESTORE NORMAL CURSOR */
 @media (max-width: 768px) {
-  body {
-    cursor: auto;
-  }
-
-  .cursor {
-    display: none;
-  }
+  body { cursor: auto; }
+  .cursor { display: none; }
 }
+
 </style>
 </head>
+
 <body>
+
+<!-- CURSOR -->
 <div class="cursor"></div>
+
+<!-- NAV -->
 <nav>
   <div><strong>Confidence</strong></div>
   <div>
@@ -148,12 +196,23 @@ h3 {
     <a href="contact.html">Contact</a>
   </div>
 </nav>
+
+<!-- HERO -->
 <h1>Confidence Chima</h1>
 <h2>UI/UX Designer</h2>
+
 <p>
-I design clear, structured experiences that help users move forward with confidence.
+I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
 </p>
-<h3>Featured Case Study</h3>
+
+<p>
+Focused on creating structured, intuitive interfaces that improve usability and user flow.
+</p>
+
+<!-- FEATURED -->
+<h3>Featured Work</h3>
+<p class="desc">Designing a gallery experience that makes discovering art feel effortless.</p>
+
 <div class="grid">
   <div class="card">
     <a href="vanguard.html">
@@ -162,37 +221,81 @@ I design clear, structured experiences that help users move forward with confide
     </a>
   </div>
 </div>
+
+<!-- SELECTED -->
 <h3>Selected Work</h3>
+
 <div class="grid">
-  <div class="card">
-    <a href="mindcare.html">
-      <img src="images/mindcare-mockup.jpg">
-      <div class="overlay"><span>MindCare</span></div>
-    </a>
+  <div>
+    <div class="card">
+      <a href="mindcare.html">
+        <img src="images/mindcare-mockup.jpg">
+        <div class="overlay"><span>MindCare</span></div>
+      </a>
+    </div>
+    <p class="desc">Helping users check in with their emotions in a simple, stress-free way.</p>
   </div>
-  <div class="card">
-    <a href="profilestudio.html">
-      <img src="images/profilestudio-mockup.jpg">
-      <div class="overlay"><span>Profile Studio</span></div>
-    </a>
+
+  <div>
+    <div class="card">
+      <a href="profilestudio.html">
+        <img src="images/profilestudio-mockup.jpg">
+        <div class="overlay"><span>Profile Studio</span></div>
+      </a>
+    </div>
+    <p class="desc">Turning personal branding into a clear, structured experience.</p>
   </div>
 </div>
+
+<!-- ADDITIONAL -->
 <h3>Additional Work</h3>
+<p class="desc">Visual and product design explorations.</p>
+
 <div class="grid">
-  <div class="card">
-    <img src="images/chimreff-mockup.jpg">
-    <div class="overlay"><span>Chimreff</span></div>
+  <div>
+    <div class="card">
+      <img src="images/chimreff-mockup.jpg">
+      <div class="overlay"><span>Chimreff</span></div>
+    </div>
+    <p class="desc">Making service booking feel fast and accessible.</p>
   </div>
-  <div class="card">
-    <img src="images/paperboymusic-mockup.jpg">
-    <div class="overlay"><span>Paperboy Music</span></div>
+
+  <div>
+    <div class="card">
+      <img src="images/paperboymusic-mockup.jpg">
+      <div class="overlay"><span>Paperboy Music</span></div>
+    </div>
+    <p class="desc">Designing bold visuals that capture attention instantly.</p>
   </div>
 </div>
+
+<!-- THINKING SECTION -->
+<h3>Approach</h3>
+<p>
+I care about clarity in design — not just how things look, but how they work, guide, and feel to use.
+Every project is an opportunity to reduce friction and make the experience more intuitive.
+</p>
+
+<!-- ABOUT PREVIEW -->
+<h3>About</h3>
+<p>
+I’m a UI/UX designer with a background in Computer Science, focused on creating structured, user-focused solutions.
+</p>
+<a href="about.html"><strong>View more →</strong></a>
+
+<!-- CONTACT -->
+<h3>Contact</h3>
+<p>
+Open to collaborations, freelance projects, and opportunities to create meaningful user experiences.
+</p>
+<p><strong>your@email.com</strong></p>
+
+<!-- SCRIPT -->
 <script>
-const cards = document.querySelectorAll('.card');
-const cursor = document.querySelector('.cursor');
 
 /* SCROLL REVEAL */
+const cards = document.querySelectorAll('.card');
+
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting){
@@ -203,34 +306,21 @@ const observer = new IntersectionObserver(entries => {
 
 cards.forEach(card => observer.observe(card));
 
-/* 🔥 SMOOTH CURSOR (LIKE HERS) */
-let mouseX = 0;
-let mouseY = 0;
-let posX = 0;
-let posY = 0;
+/* CUSTOM CURSOR */
+const cursor = document.querySelector('.cursor');
 
-document.addEventListener('mousemove', (e) => {
-  mouseX = e.clientX;
-  mouseY = e.clientY;
+document.addEventListener('mousemove', e => {
+  cursor.style.left = e.clientX + 'px';
+  cursor.style.top = e.clientY + 'px';
 });
 
-function animateCursor() {
-  posX += (mouseX - posX) * 0.2;
-  posY += (mouseY - posY) * 0.2;
-
-  cursor.style.left = posX + 'px';
-  cursor.style.top = posY + 'px';
-
-  requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
-
-/* HOVER EFFECT */
-document.querySelectorAll('.card, a').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
+/* INTERACTIVE CURSOR */
+document.querySelectorAll('a, .card').forEach(el => {
+  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
+
 </script>
+
 </body>
 </html>
