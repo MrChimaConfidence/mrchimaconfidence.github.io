@@ -285,26 +285,22 @@ Open to collaborations, freelance projects, and opportunities to create meaningf
 
 <script>
 
-/* SCROLL REVEAL */
-const cards = document.querySelectorAll('.card');
+const reveals = document.querySelectorAll(".reveal");
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
+function revealOnScroll(){
+  reveals.forEach(el=>{
+    let windowHeight = window.innerHeight;
+    let elementTop = el.getBoundingClientRect().top;
+
+    if(elementTop < windowHeight - 80){
+      el.classList.add("active");
     }
   });
-});
+}
 
-cards.forEach(card => observer.observe(card));
+window.addEventListener("load", revealOnScroll);
+window.addEventListener("scroll", revealOnScroll);
 
-/* CURSOR */
-const cursor = document.querySelector('.cursor');
-
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
 
 /* CURSOR INTERACTION */
 document.querySelectorAll('a, .card').forEach(el => {
