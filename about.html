@@ -8,7 +8,6 @@
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500&display=swap" rel="stylesheet">
 
 <style>
-
 *{
   margin:0;
   padding:0;
@@ -61,13 +60,13 @@ nav a:hover::after{
 /* HERO */
 .hero{
   display:grid;
-  grid-template-columns:1fr 1fr;
+  grid-template-columns:1.1fr 0.9fr;
   gap:60px;
   align-items:center;
   margin-bottom:100px;
 }
 
-/* IMAGE WRAP */
+/* IMAGE */
 .image-wrap{
   background:linear-gradient(135deg,#f2f2f2,#e8e8e8);
   padding:20px;
@@ -78,7 +77,9 @@ nav a:hover::after{
 
 .image-wrap img{
   width:100%;
-  max-width:360px;
+  max-width:300px;
+  max-height:360px;
+  object-fit:cover;
   border-radius:20px;
   transition:0.4s ease;
 }
@@ -96,7 +97,7 @@ h1{
 }
 
 h2{
-  font-size:18px;
+  font-size:20px;
   margin-bottom:18px;
   color:#555;
 }
@@ -117,11 +118,11 @@ p{
 .timeline{
   display:flex;
   flex-direction:column;
-  gap:28px;
+  gap:32px;
 }
 
 .timeline-item{
-  padding-left:18px;
+  padding-left:20px;
   border-left:2px solid #e5e5e5;
   position:relative;
   transition:0.3s;
@@ -129,12 +130,12 @@ p{
 
 .timeline-item::before{
   content:'';
-  width:8px;
-  height:8px;
+  width:10px;
+  height:10px;
   background:#111;
   border-radius:50%;
   position:absolute;
-  left:-5px;
+  left:-6px;
   top:6px;
   transform:scale(0);
   transition:0.4s;
@@ -156,13 +157,13 @@ p{
 /* TOOLS */
 .tools{
   display:flex;
-  gap:16px;
+  gap:18px;
   opacity:0.7;
   margin-top:12px;
 }
 
 .tools img{
-  width:26px;
+  width:28px;
   transition:0.3s;
 }
 
@@ -224,8 +225,11 @@ a:hover{
   .hero{
     grid-template-columns:1fr;
   }
-}
 
+  .image-wrap img{
+    max-width:100%;
+  }
+}
 </style>
 </head>
 
@@ -239,18 +243,19 @@ a:hover{
   </div>
 </nav>
 
+<!-- HERO -->
 <div class="hero reveal">
   <div>
     <h1>About Me</h1>
     <h2>UI/UX Designer • Lagos, Nigeria</h2>
 
-    <p>I’m a UI/UX designer who cares deeply about clarity in digital experiences.</p>
+    <p>I’m a UI/UX designer focused on creating structured, clear, and intuitive digital experiences.</p>
 
-    <p>I enjoy taking complex or messy ideas and turning them into structured, intuitive interfaces that people can easily understand and use.</p>
+    <p>I enjoy turning complex ideas into simple, usable interfaces that guide users naturally without confusion.</p>
 
-    <p>My approach focuses on reducing confusion, improving flow, and making interactions feel effortless.</p>
+    <p>My work combines user research, interaction design, and visual clarity to improve how people experience products.</p>
 
-    <p>I believe good design is not just about visuals. It is about guiding users, simplifying decisions, and creating experiences that feel natural.</p>
+    <p>I design with intention — simplifying decisions, improving flow, and creating experiences that feel effortless.</p>
 
     <p>Clarity, simplicity, and purpose drive every design decision I make.</p>
   </div>
@@ -260,18 +265,7 @@ a:hover{
   </div>
 </div>
 
-<div class="section reveal">
-  <h2>Beyond Design</h2>
-
-  <p>
-  Outside of design, I create content under the name justmrpaper, building a growing community of over 500 members and nearly 2,000 followers across platforms.
-  </p>
-
-  <p>
-  This experience has shaped how I think about user behavior, engagement, and what keeps people connected to digital experiences over time.
-  </p>
-</div>
-
+<!-- EXPERIENCE -->
 <div class="section reveal">
   <h2>Experience & Growth</h2>
 
@@ -279,23 +273,38 @@ a:hover{
 
     <div class="timeline-item">
       <div class="year">2026</div>
-      <p><strong>Google UX Design Professional Certificate</strong><br>
-      Completed full UX process including research, wireframing, prototyping, and usability testing.</p>
+      <p><strong>UI/UX Design & Google UX Certification</strong><br>
+      Completed the Google UX Design Professional Certificate and designed multiple UX projects including MindCare and Profile Studio, focusing on user flow, structure, and usability.</p>
     </div>
 
     <div class="timeline-item">
-      <div class="year">2024</div>
-      <p>Designed UX projects including MindCare and Profile Studio.</p>
+      <div class="year">2024 — Present</div>
+      <p><strong>Interface Designer & Product Builder (Winning Wizards HQ)</strong><br>
+      Designed and developed digital experiences for a growing community. Created user flows, wireframes, and interfaces while improving engagement through testing and iteration.</p>
     </div>
 
     <div class="timeline-item">
-      <div class="year">2023</div>
-      <p>Worked with DreamworksDirect, Chimreff, and Paperboymusic across digital and product design.</p>
+      <div class="year">2023 — 2025</div>
+      <p><strong>Marketing Lead (Chimreff Technical Services)</strong><br>
+      Led digital campaigns informed by UX thinking. Improved usability, branding, and customer engagement through structured design decisions.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="year">2020 — 2023</div>
+      <p><strong>Founder & Creative Lead (Paperboy Music)</strong><br>
+      Built and scaled a digital brand, leading design, branding, and content direction across multiple platforms.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="year">2018 — 2019</div>
+      <p><strong>IT Intern (DreamworksDirect)</strong><br>
+      Worked on e-commerce platforms, improving usability, workflows, and customer experience.</p>
     </div>
 
   </div>
 </div>
 
+<!-- TOOLS -->
 <div class="section reveal">
   <h2>Designed With</h2>
 
@@ -306,6 +315,20 @@ a:hover{
   </div>
 </div>
 
+<!-- BEYOND DESIGN -->
+<div class="section reveal">
+  <h2>Beyond Design</h2>
+
+  <p>
+  Outside of design, I create content under the name justmrpaper, building a growing community of over 500 members and nearly 2,000 followers across platforms.
+  </p>
+
+  <p>
+  This experience influences how I think about user behavior, engagement, and long-term interaction with digital products.
+  </p>
+</div>
+
+<!-- CONTACT -->
 <div class="section reveal">
   <h2>Contact</h2>
 
@@ -330,7 +353,6 @@ a:hover{
     <a href="https://twitch.tv/justmrpaper_" target="_blank">→ Twitch</a>
     <a href="https://kick.com/justmrpaper" target="_blank">→ Kick</a>
   </div>
-
 </div>
 
 <script>
