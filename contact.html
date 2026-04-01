@@ -7,36 +7,209 @@
 
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500&display=swap" rel="stylesheet">
 
+<!-- ICONS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
 <style>
-body {
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
   font-family:'Plus Jakarta Sans';
   background:#f7f7f7;
-  max-width:800px;
+  max-width:880px;
   margin:auto;
   padding:60px 24px;
+  color:#111;
 }
 
-h1 {
+/* NAV */
+nav{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:60px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#111;
+  font-weight:500;
+  margin-left:20px;
+  position:relative;
+}
+
+nav a::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-3px;
+  width:0;
+  height:2px;
+  background:#111;
+  transition:0.3s;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+/* HEADER */
+h1{
   font-family:'Clash Display';
-  font-size:48px;
+  font-size:52px;
+  margin-bottom:16px;
 }
 
-a {
-  display:block;
-  margin-top:10px;
-  color:#2f4858;
+p{
+  color:#555;
+  margin-bottom:40px;
+  font-size:16px;
+}
+
+/* SECTION */
+.section{
+  margin-bottom:50px;
+}
+
+.section-title{
+  font-size:14px;
+  color:#777;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+  margin-bottom:14px;
+}
+
+/* CONTACT ITEM */
+.contact-item{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  text-decoration:none;
+  color:#111;
+  padding:12px 0;
+  transition:0.25s ease;
+}
+
+.contact-item i{
+  width:22px;
+  font-size:18px;
+  color:#444;
+}
+
+.contact-item:hover{
+  transform:translateX(6px);
+}
+
+/* REVEAL */
+.reveal{
+  opacity:0;
+  transform:translateY(30px);
+  transition:0.7s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* MOBILE */
+@media(max-width:768px){
+  h1{
+    font-size:42px;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>Contact</h1>
+<nav>
+  <div><strong>Confidence</strong></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="about.html">About</a>
+  </div>
+</nav>
 
-<p>Reach out for collaborations or opportunities.</p>
+<div class="reveal">
+  <h1>Let’s Work Together</h1>
+  <p>Open to freelance projects, collaborations, and full-time opportunities.</p>
+</div>
 
-<a href="mailto:your@email.com">Email</a>
-<a href="#">LinkedIn</a>
+<!-- MAIN CONTACT -->
+<div class="section reveal">
+  <div class="section-title">Main</div>
+
+  <a class="contact-item" href="mailto:Chimaconfidence086@gmail.com">
+    <i class="fa-solid fa-envelope"></i>
+    <span>Email</span>
+  </a>
+
+  <a class="contact-item" href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank">
+    <i class="fa-solid fa-briefcase"></i>
+    <span>Upwork</span>
+  </a>
+
+  <a class="contact-item" href="https://wa.me/2349163784422" target="_blank">
+    <i class="fa-brands fa-whatsapp"></i>
+    <span>WhatsApp</span>
+  </a>
+</div>
+
+<!-- PROFESSIONAL -->
+<div class="section reveal">
+  <div class="section-title">Professional</div>
+
+  <a class="contact-item" href="https://github.com/MrChimaConfidence" target="_blank">
+    <i class="fa-brands fa-github"></i>
+    <span>GitHub</span>
+  </a>
+
+  <a class="contact-item" href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank">
+    <i class="fa-brands fa-linkedin"></i>
+    <span>LinkedIn</span>
+  </a>
+</div>
+
+<!-- BEYOND DESIGN -->
+<div class="section reveal">
+  <div class="section-title">Beyond Design</div>
+
+  <a class="contact-item" href="https://youtube.com/@justmrpaper" target="_blank">
+    <i class="fa-brands fa-youtube"></i>
+    <span>YouTube</span>
+  </a>
+
+  <a class="contact-item" href="https://twitch.tv/justmrpaper_" target="_blank">
+    <i class="fa-brands fa-twitch"></i>
+    <span>Twitch</span>
+  </a>
+
+  <a class="contact-item" href="https://kick.com/justmrpaper" target="_blank">
+    <i class="fa-solid fa-video"></i>
+    <span>Kick</span>
+  </a>
+</div>
+
+<script>
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll(){
+  reveals.forEach(el=>{
+    let windowHeight = window.innerHeight;
+    let elementTop = el.getBoundingClientRect().top;
+
+    if(elementTop < windowHeight - 80){
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+</script>
 
 </body>
 </html>
