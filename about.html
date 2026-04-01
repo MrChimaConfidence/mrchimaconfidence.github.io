@@ -8,36 +8,327 @@
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500&display=swap" rel="stylesheet">
 
 <style>
-body {
-  font-family: 'Plus Jakarta Sans';
+{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  font-family:'Plus Jakarta Sans';
   background:#f7f7f7;
-  max-width:800px;
+  max-width:880px;
   margin:auto;
   padding:60px 24px;
+  color:#111;
 }
 
-h1 {
+/ NAV /
+nav{
+  display:flex;
+  justify-content:space-between;
+  margin-bottom:60px;
+}
+
+nav a{
+  text-decoration:none;
+  color:#111;
+  font-weight:500;
+  margin-left:20px;
+  position:relative;
+}
+
+nav a::after{
+  content:'';
+  position:absolute;
+  left:0;
+  bottom:-3px;
+  width:0;
+  height:2px;
+  background:#111;
+  transition:0.3s;
+}
+
+nav a:hover::after{
+  width:100%;
+}
+
+/ HERO /
+.hero{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:60px;
+  align-items:center;
+  margin-bottom:100px;
+}
+
+.hero img{
+  width:100%;
+  border-radius:20px;
+  box-shadow:0 30px 60px rgba(0,0,0,0.08);
+  transition:0.4s ease;
+  object-fit:cover;
+}
+
+.hero img:hover{
+  transform:scale(1.02);
+}
+
+/ TEXT /
+h1{
   font-family:'Clash Display';
-  font-size:48px;
-  margin-bottom:20px;
+  font-size:56px;
+  line-height:1.05;
+  margin-bottom:24px;
 }
 
-p {
+h2{
+  font-size:22px;
   margin-bottom:18px;
+  letter-spacing:-0.2px;
+}
+
+p{
+  margin-bottom:20px;
   color:#444;
+  line-height:1.75;
+  font-size:16px;
+}
+
+/ SECTIONS /
+.section{
+  margin-bottom:110px;
+}
+
+/ TIMELINE /
+.timeline{
+  display:flex;
+  flex-direction:column;
+  gap:28px;
+}
+
+.timeline-item{
+  padding-left:18px;
+  border-left:2px solid #e5e5e5;
+  position:relative;
+  transition:0.3s;
+}
+
+.timeline-item::before{
+  content:'';
+  width:8px;
+  height:8px;
+  background:#111;
+  border-radius:50%;
+  position:absolute;
+  left:-5px;
+  top:6px;
+}
+
+.timeline-item:hover{
+  border-color:#111;
+}
+
+.year{
+  font-weight:600;
+  margin-bottom:6px;
+}
+
+/ TOOLS /
+.tools{
+  display:flex;
+  gap:16px;
+  opacity:0.7;
+  margin-top:12px;
+}
+
+.tools img{
+  width:22px;
+  transition:0.3s;
+}
+
+.tools img:hover{
+  transform:scale(1.2);
+  opacity:1;
+}
+
+/ CONTACT /
+.contact-group{
+  margin-top:14px;
+}
+
+.contact-group strong{
+  display:block;
+  margin-top:18px;
+  margin-bottom:8px;
+  font-size:14px;
+  color:#777;
+  text-transform:uppercase;
+  letter-spacing:0.5px;
+}
+
+.contact-group a{
+  display:block;
+  text-decoration:none;
+  color:#111;
+  margin-bottom:8px;
+  transition:0.2s;
+}
+
+.contact-group a:hover{
+  transform:translateX(4px);
+}
+
+/ LINKS /
+a{
+  transition:0.2s ease;
+}
+
+a:hover{
+  opacity:0.7;
+}
+
+/ REVEAL /
+.reveal{
+  opacity:0;
+  transform:translateY(40px);
+  transition:0.8s ease;
+}
+
+.reveal.active{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/ MOBILE */
+@media(max-width:768px){
+  .hero{
+    grid-template-columns:1fr;
+  }
 }
 </style>
 </head>
 
 <body>
 
-<h1>About Me</h1>
+<nav>
+  <div><strong>Confidence</strong></div>
+  <div>
+    <a href="index.html">Home</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-<p>I’m Confidence Chima, a UI/UX designer focused on creating structured, clear digital experiences.</p>
+<div class="hero reveal">
+  <div>
+    <h1>About Me</h1>
 
-<p>I design products that reduce confusion, simplify decisions, and guide users forward.</p>
+    <p>I’m a UI/UX designer who cares deeply about clarity in digital experiences.</p>
 
-<p>With a background in Computer Science and a Google UX certificate, I combine research and design to build meaningful experiences.</p>
+    <p>I enjoy taking complex or messy ideas and turning them into structured, intuitive interfaces that people can easily understand and use.</p>
+
+    <p>My approach focuses on reducing confusion, improving flow, and making interactions feel effortless.</p>
+
+    <p>I believe good design is not just about visuals. It is about guiding users, simplifying decisions, and creating experiences that feel natural.</p>
+
+    <p>Clarity, simplicity, and purpose drive every design decision I make.</p>
+  </div>
+
+  <img src="images/confidence.png" alt="Confidence Chima">
+</div>
+
+<div class="section reveal">
+  <h2>Beyond Design</h2>
+
+  <p>
+  Outside of design, I create content under the name justmrpaper, building a growing community of over 500 members and nearly 2,000 followers across platforms.
+  </p>
+
+  <p>
+  This experience has shaped how I think about user behavior, engagement, and what keeps people connected to digital experiences over time.
+  </p>
+</div>
+
+<div class="section reveal">
+  <h2>Experience & Growth</h2>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="year">2026</div>
+      <p>Google UX Design Professional Certificate, covering research, wireframing, prototyping, and usability testing.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="year">2024</div>
+      <p>Designed UX projects including MindCare and Profile Studio.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="year">2023</div>
+      <p>Worked with DreamworksDirect, Chimreff, and Paperboymusic across digital and product design.</p>
+    </div>
+
+  </div>
+</div>
+
+<div class="section reveal">
+  <h2>Designed With</h2>
+
+  <div class="tools">
+    <img src="images/figma.svg">
+    <img src="images/html.svg">
+    <img src="images/css.svg">
+  </div>
+</div>
+
+<div class="section reveal">
+  <h2>Contact</h2>
+
+  <p>Open to freelance projects, collaborations, and full-time opportunities (remote or relocation).</p>
+
+  <div class="contact-group">
+    <strong>Main</strong>
+    <a href="mailto:Chimaconfidence086@gmail.com">Chimaconfidence086@gmail.com</a>
+    <a href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank">Upwork</a>
+    <a href="https://wa.me/2349163784422" target="_blank">WhatsApp</a>
+  </div>
+
+  <div class="contact-group">
+    <strong>Professional</strong>
+    <a href="https://github.com/MrChimaConfidence" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank">LinkedIn</a>
+  </div>
+
+  <div class="contact-group">
+    <strong>Beyond Design</strong>
+    <a href="https://youtube.com/@justmrpaper" target="_blank">YouTube</a>
+    <a href="https://twitch.tv/justmrpaper_" target="_blank">Twitch</a>
+    <a href="https://kick.com/justmrpaper" target="_blank">Kick</a>
+  </div>
+
+</div>
+
+<script>
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll(){
+  reveals.forEach(el=>{
+    let windowHeight = window.innerHeight;
+    let elementTop = el.getBoundingClientRect().top;
+
+    if(elementTop < windowHeight - 100){
+      el.classList.add("active");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+</script>
 
 </body>
 </html>
