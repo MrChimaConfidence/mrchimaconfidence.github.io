@@ -8,7 +8,8 @@
 <link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500&display=swap" rel="stylesheet">
 
 <style>
-{
+
+*{
   margin:0;
   padding:0;
   box-sizing:border-box;
@@ -27,7 +28,7 @@ body{
   color:#111;
 }
 
-/ NAV /
+/* NAV */
 nav{
   display:flex;
   justify-content:space-between;
@@ -57,7 +58,7 @@ nav a:hover::after{
   width:100%;
 }
 
-/ HERO /
+/* HERO */
 .hero{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -66,30 +67,38 @@ nav a:hover::after{
   margin-bottom:100px;
 }
 
-.hero img{
+/* IMAGE WRAP */
+.image-wrap{
+  background:linear-gradient(135deg,#f2f2f2,#e8e8e8);
+  padding:20px;
+  border-radius:30px;
+  display:flex;
+  justify-content:center;
+}
+
+.image-wrap img{
   width:100%;
+  max-width:360px;
   border-radius:20px;
-  box-shadow:0 30px 60px rgba(0,0,0,0.08);
   transition:0.4s ease;
-  object-fit:cover;
 }
 
-.hero img:hover{
-  transform:scale(1.02);
+.image-wrap img:hover{
+  transform:scale(1.03);
 }
 
-/ TEXT /
+/* TEXT */
 h1{
   font-family:'Clash Display';
   font-size:56px;
   line-height:1.05;
-  margin-bottom:24px;
+  margin-bottom:16px;
 }
 
 h2{
-  font-size:22px;
+  font-size:18px;
   margin-bottom:18px;
-  letter-spacing:-0.2px;
+  color:#555;
 }
 
 p{
@@ -99,12 +108,12 @@ p{
   font-size:16px;
 }
 
-/ SECTIONS /
+/* SECTIONS */
 .section{
   margin-bottom:110px;
 }
 
-/ TIMELINE /
+/* TIMELINE */
 .timeline{
   display:flex;
   flex-direction:column;
@@ -127,6 +136,12 @@ p{
   position:absolute;
   left:-5px;
   top:6px;
+  transform:scale(0);
+  transition:0.4s;
+}
+
+.timeline-item.active::before{
+  transform:scale(1);
 }
 
 .timeline-item:hover{
@@ -138,7 +153,7 @@ p{
   margin-bottom:6px;
 }
 
-/ TOOLS /
+/* TOOLS */
 .tools{
   display:flex;
   gap:16px;
@@ -147,7 +162,7 @@ p{
 }
 
 .tools img{
-  width:22px;
+  width:26px;
   transition:0.3s;
 }
 
@@ -156,7 +171,7 @@ p{
   opacity:1;
 }
 
-/ CONTACT /
+/* CONTACT */
 .contact-group{
   margin-top:14px;
 }
@@ -183,7 +198,7 @@ p{
   transform:translateX(4px);
 }
 
-/ LINKS /
+/* LINKS */
 a{
   transition:0.2s ease;
 }
@@ -192,7 +207,7 @@ a:hover{
   opacity:0.7;
 }
 
-/ REVEAL /
+/* REVEAL */
 .reveal{
   opacity:0;
   transform:translateY(40px);
@@ -204,12 +219,13 @@ a:hover{
   transform:translateY(0);
 }
 
-/ MOBILE */
+/* MOBILE */
 @media(max-width:768px){
   .hero{
     grid-template-columns:1fr;
   }
 }
+
 </style>
 </head>
 
@@ -226,6 +242,7 @@ a:hover{
 <div class="hero reveal">
   <div>
     <h1>About Me</h1>
+    <h2>UI/UX Designer • Lagos, Nigeria</h2>
 
     <p>I’m a UI/UX designer who cares deeply about clarity in digital experiences.</p>
 
@@ -238,7 +255,9 @@ a:hover{
     <p>Clarity, simplicity, and purpose drive every design decision I make.</p>
   </div>
 
-  <img src="images/confidence.png" alt="Confidence Chima">
+  <div class="image-wrap">
+    <img src="images/confidence.png" alt="Confidence Chima">
+  </div>
 </div>
 
 <div class="section reveal">
@@ -260,7 +279,8 @@ a:hover{
 
     <div class="timeline-item">
       <div class="year">2026</div>
-      <p>Google UX Design Professional Certificate, covering research, wireframing, prototyping, and usability testing.</p>
+      <p><strong>Google UX Design Professional Certificate</strong><br>
+      Completed full UX process including research, wireframing, prototyping, and usability testing.</p>
     </div>
 
     <div class="timeline-item">
@@ -280,9 +300,9 @@ a:hover{
   <h2>Designed With</h2>
 
   <div class="tools">
-    <img src="images/figma.svg">
-    <img src="images/html.svg">
-    <img src="images/css.svg">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
+    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
   </div>
 </div>
 
@@ -293,28 +313,29 @@ a:hover{
 
   <div class="contact-group">
     <strong>Main</strong>
-    <a href="mailto:Chimaconfidence086@gmail.com">Chimaconfidence086@gmail.com</a>
-    <a href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank">Upwork</a>
-    <a href="https://wa.me/2349163784422" target="_blank">WhatsApp</a>
+    <a href="mailto:Chimaconfidence086@gmail.com">→ Email</a>
+    <a href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank">→ Upwork</a>
+    <a href="https://wa.me/2349163784422" target="_blank">→ WhatsApp</a>
   </div>
 
   <div class="contact-group">
     <strong>Professional</strong>
-    <a href="https://github.com/MrChimaConfidence" target="_blank">GitHub</a>
-    <a href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank">LinkedIn</a>
+    <a href="https://github.com/MrChimaConfidence" target="_blank">→ GitHub</a>
+    <a href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank">→ LinkedIn</a>
   </div>
 
   <div class="contact-group">
     <strong>Beyond Design</strong>
-    <a href="https://youtube.com/@justmrpaper" target="_blank">YouTube</a>
-    <a href="https://twitch.tv/justmrpaper_" target="_blank">Twitch</a>
-    <a href="https://kick.com/justmrpaper" target="_blank">Kick</a>
+    <a href="https://youtube.com/@justmrpaper" target="_blank">→ YouTube</a>
+    <a href="https://twitch.tv/justmrpaper_" target="_blank">→ Twitch</a>
+    <a href="https://kick.com/justmrpaper" target="_blank">→ Kick</a>
   </div>
 
 </div>
 
 <script>
 const reveals = document.querySelectorAll(".reveal");
+const timelineItems = document.querySelectorAll(".timeline-item");
 
 function revealOnScroll(){
   reveals.forEach(el=>{
@@ -323,6 +344,15 @@ function revealOnScroll(){
 
     if(elementTop < windowHeight - 100){
       el.classList.add("active");
+    }
+  });
+
+  timelineItems.forEach(item=>{
+    let windowHeight = window.innerHeight;
+    let elementTop = item.getBoundingClientRect().top;
+
+    if(elementTop < windowHeight - 100){
+      item.classList.add("active");
     }
   });
 }
