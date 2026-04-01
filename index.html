@@ -6,7 +6,6 @@
 
 <title>Confidence Chima</title>
 
-<!-- FONT -->
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -17,7 +16,7 @@
   font-family: 'Space Grotesk', sans-serif;
 }
 
-/* HIDE DEFAULT CURSOR (REAL EFFECT) */
+/* BODY */
 body {
   cursor: none;
   background: #f7f7f7;
@@ -27,7 +26,7 @@ body {
   margin: auto;
 }
 
-/* NAV (STICKY) */
+/* NAV */
 nav {
   position: sticky;
   top: 0;
@@ -47,7 +46,6 @@ nav a {
   position: relative;
 }
 
-/* NAV HOVER LINE */
 nav a::after {
   content: '';
   position: absolute;
@@ -137,11 +135,17 @@ h3 {
   font-weight: 600;
 }
 
+/* DESKTOP HOVER */
 .card:hover .overlay {
   opacity: 1;
 }
 
-/* TEXT UNDER PROJECT */
+/* ✅ MOBILE TAP STATE */
+.card.active .overlay {
+  opacity: 1;
+}
+
+/* TEXT */
 .desc {
   font-size: 14px;
   color: #666;
@@ -155,7 +159,7 @@ h3 {
   text-decoration: none;
 }
 
-/* CUSTOM CURSOR (REAL REPLACEMENT) */
+/* CURSOR */
 .cursor {
   width: 12px;
   height: 12px;
@@ -168,27 +172,23 @@ h3 {
   transition: transform 0.15s ease, background 0.3s;
 }
 
-/* CURSOR EXPAND */
 .cursor.hover {
   transform: translate(-50%, -50%) scale(2.5);
   background: rgba(0,0,0,0.6);
 }
 
-/* MOBILE: RESTORE NORMAL CURSOR */
+/* MOBILE */
 @media (max-width: 768px) {
   body { cursor: auto; }
   .cursor { display: none; }
 }
-
 </style>
 </head>
 
 <body>
 
-<!-- CURSOR -->
 <div class="cursor"></div>
 
-<!-- NAV -->
 <nav>
   <div><strong>Confidence</strong></div>
   <div>
@@ -197,7 +197,6 @@ h3 {
   </div>
 </nav>
 
-<!-- HERO -->
 <h1>Confidence Chima</h1>
 <h2>UI/UX Designer</h2>
 
@@ -209,7 +208,6 @@ I design digital experiences that remove confusion, simplify decisions, and help
 Focused on creating structured, intuitive interfaces that improve usability and user flow.
 </p>
 
-<!-- FEATURED -->
 <h3>Featured Work</h3>
 <p class="desc">Designing a gallery experience that makes discovering art feel effortless.</p>
 
@@ -222,7 +220,6 @@ Focused on creating structured, intuitive interfaces that improve usability and 
   </div>
 </div>
 
-<!-- SELECTED -->
 <h3>Selected Work</h3>
 
 <div class="grid">
@@ -247,7 +244,6 @@ Focused on creating structured, intuitive interfaces that improve usability and 
   </div>
 </div>
 
-<!-- ADDITIONAL -->
 <h3>Additional Work</h3>
 <p class="desc">Visual and product design explorations.</p>
 
@@ -269,28 +265,24 @@ Focused on creating structured, intuitive interfaces that improve usability and 
   </div>
 </div>
 
-<!-- THINKING SECTION -->
 <h3>Approach</h3>
 <p>
 I care about clarity in design — not just how things look, but how they work, guide, and feel to use.
 Every project is an opportunity to reduce friction and make the experience more intuitive.
 </p>
 
-<!-- ABOUT PREVIEW -->
 <h3>About</h3>
 <p>
 I’m a UI/UX designer with a background in Computer Science, focused on creating structured, user-focused solutions.
 </p>
 <a href="about.html"><strong>View more →</strong></a>
 
-<!-- CONTACT -->
 <h3>Contact</h3>
 <p>
 Open to collaborations, freelance projects, and opportunities to create meaningful user experiences.
 </p>
 <p><strong>your@email.com</strong></p>
 
-<!-- SCRIPT -->
 <script>
 
 /* SCROLL REVEAL */
@@ -306,7 +298,7 @@ const observer = new IntersectionObserver(entries => {
 
 cards.forEach(card => observer.observe(card));
 
-/* CUSTOM CURSOR */
+/* CURSOR */
 const cursor = document.querySelector('.cursor');
 
 document.addEventListener('mousemove', e => {
@@ -314,10 +306,31 @@ document.addEventListener('mousemove', e => {
   cursor.style.top = e.clientY + 'px';
 });
 
-/* INTERACTIVE CURSOR */
+/* CURSOR INTERACTION */
 document.querySelectorAll('a, .card').forEach(el => {
   el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+});
+
+/* ✅ MOBILE TAP OVERLAY FIX */
+document.querySelectorAll('.card').forEach(card => {
+  let tapped = false;
+
+  card.addEventListener('click', function(e) {
+    if (window.innerWidth <= 768) {
+      if (!tapped) {
+        e.preventDefault();
+        tapped = true;
+        card.classList.add('active');
+
+        document.querySelectorAll('.card').forEach(c => {
+          if (c !== card) c.classList.remove('active');
+        });
+
+        setTimeout(() => tapped = false, 2000);
+      }
+    }
+  });
 });
 
 </script>
