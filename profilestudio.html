@@ -29,6 +29,7 @@ line-height: 1.8;
 a {
 text-decoration: none;
 color: #111;
+font-weight: 600;
 }
 
 /* HEADINGS */
@@ -45,13 +46,15 @@ color: #777;
 }
 
 h3 {
-margin-top: 80px;
-font-size: 24px;
+margin-top: 100px;
+font-size: 26px;
 }
 
 p {
 margin-top: 16px;
-color: #444;
+color: #555;
+font-size: 16px;
+max-width: 600px;
 }
 
 /* HERO IMAGE */
@@ -62,125 +65,198 @@ justify-content: center;
 }
 
 .hero img {
-width: 320px;
+width: 100%;
+max-width: 700px;
 border-radius: 20px;
 box-shadow: 0 30px 60px rgba(0,0,0,0.1);
+transition: transform 0.4s ease;
+}
+
+.hero img:hover {
+transform: scale(1.02);
+}
+
+/* FLOW IMAGE (HERO STYLE) */
+.flow-img {
+margin-top: 30px;
+}
+
+.flow-img img {
+width: 100%;
+border-radius: 20px;
+box-shadow: 0 20px 50px rgba(0,0,0,0.08);
 }
 
 /* IMAGE GRID */
 .images {
 display: grid;
-gap: 20px;
+gap: 30px;
 margin-top: 30px;
 }
 
 .images img {
 width: 100%;
 border-radius: 20px;
+transition: transform 0.4s ease;
+}
+
+.images img:hover {
+transform: scale(1.02);
 }
 
 /* FLOW ROW */
 .flow {
-display: flex;
-gap: 20px;
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+gap: 30px;
 margin-top: 30px;
 }
 
 .flow img {
 width: 100%;
-border-radius: 16px;
+border-radius: 20px;
+transition: transform 0.4s ease;
+}
+
+.flow img:hover {
+transform: scale(1.02);
 }
 
 /* CONTACT */
 .contact {
-margin-top: 80px;
+margin-top: 100px;
 text-align: center;
-padding: 20px;
+padding: 30px;
 border-radius: 20px;
 background: #f1f1f1;
 }
 
 .contact p {
-margin: 5px 0;
+margin: 6px 0;
+}
+
+/* REVEAL ANIMATION */
+.reveal {
+transform: translateY(60px);
+opacity: 0;
+transition: all 0.8s ease;
+}
+
+.reveal.show {
+transform: translateY(0);
+opacity: 1;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+body {
+padding: 24px;
+}
+
+h1 {
+font-size: 36px;
+}
 }
 </style>
 </head>
 
 <body>
 
-<a href="index.html">← Back to Home</a>
+<a href="index.html" class="reveal">← Back to Home</a>
 
-<h1>Profile Studio</h1>
-<h2>UX Case Study</h2>
+<h1 class="reveal">Profile Studio</h1>
+<h2 class="reveal">UX Case Study</h2>
 
-<p>
+<p class="reveal">
 Designing a guided experience that helps professionals turn their LinkedIn profiles into real opportunities.
 </p>
 
-<div class="hero">
+<div class="hero reveal">
 <img src="images/profilestudio-mockup.jpg">
 </div>
 
-<h3>Overview</h3>
-<p>
+<h3 class="reveal">Overview</h3>
+<p class="reveal">
 Profile Studio is a platform designed to help professionals improve their LinkedIn profiles through structured guidance and expert sessions.
 </p>
 
-<h3>The Problem</h3>
-<p>
+<h3 class="reveal">The Problem</h3>
+<p class="reveal">
 Many professionals struggle to present themselves clearly on LinkedIn.
 Not because they lack experience, but because they don’t know how to structure it.
 </p>
 
-<h3>The Goal</h3>
-<p>
+<h3 class="reveal">The Goal</h3>
+<p class="reveal">
 Create a clear, step-by-step experience that reduces confusion and leads users from intention to action.
 </p>
 
-<h3>Design Approach</h3>
-<p>
+<h3 class="reveal">Design Approach</h3>
+<p class="reveal">
 Instead of overwhelming users with options, the experience breaks decisions into simple steps.
 This allows users to focus, move forward, and stay in control.
 </p>
 
-<h3>End-to-End Flow</h3>
-<div class="images">
-<img src="images/flow-1.png">
+<h3 class="reveal">End-to-End Flow</h3>
+<p class="reveal">
+From defining user goals to booking a session, the experience is designed as a guided, step-by-step journey.
+</p>
+
+<div class="flow-img reveal">
+<img src="images/profile-studio-flow.png">
 </div>
 
-<h3>Goal Selection</h3>
-<p>Users begin by defining their intent.</p>
+<h3 class="reveal">Goal Selection</h3>
+<p class="reveal">Users begin by defining their intent.</p>
 
-<div class="images">
+<div class="images reveal">
 <img src="images/goal-selection.png">
 </div>
 
-<h3>Step Progression</h3>
-<p>The process is broken into clear stages to reduce overwhelm.</p>
+<h3 class="reveal">Step Progression</h3>
+<p class="reveal">
+The process is broken into clear stages to reduce overwhelm.
+</p>
 
 <div class="flow">
-<img src="images/step-1.png">
-<img src="images/step-2.png">
-<img src="images/step-3.png">
+<img src="images/step-1.png" class="reveal">
+<img src="images/step-2.png" class="reveal">
+<img src="images/step-3.png" class="reveal">
 </div>
 
-<h3>Booking Flow</h3>
-<p>Users move seamlessly from guidance to booking a session.</p>
+<h3 class="reveal">Booking Flow</h3>
+<p class="reveal">
+Users move seamlessly from guidance to booking a session.
+</p>
 
 <div class="flow">
-<img src="images/booking.png">
-<img src="images/success.png">
+<img src="images/booking.png" class="reveal">
+<img src="images/success.png" class="reveal">
 </div>
 
-<h3>Outcome</h3>
-<p>
+<h3 class="reveal">Outcome</h3>
+<p class="reveal">
 The final experience transforms a complex task into a clear and structured journey, helping users move forward with confidence.
 </p>
 
-<div class="contact">
+<div class="contact reveal">
 <p><strong>Available for collaboration</strong></p>
 <p>Chimaconfidence086@gmail.com</p>
 </div>
+
+<script>
+const reveals = document.querySelectorAll('.reveal');
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('show');
+}
+});
+});
+
+reveals.forEach(el => observer.observe(el));
+</script>
 
 </body>
 </html>
