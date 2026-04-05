@@ -16,19 +16,20 @@ box-sizing: border-box;
 font-family: 'Space Grotesk', sans-serif;
 }
 
+/* BODY */
 body {
-background: #0f0f0f;
-color: #fff;
+background: #f7f7f7;
+color: #111;
 padding: 40px 20px;
 max-width: 900px;
 margin: auto;
 line-height: 1.7;
 }
 
-/* NAV */
+/* LINKS */
 a {
 text-decoration: none;
-color: #fff;
+color: #111;
 opacity: 0.7;
 }
 
@@ -36,7 +37,7 @@ a:hover {
 opacity: 1;
 }
 
-/* TEXT */
+/* HEADINGS */
 h1 {
 font-size: 42px;
 margin-top: 20px;
@@ -46,18 +47,25 @@ h2 {
 font-size: 13px;
 letter-spacing: 2px;
 text-transform: uppercase;
-color: #888;
+color: #777;
 margin-top: 8px;
 }
 
 h3 {
-margin-top: 70px;
+margin-bottom: 10px;
 font-size: 22px;
 }
 
+/* TEXT */
 p {
-margin-top: 14px;
-color: #bbb;
+margin-top: 10px;
+color: #555;
+max-width: 600px;
+}
+
+/* SECTIONS */
+.section {
+margin-bottom: 80px;
 }
 
 /* HERO */
@@ -68,44 +76,56 @@ margin: 50px 0;
 .hero img {
 width: 100%;
 border-radius: 20px;
+box-shadow: 0 15px 40px rgba(0,0,0,0.08);
 }
 
 /* IMAGE */
 .section-img {
-margin-top: 30px;
+margin-top: 25px;
 }
 
 .section-img img {
 width: 100%;
 border-radius: 18px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.08);
 }
 
 /* CONTACT */
 .contact {
-margin-top: 80px;
 text-align: center;
-padding: 25px;
+padding: 30px;
 border-radius: 20px;
-background: #1a1a1a;
+background: #f1f1f1;
 }
 
 /* ANIMATION */
 .fade {
+transform: translateY(40px);
 opacity: 0;
-transform: translateY(30px);
 transition: all 0.8s ease;
 }
 
 .fade.show {
-opacity: 1;
 transform: translateY(0);
+opacity: 1;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+body {
+padding: 24px;
+}
+
+h1 {
+font-size: 34px;
+}
 }
 </style>
 </head>
 
 <body>
 
-<a href="index.html">← Back to Home</a>
+<a href="index.html" class="fade">← Back to Home</a>
 
 <h1 class="fade">Chimreff</h1>
 <h2 class="fade">Mobile App UX • Service Platform</h2>
@@ -116,64 +136,78 @@ Designing a seamless mobile experience that helps users quickly find and book tr
 
 <!-- HERO -->
 <div class="hero fade">
-<img src="images/chimreff-hero.png">
+<img src="images/chimreff-hero.png" alt="Chimreff promotional app preview">
 </div>
 
 <!-- OVERVIEW -->
-<h3 class="fade">Overview</h3>
-<p class="fade">
-Chimreff is a service platform focused on simplifying how users resolve appliance issues. 
+<section class="section fade">
+<h3>Overview</h3>
+<p>
+Chimreff is a service platform focused on simplifying how users resolve appliance issues.
 The goal was to remove complexity and guide users through a fast, intuitive process.
 </p>
+</section>
 
 <!-- REAL VISUAL -->
-<div class="section-img fade">
-<img src="images/chimreff-1.jpg">
+<section class="section fade">
+<div class="section-img">
+<img src="images/chimreff-1.jpg" alt="Chimreff real usage interface">
+</div>
 <p>
 A real-world view of the product showing how users interact with the interface to quickly select services.
 </p>
-</div>
+</section>
 
 <!-- PROBLEM -->
-<h3 class="fade">The Problem</h3>
-<p class="fade">
-Users often struggle to describe technical issues or find reliable technicians. 
+<section class="section fade">
+<h3>The Problem</h3>
+<p>
+Users often struggle to describe technical issues or find reliable technicians.
 This leads to delays, confusion, and poor service experiences.
 </p>
+</section>
 
 <!-- APP INTRO -->
-<div class="section-img fade">
-<img src="images/chimreff-2.jpg">
+<section class="section fade">
+<div class="section-img">
+<img src="images/chimreff-2.jpg" alt="Chimreff app introduction screen">
+</div>
 <p>
 The app introduces a simple and direct entry point, allowing users to immediately take action.
 </p>
-</div>
+</section>
 
 <!-- FLOW -->
-<h3 class="fade">User Flow</h3>
-<p class="fade">
+<section class="section fade">
+<h3>User Flow</h3>
+<p>
 The experience is broken into clear steps, helping users move from identifying a problem to getting help.
 </p>
 
-<div class="section-img fade">
-<img src="images/chimreff-3.jpg">
+<div class="section-img">
+<img src="images/chimreff-3.jpg" alt="Chimreff user flow diagram">
 </div>
+</section>
 
-<!-- BRANDING / FINAL -->
-<h3 class="fade">Experience & Branding</h3>
-<p class="fade">
+<!-- BRANDING -->
+<section class="section fade">
+<h3>Experience & Branding</h3>
+<p>
 The interface combines clarity with a strong visual identity, building trust and encouraging engagement.
 </p>
 
-<div class="section-img fade">
-<img src="images/chimreff-4.jpg">
+<div class="section-img">
+<img src="images/chimreff-4.jpg" alt="Chimreff branding and interface design">
 </div>
+</section>
 
 <!-- OUTCOME -->
-<h3 class="fade">Outcome</h3>
-<p class="fade">
+<section class="section fade">
+<h3>Outcome</h3>
+<p>
 The final experience reduces friction, improves usability, and enables users to quickly move from problem to solution.
 </p>
+</section>
 
 <!-- CONTACT -->
 <div class="contact fade">
@@ -184,14 +218,15 @@ The final experience reduces friction, improves usability, and enables users to 
 <script>
 const faders = document.querySelectorAll('.fade');
 
-window.addEventListener('scroll', () => {
-faders.forEach(el => {
-const rect = el.getBoundingClientRect();
-if (rect.top < window.innerHeight - 50) {
-el.classList.add('show');
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('show');
 }
 });
 });
+
+faders.forEach(el => observer.observe(el));
 </script>
 
 </body>
