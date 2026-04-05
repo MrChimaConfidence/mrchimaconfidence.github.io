@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Chimreff</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+background: #0f0f0f;
+color: #fff;
+padding: 40px 20px;
+max-width: 900px;
+margin: auto;
+line-height: 1.7;
+}
+
+/* NAV */
+a {
+text-decoration: none;
+color: #fff;
+opacity: 0.7;
+}
+
+a:hover {
+opacity: 1;
+}
+
+/* TEXT */
+h1 {
+font-size: 42px;
+margin-top: 20px;
+}
+
+h2 {
+font-size: 13px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: #888;
+margin-top: 8px;
+}
+
+h3 {
+margin-top: 70px;
+font-size: 22px;
+}
+
+p {
+margin-top: 14px;
+color: #bbb;
+}
+
+/* HERO */
+.hero {
+margin: 50px 0;
+}
+
+.hero img {
+width: 100%;
+border-radius: 20px;
+}
+
+/* IMAGE */
+.section-img {
+margin-top: 30px;
+}
+
+.section-img img {
+width: 100%;
+border-radius: 18px;
+}
+
+/* CONTACT */
+.contact {
+margin-top: 80px;
+text-align: center;
+padding: 25px;
+border-radius: 20px;
+background: #1a1a1a;
+}
+
+/* ANIMATION */
+.fade {
+opacity: 0;
+transform: translateY(30px);
+transition: all 0.8s ease;
+}
+
+.fade.show {
+opacity: 1;
+transform: translateY(0);
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html">← Back to Home</a>
+
+<h1 class="fade">Chimreff</h1>
+<h2 class="fade">Mobile App UX • Service Platform</h2>
+
+<p class="fade">
+Designing a seamless mobile experience that helps users quickly find and book trusted appliance repair services.
+</p>
+
+<!-- HERO -->
+<div class="hero fade">
+<img src="images/chimreff-hero.png">
+</div>
+
+<!-- OVERVIEW -->
+<h3 class="fade">Overview</h3>
+<p class="fade">
+Chimreff is a service platform focused on simplifying how users resolve appliance issues. 
+The goal was to remove complexity and guide users through a fast, intuitive process.
+</p>
+
+<!-- REAL VISUAL -->
+<div class="section-img fade">
+<img src="images/chimreff-1.jpg">
+<p>
+A real-world view of the product showing how users interact with the interface to quickly select services.
+</p>
+</div>
+
+<!-- PROBLEM -->
+<h3 class="fade">The Problem</h3>
+<p class="fade">
+Users often struggle to describe technical issues or find reliable technicians. 
+This leads to delays, confusion, and poor service experiences.
+</p>
+
+<!-- APP INTRO -->
+<div class="section-img fade">
+<img src="images/chimreff-2.jpg">
+<p>
+The app introduces a simple and direct entry point, allowing users to immediately take action.
+</p>
+</div>
+
+<!-- FLOW -->
+<h3 class="fade">User Flow</h3>
+<p class="fade">
+The experience is broken into clear steps, helping users move from identifying a problem to getting help.
+</p>
+
+<div class="section-img fade">
+<img src="images/chimreff-3.jpg">
+</div>
+
+<!-- BRANDING / FINAL -->
+<h3 class="fade">Experience & Branding</h3>
+<p class="fade">
+The interface combines clarity with a strong visual identity, building trust and encouraging engagement.
+</p>
+
+<div class="section-img fade">
+<img src="images/chimreff-4.jpg">
+</div>
+
+<!-- OUTCOME -->
+<h3 class="fade">Outcome</h3>
+<p class="fade">
+The final experience reduces friction, improves usability, and enables users to quickly move from problem to solution.
+</p>
+
+<!-- CONTACT -->
+<div class="contact fade">
+<p><strong>Available for collaboration</strong></p>
+<p>Chimaconfidence086@gmail.com</p>
+</div>
+
+<script>
+const faders = document.querySelectorAll('.fade');
+
+window.addEventListener('scroll', () => {
+faders.forEach(el => {
+const rect = el.getBoundingClientRect();
+if (rect.top < window.innerHeight - 50) {
+el.classList.add('show');
+}
+});
+});
+</script>
+
+</body>
+</html>
