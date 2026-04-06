@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Paperboy Music</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Space Grotesk', sans-serif;
+}
+
+body {
+background: #f7f7f7;
+color: #111;
+padding: 40px 20px;
+max-width: 900px;
+margin: auto;
+line-height: 1.7;
+}
+
+/* LINKS */
+a {
+text-decoration: none;
+color: #111;
+opacity: 0.7;
+}
+
+a:hover {
+opacity: 1;
+}
+
+/* HEADINGS */
+h1 {
+font-size: 42px;
+margin-top: 20px;
+}
+
+h2 {
+font-size: 13px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: #777;
+margin-top: 8px;
+}
+
+h3 {
+font-size: 22px;
+margin-bottom: 10px;
+}
+
+/* TEXT */
+p {
+margin-top: 10px;
+color: #555;
+max-width: 600px;
+}
+
+/* SECTIONS */
+.section {
+margin-bottom: 80px;
+}
+
+/* HERO */
+.hero {
+margin: 50px 0;
+}
+
+.hero img {
+width: 100%;
+border-radius: 20px;
+box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+}
+
+/* IMAGES */
+.grid {
+display: grid;
+gap: 20px;
+margin-top: 25px;
+}
+
+.grid img {
+width: 100%;
+border-radius: 18px;
+box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* CONTACT */
+.contact {
+text-align: center;
+padding: 30px;
+border-radius: 20px;
+background: #f1f1f1;
+}
+
+/* ANIMATION */
+.fade {
+transform: translateY(40px);
+opacity: 0;
+transition: all 0.8s ease;
+}
+
+.fade.show {
+transform: translateY(0);
+opacity: 1;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+body {
+padding: 24px;
+}
+
+h1 {
+font-size: 34px;
+}
+}
+</style>
+</head>
+
+<body>
+
+<a href="index.html" class="fade">← Back to Home</a>
+
+<h1 class="fade">Paperboy Music</h1>
+<h2 class="fade">Visual Design • Music Branding</h2>
+
+<p class="fade">
+Designing bold and expressive visuals to promote music and capture attention instantly.
+</p>
+
+<!-- HERO -->
+<div class="hero fade">
+<img src="images/paperboymusic-mockup.jpg" alt="Paperboy Music visual design">
+</div>
+
+<!-- OVERVIEW -->
+<section class="section fade">
+<h3>Overview</h3>
+<p>
+Paperboy Music focuses on creating strong visual identity for music promotion.
+The goal was to design visuals that stand out, communicate energy, and attract attention across platforms.
+</p>
+</section>
+
+<!-- VISUAL WORK -->
+<section class="section fade">
+<h3>Visual Exploration</h3>
+<p>
+The designs emphasize bold typography, strong contrast, and expressive composition to reflect the energy of the music.
+</p>
+
+<div class="grid">
+<img src="images/paperboy-1.jpg" alt="Paperboy design 1">
+<img src="images/paperboy-2.jpg" alt="Paperboy design 2">
+<img src="images/paperboy-3.jpg" alt="Paperboy design 3">
+</div>
+</section>
+
+<!-- OUTCOME -->
+<section class="section fade">
+<h3>Outcome</h3>
+<p>
+The final visuals create a strong and memorable presence, helping the music stand out and connect with its audience.
+</p>
+</section>
+
+<!-- CONTACT -->
+<div class="contact fade">
+<p><strong>Available for collaboration</strong></p>
+<p>Chimaconfidence086@gmail.com</p>
+</div>
+
+<script>
+const faders = document.querySelectorAll('.fade');
+
+const observer = new IntersectionObserver(entries => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+entry.target.classList.add('show');
+}
+});
+});
+
+faders.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
