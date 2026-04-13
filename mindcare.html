@@ -10,119 +10,127 @@
 
 <style>
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Space Grotesk', sans-serif;
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+font-family: 'Space Grotesk', sans-serif;
 }
 
 body {
-  background: #f7f7f7;
-  color: #111;
-  padding: 40px;
-  max-width: 900px;
-  margin: auto;
-  line-height: 1.8;
+background: #f7f7f7;
+color: #111;
+padding: 40px;
+max-width: 900px;
+margin: auto;
+line-height: 1.8;
 }
 
 /* BACK */
 a {
-  text-decoration: none;
-  color: #111;
+text-decoration: none;
+color: #111;
 }
 
 /* HEADINGS */
 h1 {
-  font-size: 46px;
-  margin-bottom: 10px;
+font-size: 46px;
+margin-bottom: 10px;
 }
 
 h2 {
-  font-size: 14px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #777;
-  margin-top: 60px;
+font-size: 14px;
+letter-spacing: 2px;
+text-transform: uppercase;
+color: #777;
+margin-top: 60px;
 }
 
 h3 {
-  margin-top: 80px;
-  font-size: 24px;
+margin-top: 80px;
+font-size: 24px;
 }
 
 p {
-  margin-top: 16px;
-  color: #444;
+margin-top: 16px;
+color: #444;
 }
 
 /* HERO */
 .hero {
-  margin: 60px 0;
+margin: 60px 0;
 }
 
 .hero img {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 30px 60px rgba(0,0,0,0.08);
+width: 100%;
+border-radius: 20px;
+box-shadow: 0 30px 60px rgba(0,0,0,0.08);
 }
 
 /* BUTTON */
 .btn {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 12px 18px;
-  border-radius: 10px;
-  background: #111;
-  color: white;
-  font-weight: 600;
-  transition: 0.2s ease;
+display: inline-block;
+margin-top: 20px;
+padding: 12px 18px;
+border-radius: 10px;
+background: #111;
+color: white;
+font-weight: 600;
+transition: 0.2s ease;
 }
 
 .btn:hover {
-  transform: scale(0.97);
+transform: scale(0.97);
 }
 
 /* FLOW */
 .flow {
-  display: flex;
-  gap: 16px;
-  margin-top: 30px;
-  overflow-x: auto;
+display: flex;
+gap: 16px;
+margin-top: 20px;
+overflow-x: auto;
+padding-bottom: 10px;
 }
 
 .flow img {
-  width: 180px;
-  border-radius: 16px;
+width: 180px;
+border-radius: 16px;
+}
+
+/* SWIPE HINT */
+.swipe-hint {
+font-size: 13px;
+color: #888;
+margin-top: 10px;
 }
 
 /* IMAGES */
 .image {
-  margin-top: 30px;
+margin-top: 30px;
 }
 
 .image img {
-  width: 100%;
-  border-radius: 20px;
+width: 100%;
+border-radius: 20px;
 }
 
 /* LIST */
 ul {
-  margin-top: 16px;
-  padding-left: 20px;
+margin-top: 16px;
+padding-left: 20px;
 }
 
 li {
-  margin-bottom: 10px;
-  color: #444;
+margin-bottom: 10px;
+color: #444;
 }
 
 /* CONTACT */
 .contact {
-  margin-top: 80px;
-  text-align: center;
-  padding: 20px;
-  border-radius: 20px;
-  background: #f1f1f1;
+margin-top: 80px;
+text-align: center;
+padding: 20px;
+border-radius: 20px;
+background: #f1f1f1;
 }
 </style>
 
@@ -136,90 +144,108 @@ li {
 <h2>Emotional Check-in Experience</h2>
 
 <p>
-A guided experience designed to help users reflect on their emotions and access support in a calm, non-overwhelming way.
+A guided mental health experience designed to help users reflect on their emotions and access support without feeling overwhelmed.
 </p>
 
 <!-- HERO -->
 <div class="hero">
-  <img src="images/mindcare-mockup.jpg">
+<img src="images/mindcare-mockup.jpg">
 </div>
 
 <a class="btn" href="https://www.figma.com/proto/1gTeTGd0WeJcAqOS3EStEn/MindCare?node-id=33-110&p=f&t=nOYBAZ3R6fP1sIlt-1&scaling=scale-down&content-scaling=fixed&page-id=33%3A59&starting-point-node-id=33%3A60" target="_blank">
-  View Prototype →
+View Prototype →
 </a>
 
 <!-- OVERVIEW -->
 <h3>Overview</h3>
 <p>
-MindCare simplifies emotional reflection into a clear, structured flow that helps users understand how they feel and what to do next.
+MindCare transforms emotional reflection into a simple, structured flow. Instead of overwhelming users with too many options, the experience guides them step-by-step to understand how they feel and what to do next.
 </p>
 
 <!-- PROBLEM -->
 <h3>The Problem</h3>
 <p>
-Many mental health tools feel overwhelming or too complex, making it difficult for users to take the first step.
+Many mental health apps overwhelm users with too many choices at the wrong moment, making it harder to take the first step.
 </p>
 
 <!-- SOLUTION -->
 <h3>The Solution</h3>
 <p>
-A step-by-step check-in that reduces friction and provides clarity through simple interactions and supportive language.
+A step-by-step emotional check-in that reduces friction, uses supportive language, and guides users toward the right action based on how they feel.
 </p>
+
+<!-- WIREFRAME -->
+<h3>Wireframing & Flow Exploration</h3>
+<p>
+Low-fidelity wireframes were used to explore the structure of the emotional check-in flow. The focus was on reducing cognitive load and guiding users step-by-step before moving into visual design.
+</p>
+
+<div class="image">
+<img src="images/mindcare-wireframe.png">
+</div>
 
 <!-- FLOW -->
 <h3>User Flow</h3>
+<p class="swipe-hint">Swipe to explore the full flow →</p>
+
 <div class="flow">
-  <img src="images/mindcare-1.jpg">
-  <img src="images/mindcare-2.jpg">
-  <img src="images/mindcare-3.jpg">
-  <img src="images/mindcare-4.jpg">
-  <img src="images/mindcare-5.jpg">
+<img src="images/mindcare-1.jpg">
+<img src="images/mindcare-2.jpg">
+<img src="images/mindcare-3.jpg">
+<img src="images/mindcare-4.jpg">
+<img src="images/mindcare-5.jpg">
 </div>
 
 <!-- INTERACTION -->
 <h3>Interaction Design</h3>
 <p>
-Tap-based interactions provide immediate feedback, helping users clearly understand their selections.
+Simple tap-based interactions provide immediate feedback, helping users feel confident in their selections without confusion.
 </p>
 
 <div class="image">
-  <img src="images/mindcare-interaction.jpg">
+<img src="images/mindcare-interaction.jpg">
 </div>
 
 <!-- INSIGHT -->
 <h3>Emotional Insight</h3>
 <p>
-The experience uses neutral, supportive language to acknowledge emotions without overwhelming the user.
+The system reflects user input using calm, supportive language, helping users feel understood without judgment or pressure.
 </p>
 
 <div class="image">
-  <img src="images/mindcare-4.jpg">
+<img src="images/mindcare-4.jpg">
 </div>
 
 <!-- SUPPORT -->
 <h3>Support Options</h3>
 <p>
-Users are guided toward helpful actions through a structured set of options, with a recommended path to reduce decision fatigue.
+Support is presented as clear, structured options with a recommended path to reduce decision fatigue.
 </p>
 
 <div class="image">
-  <img src="images/mindcare-5.jpg">
+<img src="images/mindcare-5.jpg">
 </div>
 
 <!-- DECISIONS -->
 <h3>Key Design Decisions</h3>
 <ul>
-  <li>Designed for mobile interaction (no hover)</li>
-  <li>Clear tap feedback and state changes</li>
-  <li>Simple, structured flow to reduce overwhelm</li>
-  <li>Supportive and non-assumptive language</li>
-  <li>Guided decision-making through recommendation</li>
+<li>Designed for mobile-first interaction (no hover states)</li>
+<li>Clear tap feedback and visible state changes</li>
+<li>Structured flow to reduce cognitive overload</li>
+<li>Supportive, non-judgmental language</li>
+<li>Guided decision-making through recommendations</li>
 </ul>
+
+<!-- OUTCOME -->
+<h3>Outcome</h3>
+<p>
+The final experience reduces cognitive load and helps users take meaningful action faster during emotional distress, creating a calmer and more supportive journey.
+</p>
 
 <!-- CONTACT -->
 <div class="contact">
-  <p><strong>Available for collaboration</strong></p>
-  <p>Chimaconfidence086@gmail.com</p>
+<p><strong>Available for collaboration</strong></p>
+<p>Chimaconfidence086@gmail.com</p>
 </div>
 
 </body>
