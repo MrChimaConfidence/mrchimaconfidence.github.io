@@ -62,34 +62,6 @@ nav a:hover::after {
 }
 
 /* HERO */
-.hero {
-  display: flex;
-  align-items: flex-start;
-  gap: 32px;
-  margin-bottom: 12px;
-}
-
-.hero-photo {
-  width: 110px;
-  height: 110px;
-  border-radius: 50%;
-  object-fit: cover;
-  object-position: top;
-  flex-shrink: 0;
-  margin-top: 6px;
-}
-
-.hero-text {
-  flex: 1;
-}
-
-.hero-greeting {
-  font-size: 15px;
-  color: #777;
-  margin-bottom: 6px;
-  font-weight: 400;
-}
-
 h1 {
   font-size: 52px;
   line-height: 1.1;
@@ -106,48 +78,10 @@ p {
   margin-bottom: 30px;
 }
 
-/* AVAILABILITY BADGE */
-.availability {
-  display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  background: #fff;
-  border: 1px solid #e0e0e0;
-  border-radius: 999px;
-  padding: 5px 14px;
-  font-size: 13px;
-  color: #444;
-  margin-bottom: 28px;
-  font-weight: 500;
-}
-
-.availability-dot {
-  width: 8px;
-  height: 8px;
-  background: #22c55e;
-  border-radius: 50%;
-  animation: pulse 2s infinite;
-  flex-shrink: 0;
-}
-
-@keyframes pulse {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0.4; }
-}
-
 /* SECTIONS */
 h3 {
   margin: 80px 0 16px;
   font-size: 22px;
-}
-
-/* PERSONAL LINE */
-.personal-line {
-  font-size: 14px;
-  color: #888;
-  margin-top: -60px;
-  margin-bottom: 80px;
-  font-style: italic;
 }
 
 /* GRID */
@@ -269,31 +203,10 @@ h3 {
   background: rgba(0,0,0,0.6);
 }
 
-/* FOOTER CTA */
-.footer-cta {
-  margin-top: 16px;
-  font-size: 14px;
-  color: #888;
-}
-
 /* MOBILE */
 @media (max-width: 768px) {
   body { cursor: auto; }
   .cursor { display: none; }
-
-  .hero {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .hero-photo {
-    width: 90px;
-    height: 90px;
-  }
-
-  h1 {
-    font-size: 38px;
-  }
 }
 </style>
 </head>
@@ -310,20 +223,8 @@ h3 {
   </div>
 </nav>
 
-<!-- HERO -->
-<div class="hero">
-  <img class="hero-photo" src="images/confidence.png" alt="Confidence Chima">
-  <div class="hero-text">
-    <p class="hero-greeting">Hey, I'm Confidence 👋</p>
-    <h1>Confidence Chima</h1>
-    <h2>UI/UX Designer</h2>
-  </div>
-</div>
-
-<span class="availability">
-  <span class="availability-dot"></span>
-  Available for new projects
-</span>
+<h1>Confidence Chima</h1>
+<h2>UI/UX Designer</h2>
 
 <p>
 I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
@@ -332,9 +233,6 @@ I design digital experiences that remove confusion, simplify decisions, and help
 <p>
 Focused on creating structured, intuitive interfaces that improve usability and user flow.
 </p>
-
-<!-- PERSONAL LINE -->
-<p class="personal-line">When I'm not designing, you'll find me gaming or building a community as justmrpaper.</p>
 
 <h3>Featured Work</h3>
 <p class="desc">Designing a gallery experience that makes discovering art feel effortless.</p>
@@ -412,8 +310,6 @@ Have a project in mind? I'd love to hear about it.
 <p>
 <strong>chimaconfidence086@gmail.com</strong>
 </p>
-
-<p class="footer-cta">Open to freelance, collaborations, and full-time opportunities.</p>
 
 <a href="Confidence_Chima_Product_Designer_Resume.pdf" download 
 style="
