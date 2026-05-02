@@ -62,6 +62,34 @@ nav a:hover::after {
 }
 
 /* HERO */
+.hero {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+  margin-bottom: 12px;
+}
+
+.hero-photo {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: top;
+  flex-shrink: 0;
+  margin-top: 6px;
+}
+
+.hero-text {
+  flex: 1;
+}
+
+.hero-greeting {
+  font-size: 15px;
+  color: #777;
+  margin-bottom: 6px;
+  font-weight: 400;
+}
+
 h1 {
   font-size: 52px;
   line-height: 1.1;
@@ -78,10 +106,48 @@ p {
   margin-bottom: 30px;
 }
 
+/* AVAILABILITY BADGE */
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: #fff;
+  border: 1px solid #e0e0e0;
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 13px;
+  color: #444;
+  margin-bottom: 28px;
+  font-weight: 500;
+}
+
+.availability-dot {
+  width: 8px;
+  height: 8px;
+  background: #22c55e;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
 /* SECTIONS */
 h3 {
   margin: 80px 0 16px;
   font-size: 22px;
+}
+
+/* PERSONAL LINE */
+.personal-line {
+  font-size: 14px;
+  color: #888;
+  margin-top: -60px;
+  margin-bottom: 80px;
+  font-style: italic;
 }
 
 /* GRID */
@@ -140,7 +206,7 @@ h3 {
   opacity: 1;
 }
 
-/* ✅ MOBILE TAP STATE */
+/* MOBILE TAP STATE */
 .card.active .overlay {
   opacity: 1;
 }
@@ -150,6 +216,32 @@ h3 {
   font-size: 14px;
   color: #666;
   margin-top: 8px;
+}
+
+/* VIEW CASE STUDY LINK */
+.case-study-link {
+  display: inline-block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #111;
+  text-decoration: none;
+  margin-top: 6px;
+  position: relative;
+}
+
+.case-study-link::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1.5px;
+  background: #111;
+  transition: opacity 0.3s;
+}
+
+.case-study-link:hover::after {
+  opacity: 0.3;
 }
 
 /* LINKS */
@@ -177,10 +269,31 @@ h3 {
   background: rgba(0,0,0,0.6);
 }
 
+/* FOOTER CTA */
+.footer-cta {
+  margin-top: 16px;
+  font-size: 14px;
+  color: #888;
+}
+
 /* MOBILE */
 @media (max-width: 768px) {
   body { cursor: auto; }
   .cursor { display: none; }
+
+  .hero {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .hero-photo {
+    width: 90px;
+    height: 90px;
+  }
+
+  h1 {
+    font-size: 38px;
+  }
 }
 </style>
 </head>
@@ -197,8 +310,20 @@ h3 {
   </div>
 </nav>
 
-<h1>Confidence Chima</h1>
-<h2>UI/UX Designer</h2>
+<!-- HERO -->
+<div class="hero">
+  <img class="hero-photo" src="images/confidence.png" alt="Confidence Chima">
+  <div class="hero-text">
+    <p class="hero-greeting">Hey, I'm Confidence 👋</p>
+    <h1>Confidence Chima</h1>
+    <h2>UI/UX Designer</h2>
+  </div>
+</div>
+
+<span class="availability">
+  <span class="availability-dot"></span>
+  Available for new projects
+</span>
 
 <p>
 I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
@@ -208,15 +333,21 @@ I design digital experiences that remove confusion, simplify decisions, and help
 Focused on creating structured, intuitive interfaces that improve usability and user flow.
 </p>
 
+<!-- PERSONAL LINE -->
+<p class="personal-line">When I'm not designing, you'll find me gaming or building a community as justmrpaper.</p>
+
 <h3>Featured Work</h3>
 <p class="desc">Designing a gallery experience that makes discovering art feel effortless.</p>
 
 <div class="grid">
-  <div class="card">
-    <a href="vanguard.html">
-      <img src="images/vanguard-mockup-removebg-preview.png">
-      <div class="overlay"><span>Vanguard Gallery</span></div>
-    </a>
+  <div>
+    <div class="card">
+      <a href="vanguard.html">
+        <img src="images/vanguard-mockup-removebg-preview.png" alt="Vanguard Gallery">
+        <div class="overlay"><span>Vanguard Gallery</span></div>
+      </a>
+    </div>
+    <a href="vanguard.html" class="case-study-link">View Case Study →</a>
   </div>
 </div>
 
@@ -226,21 +357,23 @@ Focused on creating structured, intuitive interfaces that improve usability and 
   <div>
     <div class="card">
       <a href="mindcare.html">
-        <img src="images/mindcare-mockup.jpg">
+        <img src="images/mindcare-mockup.jpg" alt="MindCare">
         <div class="overlay"><span>MindCare</span></div>
       </a>
     </div>
     <p class="desc">Helping users check in with their emotions in a simple, stress-free way.</p>
+    <a href="mindcare.html" class="case-study-link">View Case Study →</a>
   </div>
 
   <div>
     <div class="card">
       <a href="profilestudio.html">
-        <img src="images/profilestudio-mockup.jpg">
+        <img src="images/profilestudio-mockup.jpg" alt="Profile Studio">
         <div class="overlay"><span>Profile Studio</span></div>
       </a>
     </div>
     <p class="desc">Turning personal branding into a clear, structured experience.</p>
+    <a href="profilestudio.html" class="case-study-link">View Case Study →</a>
   </div>
 </div>
 
@@ -250,33 +383,37 @@ Focused on creating structured, intuitive interfaces that improve usability and 
 <div class="grid">
   <div>
     <div class="card">
-<a href="chimreff.html">
-      <img src="images/chimreff-hero.png">
-      <div class="overlay"><span>Chimreff</span></div>
+      <a href="chimreff.html">
+        <img src="images/chimreff-hero.png" alt="Chimreff">
+        <div class="overlay"><span>Chimreff</span></div>
+      </a>
     </div>
     <p class="desc">Making service booking feel fast and accessible.</p>
-  </a>
+    <a href="chimreff.html" class="case-study-link">View Case Study →</a>
   </div>
 
   <div>
     <div class="card">
       <a href="paperboymusic.html">
-      <img src="images/paperboymusic-mockup.jpg">
-      <div class="overlay"><span>Paperboy Music</span></div>
+        <img src="images/paperboymusic-mockup.jpg" alt="Paperboy Music">
+        <div class="overlay"><span>Paperboy Music</span></div>
+      </a>
     </div>
     <p class="desc">Designing bold visuals that capture attention instantly.</p>
+    <a href="paperboymusic.html" class="case-study-link">View Case Study →</a>
   </div>
-</a>
 </div>
 
 <h3>Contact</h3>
 <p>
-Open to collaborations, freelance projects, and opportunities to create meaningful user experiences.
+Have a project in mind? I'd love to hear about it.
 </p>
 
 <p>
 <strong>chimaconfidence086@gmail.com</strong>
 </p>
+
+<p class="footer-cta">Open to freelance, collaborations, and full-time opportunities.</p>
 
 <a href="Confidence_Chima_Product_Designer_Resume.pdf" download 
 style="
@@ -323,7 +460,7 @@ document.querySelectorAll('a, .card').forEach(el => {
   el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
 });
 
-/* ✅ MOBILE TAP OVERLAY FIX */
+/* MOBILE TAP OVERLAY FIX */
 document.querySelectorAll('.card').forEach(card => {
   let tapped = false;
 
