@@ -92,6 +92,48 @@ p {
   margin-top: 0;
 }
 
+/* LIVE PLATFORM BANNER */
+.live-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 16px;
+  padding: 18px 24px;
+  background: #fff;
+  border-radius: 14px;
+  border: 1px solid #e8e8e8;
+}
+.live-banner-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.live-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #2e7d32;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(46,125,50,0.15);
+}
+.live-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+}
+.live-url {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+  opacity: 1 !important;
+  text-decoration: none;
+}
+.live-url:hover {
+  text-decoration: underline;
+}
+
 /* ROLE TAGS */
 .tag-row {
   display: flex;
@@ -322,6 +364,7 @@ p {
   .scorecard-row { grid-template-columns: 1fr auto; }
   .scorecard-header span:last-child,
   .scorecard-row  span:last-child { display: none; }
+  .live-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
 }
 </style>
 </head>
@@ -373,6 +416,18 @@ p {
   </div>
 </div>
 
+<!-- LIVE PLATFORM BANNER -->
+<div class="live-banner fade">
+  <div class="live-banner-left">
+    <div class="live-dot"></div>
+    <div>
+      <div class="live-label">Live Platform</div>
+      <a href="https://chimreff.com.ng" target="_blank" rel="noopener" class="live-url">chimreff.com.ng ↗</a>
+    </div>
+  </div>
+  <span style="font-size: 13px; color: #aaa;">Active in Lagos</span>
+</div>
+
 <!-- OVERVIEW -->
 <section class="section fade">
   <h3>Overview</h3>
@@ -409,7 +464,7 @@ p {
 <section class="section fade">
   <h3>Round 1 — Heuristic Evaluation</h3>
   <p>
-    Conducted across all three user flows before the official app launch on Google Play and iOS. Focus was on identifying friction points, inconsistencies, and drop-off risks before go-live.
+    Conducted across all three user flows before the official app launch. Focus was on identifying friction points, inconsistencies, and drop-off risks before go-live.
   </p>
 
   <div class="stat-grid" style="margin-top: 28px;">
@@ -609,19 +664,51 @@ p {
 
 <hr class="divider">
 
+<!-- ONBOARDING TOURS -->
+<section class="section fade">
+  <h3>Designing the Onboarding Tours</h3>
+  <p>
+    The single most critical finding from Round 1 was that new artisans and riders had no guidance after signing up. The dashboard showed all zeros with no indication of what to do next — a silent screen that created confusion and drop-off risk.
+  </p>
+  <p style="margin-top: 12px;">
+    The solution was a contextual onboarding tour for each user type: a 5-step guided modal for artisans and a 4-step modal for riders. Each tour highlights the actual UI element being explained, includes a progress bar and step counter for orientation, and ends with a motivational close screen. A replayable help button means users can revisit the tour anytime.
+  </p>
+
+  <!-- ARTISAN TOUR -->
+  <div style="margin-top: 36px;">
+    <p style="font-weight: 600; color: #111; margin-top: 0;">Artisan Tour — 5 Steps</p>
+    <p style="font-size: 14px; color: #888; margin-top: 4px;">Workspace intro → setup checklist → job management → profile &amp; rate → ready to earn</p>
+    <div class="screen-grid" style="margin-top: 16px;">
+      <img src="images/artisan-tour-1.png" alt="Artisan tour step 1 — Welcome, artisan">
+      <img src="images/artisan-tour-5.png" alt="Artisan tour step 5 — Ready to earn">
+    </div>
+  </div>
+
+  <!-- RIDER TOUR -->
+  <div style="margin-top: 36px;">
+    <p style="font-weight: 600; color: #111; margin-top: 0;">Rider Tour — 4 Steps</p>
+    <p style="font-size: 14px; color: #888; margin-top: 4px;">Dashboard intro → pickups overview → queue management → you're ready to ride</p>
+    <div class="screen-grid" style="margin-top: 16px;">
+      <img src="images/rider-tour-1.png" alt="Rider tour step 1 — Welcome, rider">
+      <img src="images/rider-tour-4.png" alt="Rider tour step 4 — You're ready to ride">
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 32px;">
+    <p>
+      <strong>Why it works:</strong> Each modal is anchored to the part of the screen it's explaining — users see the real UI in the background, not an abstract illustration. The 'Skip tour' option respects autonomy, and the help (?) button means no user is permanently lost after dismissing it.
+    </p>
+  </div>
+</section>
+
+<hr class="divider">
+
 <!-- KEY DESIGN SOLUTIONS -->
 <section class="section fade">
-  <h3>Key Design Solutions</h3>
-  <p>Selected examples of how Round 1 findings translated directly into platform improvements.</p>
+  <h3>Other Key Design Solutions</h3>
+  <p>Further examples of how Round 1 findings translated directly into platform improvements.</p>
 
   <div class="finding-list" style="margin-top: 24px;">
-    <div class="finding">
-      <span class="badge" style="background:#e8f0fe; color:#1a56c4;">BEFORE→AFTER</span>
-      <div class="finding-text">
-        <div class="finding-title">Artisan onboarding: zero guidance → 5-step guided tour</div>
-        <div class="finding-desc">Round 1 flagged new artisans had no next-step guidance after sign-up. Round 2 confirmed a 5-step onboarding tour was implemented — covering workspace intro, setup checklist, job management, profile, and a 'Ready to earn' close screen. Progress bar and step counter provide orientation throughout.</div>
-      </div>
-    </div>
     <div class="finding">
       <span class="badge" style="background:#e8f0fe; color:#1a56c4;">BEFORE→AFTER</span>
       <div class="finding-text">
@@ -645,7 +732,7 @@ p {
 <section class="section fade">
   <h3>Launch Strategy</h3>
   <p>
-    Following the usability rounds, I developed a phased go-to-market strategy for Chimreff's Lagos launch — an 8-week plan with a ₦200,000 budget, built around a single core principle.
+    Following the usability rounds, I developed a phased go-to-market strategy for Chimreff's Lagos launch — an 8-week plan built around a single core principle.
   </p>
 
   <div class="callout" style="margin-top: 24px;">
@@ -659,7 +746,7 @@ p {
       <span class="phase-num">Phase 01</span>
       <div class="phase-content">
         <div class="phase-title">Build Your Supply Base</div>
-        <div class="phase-sub">Weeks 1–3 · ₦30,000–40,000</div>
+        <div class="phase-sub">Weeks 1–3</div>
         <div class="phase-desc">Onboard 30+ active artisans and riders before any customer campaign launches. Field recruitment at Computer Village (Ikeja), Alaba International Market, and AC/appliance repairers in Surulere. WhatsApp community, video testimonials from early sign-ups.</div>
       </div>
     </div>
@@ -667,7 +754,7 @@ p {
       <span class="phase-num">Phase 02</span>
       <div class="phase-content">
         <div class="phase-title">Soft Launch &amp; Stress Test</div>
-        <div class="phase-sub">Weeks 4–5 · ₦20,000–25,000</div>
+        <div class="phase-sub">Weeks 4–5</div>
         <div class="phase-desc">Complete 30–50 real jobs before public launch. Invite trusted contacts, monitor every job manually, log every issue — bugs, slow response times, artisan no-shows. Fix before going public. Request honest feedback from every test user.</div>
       </div>
     </div>
@@ -675,7 +762,7 @@ p {
       <span class="phase-num">Phase 03</span>
       <div class="phase-content">
         <div class="phase-title">Customer-Side Launch</div>
-        <div class="phase-sub">Weeks 6–8 · ₦100,000–110,000</div>
+        <div class="phase-sub">Weeks 6–8</div>
         <div class="phase-desc">Acquire first 100 paying customers through TikTok/Instagram Reels (authentic content outperforms polished ads), Meta paid ads targeting Lagos residents aged 22–45, and estate WhatsApp community outreach in Lekki, Ajah, Ikeja GRA, Yaba, and Victoria Island.</div>
       </div>
     </div>
@@ -683,7 +770,7 @@ p {
       <span class="phase-num">Phase 04</span>
       <div class="phase-content">
         <div class="phase-title">Rider Growth &amp; Retention</div>
-        <div class="phase-sub">Ongoing from Week 5 · ₦15,000–20,000</div>
+        <div class="phase-sub">Ongoing from Week 5</div>
         <div class="phase-desc">Build a self-sustaining rider network through referral bonuses, monthly leaderboards with cash prizes, and weekly earnings summaries via WhatsApp. Community milestones celebrated to build loyalty at zero cost.</div>
       </div>
     </div>
@@ -719,13 +806,6 @@ p {
       <div class="stat-num">3</div>
       <div class="stat-label">User Flows Evaluated</div>
     </div>
-  </div>
-
-  <div style="margin-top: 24px; padding: 20px 24px; background: #fff; border-radius: 14px; border: 1px solid #e8e8e8;">
-    <p style="font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 0;">Live Platform</p>
-    <p style="margin-top: 8px;">
-      <a href="https://chimreff.com.ng" target="_blank" rel="noopener" style="font-weight: 600; color: #111; opacity: 1; font-size: 15px;">chimreff.com.ng ↗</a>
-    </p>
   </div>
 </section>
 
