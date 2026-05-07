@@ -3,229 +3,745 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Chimreff</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
-
+<title>Chimreff — Confidence Chima</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 * {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Space Grotesk', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Space Grotesk', sans-serif;
 }
 
-/* BODY */
 body {
-background: #f7f7f7;
-color: #111;
-padding: 40px 20px;
-max-width: 900px;
-margin: auto;
-line-height: 1.7;
+  background: #f7f7f7;
+  color: #111;
+  padding: 40px 20px;
+  max-width: 900px;
+  margin: auto;
+  line-height: 1.7;
 }
 
-/* LINKS */
 a {
-text-decoration: none;
-color: #111;
-opacity: 0.7;
+  text-decoration: none;
+  color: #111;
+  opacity: 0.7;
 }
+a:hover { opacity: 1; }
 
-a:hover {
-opacity: 1;
-}
-
-/* HEADINGS */
-h1 {
-font-size: 42px;
-margin-top: 20px;
-}
+h1 { font-size: 42px; margin-top: 20px; }
 
 h2 {
-font-size: 13px;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: #777;
-margin-top: 8px;
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #777;
+  margin-top: 8px;
 }
 
 h3 {
-margin-bottom: 10px;
-font-size: 22px;
+  margin-bottom: 10px;
+  font-size: 22px;
 }
 
-/* TEXT */
 p {
-margin-top: 10px;
-color: #555;
-max-width: 600px;
+  margin-top: 10px;
+  color: #555;
+  max-width: 600px;
 }
 
-/* SECTIONS */
-.section {
-margin-bottom: 80px;
-}
+.section { margin-bottom: 80px; }
 
-/* HERO */
-.hero {
-margin: 50px 0;
-}
-
+.hero { margin: 50px 0; }
 .hero img {
-width: 100%;
-border-radius: 20px;
-box-shadow: 0 15px 40px rgba(0,0,0,0.08);
+  width: 100%;
+  border-radius: 20px;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
 }
 
-/* IMAGE */
-.section-img {
-margin-top: 25px;
-}
-
+.section-img { margin-top: 25px; }
 .section-img img {
-width: 100%;
-border-radius: 18px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+
+/* META ROW */
+.meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 32px;
+  padding: 28px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid #e8e8e8;
+}
+.meta-item {}
+.meta-label {
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #999;
+  margin-bottom: 4px;
+}
+.meta-value {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111;
+  margin-top: 0;
+}
+
+/* ROLE TAGS */
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 20px;
+}
+.tag {
+  font-size: 12px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: #111;
+  color: #f7f7f7;
+  font-weight: 500;
+}
+.tag.outline {
+  background: transparent;
+  border: 1.5px solid #ccc;
+  color: #555;
+}
+
+/* STAT CARDS */
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 28px;
+}
+.stat-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px 20px;
+  border: 1px solid #e8e8e8;
+  text-align: center;
+}
+.stat-num {
+  font-size: 38px;
+  font-weight: 700;
+  color: #111;
+  line-height: 1;
+}
+.stat-label {
+  font-size: 12px;
+  color: #888;
+  margin-top: 6px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* FINDING ROWS */
+.finding-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+.finding {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #fff;
+  border-radius: 14px;
+  padding: 18px 20px;
+  border: 1px solid #e8e8e8;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+.badge.high { background: #fde8e8; color: #c0392b; }
+.badge.mod  { background: #fef0d9; color: #b7651a; }
+.badge.low  { background: #e8f5e9; color: #2e7d32; }
+
+.finding-text {}
+.finding-title { font-weight: 600; font-size: 15px; color: #111; }
+.finding-desc  { font-size: 14px; color: #666; margin-top: 3px; }
+
+/* SCORECARD TABLE */
+.scorecard {
+  margin-top: 24px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #e8e8e8;
+}
+.scorecard-header {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  padding: 12px 20px;
+  background: #111;
+  color: #f7f7f7;
+  font-size: 11px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+.scorecard-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 12px;
+  padding: 14px 20px;
+  background: #fff;
+  border-top: 1px solid #f0f0f0;
+  align-items: center;
+}
+.scorecard-row:nth-child(even) { background: #fafafa; }
+.scorecard-issue { font-size: 14px; color: #333; }
+.scorecard-section { font-size: 11px; color: #999; margin-top: 2px; }
+.pill {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 6px;
+  white-space: nowrap;
+}
+.pill.high    { background: #fde8e8; color: #c0392b; }
+.pill.mod     { background: #fef0d9; color: #b7651a; }
+.pill.low     { background: #e8f8e8; color: #2e7d32; }
+.pill.resolved{ background: #e8f5e9; color: #2e7d32; }
+.pill.partial { background: #fef0d9; color: #b7651a; }
+.pill.open    { background: #fde8e8; color: #c0392b; }
+
+/* PHASE BLOCKS */
+.phase-list { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
+.phase {
+  display: flex;
+  gap: 20px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 22px 24px;
+  border: 1px solid #e8e8e8;
+  align-items: flex-start;
+}
+.phase-num {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background: #111;
+  color: #f7f7f7;
+  padding: 6px 14px;
+  border-radius: 8px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.phase-content {}
+.phase-title { font-weight: 700; font-size: 16px; color: #111; }
+.phase-sub   { font-size: 13px; color: #999; margin-bottom: 6px; }
+.phase-desc  { font-size: 14px; color: #555; margin-top: 4px; }
+
+/* SCREENSHOT GRID */
+.screen-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+.screen-grid img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+.screen-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+.screen-grid-3 img {
+  width: 100%;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+}
+
+/* CALLOUT */
+.callout {
+  background: #111;
+  color: #f7f7f7;
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin-top: 24px;
+}
+.callout p {
+  color: #ccc;
+  max-width: 100%;
+  font-size: 15px;
+}
+.callout strong { color: #fff; }
+
+/* DIVIDER */
+.divider {
+  border: none;
+  border-top: 1px solid #e8e8e8;
+  margin: 0 0 80px 0;
 }
 
 /* CONTACT */
 .contact {
-text-align: center;
-padding: 30px;
-border-radius: 20px;
-background: #f1f1f1;
+  text-align: center;
+  padding: 30px;
+  border-radius: 20px;
+  background: #f1f1f1;
 }
 
-/* ANIMATION */
+/* FADE ANIMATION */
 .fade {
-transform: translateY(40px);
-opacity: 0;
-transition: all 0.8s ease;
+  transform: translateY(40px);
+  opacity: 0;
+  transition: all 0.8s ease;
 }
-
 .fade.show {
-transform: translateY(0);
-opacity: 1;
+  transform: translateY(0);
+  opacity: 1;
 }
 
-/* MOBILE */
 @media (max-width: 768px) {
-body {
-padding: 24px;
-}
-
-h1 {
-font-size: 34px;
-}
+  body { padding: 24px; }
+  h1   { font-size: 34px; }
+  .stat-grid { grid-template-columns: repeat(3, 1fr); }
+  .screen-grid-3 { grid-template-columns: repeat(2, 1fr); }
+  .scorecard-header,
+  .scorecard-row { grid-template-columns: 1fr auto; }
+  .scorecard-header span:last-child,
+  .scorecard-row  span:last-child { display: none; }
 }
 </style>
 </head>
-
 <body>
 
 <a href="index.html" class="fade">← Back to Home</a>
 
 <h1 class="fade">Chimreff</h1>
-<h2 class="fade">Mobile App UX • Service Platform</h2>
+<h2 class="fade">UX Research &amp; Strategy • Repair-Tech Platform • Lagos</h2>
 
 <p class="fade">
-Designing a seamless mobile experience that helps users quickly find and book trusted appliance repair services.
+  Led end-to-end UX research, heuristic evaluation across two rounds, and go-to-market strategy for a live repair-tech platform serving customers, artisans, and riders across Lagos.
 </p>
+
+<div class="tag-row fade">
+  <span class="tag">UX Research</span>
+  <span class="tag">Heuristic Evaluation</span>
+  <span class="tag">Launch Strategy</span>
+  <span class="tag outline">Multi-Persona Platform</span>
+  <span class="tag outline">Live Product</span>
+</div>
 
 <!-- HERO -->
 <div class="hero fade">
-<img src="images/chimreff-hero.png" alt="Chimreff promotional app preview">
+  <img src="images/chimreff-hero.png" alt="Chimreff platform hero">
+</div>
+
+<!-- META -->
+<div class="meta-row fade">
+  <div class="meta-item">
+    <div class="meta-label">Role</div>
+    <div class="meta-value">Product Designer</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-label">Method</div>
+    <div class="meta-value">Heuristic Evaluation</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-label">Rounds</div>
+    <div class="meta-value">2 of 2</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-label">Platform</div>
+    <div class="meta-value">chimreff.com.ng</div>
+  </div>
+  <div class="meta-item">
+    <div class="meta-label">Status</div>
+    <div class="meta-value">Live &amp; Launch-Ready</div>
+  </div>
 </div>
 
 <!-- OVERVIEW -->
 <section class="section fade">
-<h3>Overview</h3>
-<p>
-Chimreff is a service platform focused on simplifying how users resolve appliance issues.
-The goal was to remove complexity and guide users through a fast, intuitive process.
-</p>
+  <h3>Overview</h3>
+  <p>
+    Chimreff is a Lagos-based repair-tech platform connecting customers with skilled artisans for device and appliance repairs — with rider pickup, live tracking, and delivery built in. The platform serves three distinct user types: Customers booking repairs, Artisans managing jobs and availability, and Riders handling pickup and delivery logistics.
+  </p>
+  <p style="margin-top: 12px;">
+    As the Product Designer, I was responsible for evaluating the full platform before launch — testing all three user flows across two structured rounds of heuristic evaluation, then translating research findings into a phased go-to-market strategy.
+  </p>
 </section>
 
-<!-- REAL VISUAL -->
+<hr class="divider">
+
+<!-- PLATFORM SCOPE -->
 <section class="section fade">
-<div class="section-img">
-<img src="images/chimreff-mockup.jpg" alt="Chimreff real usage interface">
-</div>
-<p>
-A real-world view of the product showing how users interact with the interface to quickly select services.
-</p>
+  <h3>Platform Scope</h3>
+  <p>Three user types. Three distinct flows. Each with its own onboarding, dashboard, and core tasks.</p>
+
+  <div class="screen-grid" style="margin-top: 24px;">
+    <img src="images/chimreff-hero.png" alt="Chimreff homepage hero — Repair Faster. Live Easier.">
+    <img src="images/chimreff-mockup.jpg" alt="Chimreff sign-in with Customer, Artisan, Rider role selection">
+  </div>
+
+  <div class="callout" style="margin-top: 24px;">
+    <p>
+      <strong>Why this matters:</strong> Most repair platforms serve one user type. Chimreff's three-persona model — with role-specific auth, onboarding tours, dashboards, and task flows — meant every design decision had to work across fundamentally different mental models and goals.
+    </p>
+  </div>
 </section>
 
-<!-- PROBLEM -->
+<hr class="divider">
+
+<!-- ROUND 1 -->
 <section class="section fade">
-<h3>The Problem</h3>
-<p>
-Users often struggle to describe technical issues or find reliable technicians.
-This leads to delays, confusion, and poor service experiences.
-</p>
+  <h3>Round 1 — Heuristic Evaluation</h3>
+  <p>
+    Conducted across all three user flows before the official app launch on Google Play and iOS. Focus was on identifying friction points, inconsistencies, and drop-off risks before go-live.
+  </p>
+
+  <div class="stat-grid" style="margin-top: 28px;">
+    <div class="stat-card">
+      <div class="stat-num">21</div>
+      <div class="stat-label">Total Findings</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5</div>
+      <div class="stat-label">High Severity</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">5</div>
+      <div class="stat-label">Areas Tested</div>
+    </div>
+  </div>
+
+  <p style="margin-top: 28px; font-weight: 600; color: #111;">Key Findings — High &amp; Moderate Severity</p>
+
+  <div class="finding-list">
+    <div class="finding">
+      <span class="badge high">HIGH</span>
+      <div class="finding-text">
+        <div class="finding-title">No onboarding guidance for new artisans</div>
+        <div class="finding-desc">A new artisan completing their profile had no indication of what to do next or what completing their profile unlocks. No progress checklist, no prompt. Significant drop-off risk.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge high">HIGH</span>
+      <div class="finding-text">
+        <div class="finding-title">Bio field has no guidance</div>
+        <div class="finding-desc">The bio field was blank with no example or placeholder. Artisans didn't know what to write or how it affects their visibility to customers.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge high">HIGH</span>
+      <div class="finding-text">
+        <div class="finding-title">GPS error state too alarming on first load</div>
+        <div class="finding-desc">Riders logging in for the first time were immediately confronted with multiple red error messages about location permission — creating unnecessary anxiety before any context was given.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge high">HIGH</span>
+      <div class="finding-text">
+        <div class="finding-title">Conflicting 'Live' badge when GPS is denied</div>
+        <div class="finding-desc">The header showed a green 'Live' badge even when location permission was denied — a direct contradiction that undermines trust in the system.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge high">HIGH</span>
+      <div class="finding-text">
+        <div class="finding-title">Artisan dashboard gives no direction to new users</div>
+        <div class="finding-desc">A new artisan with all zeros sees no guidance on what to do. No getting-started checklist, no prompt to complete availability. The dashboard was silent.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge mod">MOD</span>
+      <div class="finding-text">
+        <div class="finding-title">Commission section uses alarming language</div>
+        <div class="finding-desc">'What You Owe (Personal Account Payments)' in orange created a sense of debt even when the balance was zero. Recommended reword: 'Commission Summary'.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge mod">MOD</span>
+      <div class="finding-text">
+        <div class="finding-title">Trust signals missing on homepage</div>
+        <div class="finding-desc">The platform's operational history is never mentioned on the homepage — a missed opportunity to differentiate from newer startups and build immediate credibility.</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top: 28px; color: #888; font-size: 13px;">
+    Full breakdown: Homepage (4), Sign In (1), Artisan Profile (7), Artisan Dashboard (5), Rider Dashboard (4)
+  </p>
 </section>
 
-<!-- APP INTRO -->
+<hr class="divider">
+
+<!-- ROUND 2 -->
 <section class="section fade">
-<div class="section-img">
-<img src="images/chimreff-2.jpg" alt="Chimreff app introduction screen">
-</div>
-<p>
-The app introduces a simple and direct entry point, allowing users to immediately take action.
-</p>
+  <h3>Round 2 — Validation &amp; Fix Scorecard</h3>
+  <p>
+    Round 2 was conducted via screenshot review across the Artisan and Rider flows, validating fixes implemented after Round 1. Focus: confirm all HIGH and MODERATE severity findings had been resolved, and identify any new issues introduced during implementation.
+  </p>
+
+  <div class="stat-grid" style="margin-top: 28px;">
+    <div class="stat-card">
+      <div class="stat-num">14–15</div>
+      <div class="stat-label">Issues Resolved</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">0</div>
+      <div class="stat-label">High Severity Remaining</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">✓</div>
+      <div class="stat-label">Launch-Ready</div>
+    </div>
+  </div>
+
+  <!-- SCORECARD -->
+  <div class="scorecard" style="margin-top: 32px;">
+    <div class="scorecard-header">
+      <span>Finding</span>
+      <span>Severity</span>
+      <span>Round 2 Status</span>
+    </div>
+
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">No onboarding guidance for new artisans</div>
+        <div class="scorecard-section">Artisan Profile</div>
+      </div>
+      <span class="pill high">HIGH</span>
+      <span class="pill resolved">Resolved</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Bio field has no guidance</div>
+        <div class="scorecard-section">Artisan Profile</div>
+      </div>
+      <span class="pill high">HIGH</span>
+      <span class="pill resolved">Resolved</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">GPS error state too alarming on first load</div>
+        <div class="scorecard-section">Rider Dashboard</div>
+      </div>
+      <span class="pill high">HIGH</span>
+      <span class="pill resolved">Resolved</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Conflicting 'Live' badge when GPS denied</div>
+        <div class="scorecard-section">Rider Dashboard</div>
+      </div>
+      <span class="pill high">HIGH</span>
+      <span class="pill resolved">Resolved</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Dashboard gives no direction to new artisans</div>
+        <div class="scorecard-section">Artisan Dashboard</div>
+      </div>
+      <span class="pill high">HIGH</span>
+      <span class="pill resolved">Resolved</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Commission section uses alarming language</div>
+        <div class="scorecard-section">Artisan Dashboard</div>
+      </div>
+      <span class="pill mod">MOD</span>
+      <span class="pill resolved">Resolved</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Notification bell turns green on click</div>
+        <div class="scorecard-section">Artisan Dashboard</div>
+      </div>
+      <span class="pill mod">MOD</span>
+      <span class="pill resolved">Resolved</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Color inconsistency — dropdown uses green</div>
+        <div class="scorecard-section">Artisan Profile</div>
+      </div>
+      <span class="pill mod">MOD</span>
+      <span class="pill partial">Partial</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Trust signals missing on homepage</div>
+        <div class="scorecard-section">Homepage</div>
+      </div>
+      <span class="pill mod">MOD</span>
+      <span class="pill partial">Partial</span>
+    </div>
+    <div class="scorecard-row">
+      <div>
+        <div class="scorecard-issue">Explore / Live / Shop Live tabs unclear</div>
+        <div class="scorecard-section">Rider Dashboard</div>
+      </div>
+      <span class="pill low">LOW</span>
+      <span class="pill open">Open</span>
+    </div>
+  </div>
+
+  <div class="callout" style="margin-top: 28px;">
+    <p>
+      <strong>Launch decision:</strong> All 5 HIGH severity findings were resolved by Round 2. The platform entered a launch-ready state with a small polish backlog — none of which were blockers. Round 3 testing was deemed unnecessary; remaining items were scoped as a focused post-launch fix pass.
+    </p>
+  </div>
 </section>
 
-<!-- FLOW -->
+<hr class="divider">
+
+<!-- KEY DESIGN SOLUTIONS -->
 <section class="section fade">
-<h3>User Flow</h3>
-<p>
-The experience is broken into clear steps, helping users move from identifying a problem to getting help.
-</p>
+  <h3>Key Design Solutions</h3>
+  <p>Selected examples of how Round 1 findings translated directly into platform improvements.</p>
 
-<div class="section-img">
-<img src="images/chimreff-3.jpg" alt="Chimreff user flow diagram">
-</div>
+  <div class="finding-list" style="margin-top: 24px;">
+    <div class="finding">
+      <span class="badge" style="background:#e8f0fe; color:#1a56c4;">BEFORE→AFTER</span>
+      <div class="finding-text">
+        <div class="finding-title">Artisan onboarding: zero guidance → 5-step guided tour</div>
+        <div class="finding-desc">Round 1 flagged new artisans had no next-step guidance after sign-up. Round 2 confirmed a 5-step onboarding tour was implemented — covering workspace intro, setup checklist, job management, profile, and a 'Ready to earn' close screen. Progress bar and step counter provide orientation throughout.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge" style="background:#e8f0fe; color:#1a56c4;">BEFORE→AFTER</span>
+      <div class="finding-text">
+        <div class="finding-title">Rider GPS: alarming error wall → single friendly prompt</div>
+        <div class="finding-desc">Round 1 found riders were met with multiple red error messages on first load. Round 2 confirmed this was resolved to a single calm message: 'Please allow location access to receive nearby pickups.' Location permission is now also a structured checklist item — part of onboarding rather than a surprise error state.</div>
+      </div>
+    </div>
+    <div class="finding">
+      <span class="badge" style="background:#e8f0fe; color:#1a56c4;">BEFORE→AFTER</span>
+      <div class="finding-text">
+        <div class="finding-title">Commission language: 'What You Owe' → 'Commission Summary'</div>
+        <div class="finding-desc">Orange 'What You Owe' framing created anxiety even at zero balance. Reworded to neutral, informational language that tracks earnings without implying debt.</div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- BRANDING -->
+<hr class="divider">
+
+<!-- LAUNCH STRATEGY -->
 <section class="section fade">
-<h3>Experience & Branding</h3>
-<p>
-The interface combines clarity with a strong visual identity, building trust and encouraging engagement.
-</p>
+  <h3>Launch Strategy</h3>
+  <p>
+    Following the usability rounds, I developed a phased go-to-market strategy for Chimreff's Lagos launch — an 8-week plan with a ₦200,000 budget, built around a single core principle.
+  </p>
 
-<div class="section-img">
-<img src="images/chimreff-4.jpg" alt="Chimreff branding and interface design">
-</div>
+  <div class="callout" style="margin-top: 24px;">
+    <p>
+      <strong>Core Principle: Supply Before Demand.</strong> Recruit artisans and riders first. A single failed job in Lagos creates lasting damage to word-of-mouth. Build a reliable supply base before spending a single kobo on customer acquisition.
+    </p>
+  </div>
+
+  <div class="phase-list">
+    <div class="phase">
+      <span class="phase-num">Phase 01</span>
+      <div class="phase-content">
+        <div class="phase-title">Build Your Supply Base</div>
+        <div class="phase-sub">Weeks 1–3 · ₦30,000–40,000</div>
+        <div class="phase-desc">Onboard 30+ active artisans and riders before any customer campaign launches. Field recruitment at Computer Village (Ikeja), Alaba International Market, and AC/appliance repairers in Surulere. WhatsApp community, video testimonials from early sign-ups.</div>
+      </div>
+    </div>
+    <div class="phase">
+      <span class="phase-num">Phase 02</span>
+      <div class="phase-content">
+        <div class="phase-title">Soft Launch &amp; Stress Test</div>
+        <div class="phase-sub">Weeks 4–5 · ₦20,000–25,000</div>
+        <div class="phase-desc">Complete 30–50 real jobs before public launch. Invite trusted contacts, monitor every job manually, log every issue — bugs, slow response times, artisan no-shows. Fix before going public. Request honest feedback from every test user.</div>
+      </div>
+    </div>
+    <div class="phase">
+      <span class="phase-num">Phase 03</span>
+      <div class="phase-content">
+        <div class="phase-title">Customer-Side Launch</div>
+        <div class="phase-sub">Weeks 6–8 · ₦100,000–110,000</div>
+        <div class="phase-desc">Acquire first 100 paying customers through TikTok/Instagram Reels (authentic content outperforms polished ads), Meta paid ads targeting Lagos residents aged 22–45, and estate WhatsApp community outreach in Lekki, Ajah, Ikeja GRA, Yaba, and Victoria Island.</div>
+      </div>
+    </div>
+    <div class="phase">
+      <span class="phase-num">Phase 04</span>
+      <div class="phase-content">
+        <div class="phase-title">Rider Growth &amp; Retention</div>
+        <div class="phase-sub">Ongoing from Week 5 · ₦15,000–20,000</div>
+        <div class="phase-desc">Build a self-sustaining rider network through referral bonuses, monthly leaderboards with cash prizes, and weekly earnings summaries via WhatsApp. Community milestones celebrated to build loyalty at zero cost.</div>
+      </div>
+    </div>
+  </div>
+
+  <p style="margin-top: 20px; font-size: 14px; color: #888;">
+    Key metrics tracked weekly: Job Completion Rate (target 90%+), Average Response Time (target under 30 mins), Customer Repeat Rate as PMF signal, Cost Per Booking.
+  </p>
 </section>
+
+<hr class="divider">
 
 <!-- OUTCOME -->
 <section class="section fade">
-<h3>Outcome</h3>
-<p>
-The final experience reduces friction, improves usability, and enables users to quickly move from problem to solution.
-</p>
+  <h3>Outcome</h3>
+  <p>
+    Two structured rounds of heuristic evaluation identified and resolved all critical usability risks before launch. The platform moved from a state where new artisans had zero onboarding guidance and riders faced alarming GPS errors, to a launch-ready product with a thorough fix scorecard and a clear backlog for post-launch iteration.
+  </p>
+  <p style="margin-top: 12px;">
+    The research directly shaped the go-to-market strategy — the supply-before-demand principle, the phased launch plan, and the weekly KPI framework all emerged from understanding where the platform was fragile and where first impressions were most at risk.
+  </p>
+
+  <div class="stat-grid" style="margin-top: 28px;">
+    <div class="stat-card">
+      <div class="stat-num">21</div>
+      <div class="stat-label">Findings Documented</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">14–15</div>
+      <div class="stat-label">Resolved by Round 2</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">3</div>
+      <div class="stat-label">User Flows Evaluated</div>
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; padding: 20px 24px; background: #fff; border-radius: 14px; border: 1px solid #e8e8e8;">
+    <p style="font-size: 13px; color: #999; text-transform: uppercase; letter-spacing: 1px; margin-top: 0;">Live Platform</p>
+    <p style="margin-top: 8px;">
+      <a href="https://chimreff.com.ng" target="_blank" rel="noopener" style="font-weight: 600; color: #111; opacity: 1; font-size: 15px;">chimreff.com.ng ↗</a>
+    </p>
+  </div>
 </section>
 
 <!-- CONTACT -->
 <div class="contact fade">
-<p><strong>Available for collaboration</strong></p>
-<p>Chimaconfidence086@gmail.com</p>
+  <p><strong>Available for collaboration</strong></p>
+  <p>Chimaconfidence086@gmail.com</p>
 </div>
 
 <script>
 const faders = document.querySelectorAll('.fade');
-
 const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('show');
-}
-});
-});
-
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('show');
+  });
+}, { threshold: 0.1 });
 faders.forEach(el => observer.observe(el));
 </script>
 
