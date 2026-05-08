@@ -3,210 +3,596 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Confidence Chima — Product Designer</title>
 
-<title>Confidence Chima</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg: #0C0B09;
+  --surface: #141310;
+  --card: #1A1916;
+  --text: #EDE8DF;
+  --muted: #7A7469;
+  --accent: #C9A96E;
+  --border: rgba(237, 232, 223, 0.08);
+  --serif: 'Cormorant Garamond', serif;
+  --sans: 'DM Sans', sans-serif;
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Space Grotesk', sans-serif;
 }
 
-/* BODY */
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   cursor: none;
-  background: #f7f7f7;
-  color: #111;
-  padding: 24px;
-  max-width: 1100px;
-  margin: auto;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
 }
 
-/* NAV */
-nav {
-  position: sticky;
-  top: 0;
-  background: #f7f7f7;
-  padding: 10px 0;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 60px;
-  z-index: 100;
-}
-
-nav a {
-  text-decoration: none;
-  color: #111;
-  font-weight: 600;
-  margin-left: 20px;
-  position: relative;
-}
-
-nav a::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 0;
-  height: 2px;
-  background: black;
-  transition: 0.3s;
-}
-
-nav a:hover::after {
-  width: 100%;
-}
-
-/* HERO */
-h1 {
-  font-size: 52px;
-  line-height: 1.1;
-}
-
-h2 {
-  color: #777;
-  margin: 10px 0 20px;
-}
-
-p {
-  max-width: 560px;
-  line-height: 1.7;
-  margin-bottom: 30px;
-}
-
-/* SECTIONS */
-h3 {
-  margin: 80px 0 16px;
-  font-size: 22px;
-}
-
-/* GRID */
-.grid {
-  display: grid;
-  gap: 28px;
-}
-
-/* CARD */
-.card {
-  position: relative;
-  border-radius: 20px;
-  overflow: hidden;
-  transform: translateY(60px);
-  opacity: 0;
-  transition: all 0.8s ease;
-}
-
-.card.show {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-/* IMAGE */
-.card img {
-  width: 100%;
-  display: block;
-  transition: transform 0.6s ease;
-}
-
-/* HOVER ZOOM */
-.card:hover img {
-  transform: scale(1.05);
-}
-
-/* OVERLAY */
-.overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  transition: 0.4s ease;
-}
-
-.overlay span {
-  color: white;
-  font-size: 20px;
-  font-weight: 600;
-}
-
-/* DESKTOP HOVER */
-.card:hover .overlay {
-  opacity: 1;
-}
-
-/* MOBILE TAP STATE */
-.card.active .overlay {
-  opacity: 1;
-}
-
-/* TEXT */
-.desc {
-  font-size: 14px;
-  color: #666;
-  margin-top: 8px;
-}
-
-/* VIEW CASE STUDY LINK */
-.case-study-link {
-  display: inline-block;
-  font-size: 13px;
-  font-weight: 600;
-  color: #111;
-  text-decoration: none;
-  margin-top: 6px;
-  position: relative;
-}
-
-.case-study-link::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 1.5px;
-  background: #111;
-  transition: opacity 0.3s;
-}
-
-.case-study-link:hover::after {
-  opacity: 0.3;
-}
-
-/* LINKS */
-.card a {
-  display: block;
-  color: inherit;
-  text-decoration: none;
-}
-
-/* CURSOR */
+/* ─── CURSOR ─── */
 .cursor {
-  width: 12px;
-  height: 12px;
-  background: black;
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
   transform: translate(-50%, -50%);
   z-index: 9999;
-  transition: transform 0.15s ease, background 0.3s;
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease, opacity 0.25s ease;
+}
+
+.cursor-ring {
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(201, 169, 110, 0.4);
+  border-radius: 50%;
+  position: fixed;
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  z-index: 9998;
+  transition: width 0.4s ease, height 0.4s ease, border-color 0.3s ease;
 }
 
 .cursor.hover {
-  transform: translate(-50%, -50%) scale(2.5);
-  background: rgba(0,0,0,0.6);
+  width: 4px;
+  height: 4px;
+  background: var(--accent);
 }
 
-/* MOBILE */
+.cursor-ring.hover {
+  width: 48px;
+  height: 48px;
+  border-color: rgba(201, 169, 110, 0.7);
+}
+
 @media (max-width: 768px) {
   body { cursor: auto; }
-  .cursor { display: none; }
+  .cursor, .cursor-ring { display: none; }
+}
+
+/* ─── LAYOUT ─── */
+.container {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+@media (max-width: 768px) {
+  .container { padding: 0 24px; }
+}
+
+/* ─── NAV ─── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  padding: 28px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(12, 11, 9, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+  max-width: 100%;
+}
+
+.nav-logo {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 18px;
+  letter-spacing: 0.02em;
+  color: var(--text);
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex;
+  gap: 32px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--accent);
+  transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: var(--text);
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+/* ─── HERO ─── */
+.hero {
+  padding: 120px 40px 100px;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 60px;
+  align-items: end;
+}
+
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 80px 24px 60px;
+    gap: 40px;
+  }
+}
+
+.hero-left {}
+
+.hero-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 400;
+  margin-bottom: 28px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.hero-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(64px, 8vw, 108px);
+  font-weight: 300;
+  line-height: 0.92;
+  letter-spacing: -0.01em;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.hero-name em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.hero-role {
+  font-family: var(--serif);
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  margin-bottom: 48px;
+  line-height: 1;
+}
+
+.hero-tagline {
+  font-size: 15px;
+  line-height: 1.75;
+  color: var(--muted);
+  max-width: 460px;
+  font-weight: 300;
+}
+
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-bottom: 4px;
+}
+
+.hero-stat {
+  border-top: 1px solid var(--border);
+  padding-top: 20px;
+}
+
+.hero-stat-num {
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 300;
+  color: var(--text);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+
+.hero-stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+}
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px;
+  background: var(--border);
+  margin: 0 40px;
+  max-width: calc(1080px - 80px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ─── SECTION ─── */
+.section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 80px 40px;
+}
+
+@media (max-width: 768px) {
+  .section { padding: 60px 24px; }
+}
+
+.section-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 48px;
+}
+
+.section-title {
+  font-family: var(--serif);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.section-num {
+  font-family: var(--serif);
+  font-size: 11px;
+  color: var(--accent);
+}
+
+/* ─── FEATURED CARD ─── */
+.card-featured {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 440px;
+  transition: border-color 0.4s ease;
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.8s ease, transform 0.8s ease, border-color 0.4s ease;
+}
+
+.card-featured.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-featured:hover {
+  border-color: rgba(201, 169, 110, 0.3);
+}
+
+@media (max-width: 768px) {
+  .card-featured { grid-template-columns: 1fr; min-height: auto; }
+}
+
+.card-featured-img {
+  overflow: hidden;
+  background: #1E1C18;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-featured-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.8s ease;
+  display: block;
+}
+
+.card-featured:hover .card-featured-img img {
+  transform: scale(1.04);
+}
+
+.card-featured-body {
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.card-tag {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 400;
+  margin-bottom: 20px;
+}
+
+.card-title {
+  font-family: var(--serif);
+  font-size: 36px;
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 16px;
+}
+
+.card-desc {
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--muted);
+  font-weight: 300;
+  flex: 1;
+  margin-bottom: 40px;
+}
+
+.card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 400;
+  transition: gap 0.3s ease, color 0.3s ease;
+}
+
+.card-link::after {
+  content: '→';
+  transition: transform 0.3s ease;
+}
+
+.card-link:hover {
+  color: var(--accent);
+  gap: 16px;
+}
+
+/* ─── GRID CARDS ─── */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+@media (max-width: 900px) {
+  .cards-grid { grid-template-columns: 1fr; }
+}
+
+.card-grid-item {
+  background: var(--card);
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.card-grid-item.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.card-grid-item:nth-child(1) { transition-delay: 0s; }
+.card-grid-item:nth-child(2) { transition-delay: 0.1s; }
+.card-grid-item:nth-child(3) { transition-delay: 0.2s; }
+
+.card-grid-img {
+  overflow: hidden;
+  aspect-ratio: 4/3;
+  background: #1A1916;
+}
+
+.card-grid-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.7s ease;
+  display: block;
+}
+
+.card-grid-item:hover .card-grid-img img {
+  transform: scale(1.05);
+}
+
+.card-grid-body {
+  padding: 24px 24px 28px;
+  border-top: 1px solid var(--border);
+}
+
+.card-grid-tag {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.card-grid-title {
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 300;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+
+.card-grid-desc {
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--muted);
+  font-weight: 300;
+  margin-bottom: 20px;
+}
+
+/* ─── ADDITIONAL (2-col) ─── */
+.cards-two {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .cards-two { grid-template-columns: 1fr; }
+}
+
+/* ─── CONTACT ─── */
+.contact {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 80px 40px 120px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  border-top: 1px solid var(--border);
+}
+
+@media (max-width: 768px) {
+  .contact { grid-template-columns: 1fr; padding: 60px 24px 80px; }
+}
+
+.contact-headline {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--text);
+}
+
+.contact-headline em {
+  font-style: italic;
+  color: var(--accent);
+}
+
+.contact-right {}
+
+.contact-label {
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.contact-email {
+  display: block;
+  font-family: var(--serif);
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--text);
+  text-decoration: none;
+  margin-bottom: 32px;
+  transition: color 0.3s ease;
+}
+
+.contact-email:hover {
+  color: var(--accent);
+}
+
+.btn-cv {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text);
+  text-decoration: none;
+  font-weight: 400;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease;
+}
+
+.btn-cv:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: rgba(201, 169, 110, 0.05);
+}
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 40px;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  footer { padding: 24px; flex-direction: column; gap: 8px; }
+}
+
+.footer-copy {
+  font-size: 12px;
+  color: var(--muted);
 }
 </style>
 </head>
@@ -214,169 +600,221 @@ h3 {
 <body>
 
 <div class="cursor"></div>
+<div class="cursor-ring"></div>
 
+<!-- NAV -->
 <nav>
-  <div><strong>Confidence</strong></div>
-  <div>
+  <a href="index.html" class="nav-logo">Confidence Chima</a>
+  <div class="nav-links">
     <a href="about.html">About</a>
     <a href="contact.html">Contact</a>
   </div>
 </nav>
 
-<h1>Confidence Chima</h1>
-<h2>Product</h2>Designer</h2>
-
-<p>
-I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
-</p>
-
-<p>
-Focused on creating structured, intuitive interfaces that improve usability and user flow.
-</p>
-
-<h3>Featured Work</h3>
-<p class="desc">Designing a gallery experience that makes discovering art feel effortless.</p>
-
-<div class="grid">
-  <div>
-    <div class="card">
-      <a href="vanguard.html">
-        <img src="images/vanguard-mockup-removebg-preview.png" alt="Vanguard Gallery">
-        <div class="overlay"><span>Vanguard Gallery</span></div>
-      </a>
-    </div>
-    <a href="vanguard.html" class="case-study-link">View Case Study →</a>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label">Product Designer</p>
+    <h1 class="hero-name">Confidence<br><em>Chima</em></h1>
+    <p class="hero-role">Product Designer</p>
+    <p class="hero-tagline">
+      I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
+    </p>
   </div>
-</div>
+  <div class="hero-right">
+    <div class="hero-stat">
+      <div class="hero-stat-num">5+</div>
+      <div class="hero-stat-label">Case studies shipped</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">UX</div>
+      <div class="hero-stat-label">Research · Interaction · Flow</div>
+    </div>
+    <div class="hero-stat">
+      <div class="hero-stat-num">Figma</div>
+      <div class="hero-stat-label">Primary design tool</div>
+    </div>
+  </div>
+</section>
 
-<h3>Selected Work</h3>
+<div class="divider"></div>
 
-<div class="grid">
-  <div>
-    <div class="card">
-      <a href="mindcare.html">
+<!-- FEATURED WORK -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">
+      <span class="section-num">01</span>
+      Featured Work
+    </div>
+  </div>
+
+  <div class="card-featured">
+    <div class="card-featured-img">
+      <img src="images/vanguard-mockup-removebg-preview.png" alt="Vanguard Gallery">
+    </div>
+    <div class="card-featured-body">
+      <div>
+        <p class="card-tag">Mobile UX · Art Discovery</p>
+        <h2 class="card-title">Vanguard Gallery</h2>
+        <p class="card-desc">
+          Designing a guided, immersive gallery experience that transforms passive browsing into active exploration — connecting users to artworks and artists with intention.
+        </p>
+      </div>
+      <a href="vanguard.html" class="card-link">View Case Study</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- SELECTED WORK -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">
+      <span class="section-num">02</span>
+      Selected Work
+    </div>
+  </div>
+
+  <div class="cards-grid">
+    <div class="card-grid-item">
+      <div class="card-grid-img">
         <img src="images/mindcare-mockup.jpg" alt="MindCare">
-        <div class="overlay"><span>MindCare</span></div>
-      </a>
+      </div>
+      <div class="card-grid-body">
+        <p class="card-grid-tag">Mobile UX · Mental Health</p>
+        <h3 class="card-grid-title">MindCare</h3>
+        <p class="card-grid-desc">Helping users check in with their emotions in a simple, stress-free way.</p>
+        <a href="mindcare.html" class="card-link">View Case Study</a>
+      </div>
     </div>
-    <p class="desc">Helping users check in with their emotions in a simple, stress-free way.</p>
-    <a href="mindcare.html" class="case-study-link">View Case Study →</a>
-  </div>
 
-  <div>
-    <div class="card">
-      <a href="profilestudio.html">
+    <div class="card-grid-item">
+      <div class="card-grid-img">
         <img src="images/profilestudio-mockup.jpg" alt="Profile Studio">
-        <div class="overlay"><span>Profile Studio</span></div>
-      </a>
+      </div>
+      <div class="card-grid-body">
+        <p class="card-grid-tag">UX · Personal Branding</p>
+        <h3 class="card-grid-title">Profile Studio</h3>
+        <p class="card-grid-desc">Turning personal branding into a clear, structured experience.</p>
+        <a href="profilestudio.html" class="card-link">View Case Study</a>
+      </div>
     </div>
-    <p class="desc">Turning personal branding into a clear, structured experience.</p>
-    <a href="profilestudio.html" class="case-study-link">View Case Study →</a>
-  </div>
-</div>
 
-<h3>Additional Work</h3>
-<p class="desc">Visual and product design explorations.</p>
-
-<div class="grid">
-  <div>
-    <div class="card">
-      <a href="chimreff.html">
+    <div class="card-grid-item">
+      <div class="card-grid-img">
         <img src="images/chimreff-hero.png" alt="Chimreff">
-        <div class="overlay"><span>Chimreff</span></div>
-      </a>
+      </div>
+      <div class="card-grid-body">
+        <p class="card-grid-tag">Mobile UX · Service Platform</p>
+        <h3 class="card-grid-title">Chimreff</h3>
+        <p class="card-grid-desc">Making service booking feel fast, trusted, and accessible.</p>
+        <a href="chimreff.html" class="card-link">View Case Study</a>
+      </div>
     </div>
-    <p class="desc">Making service booking feel fast and accessible.</p>
-    <a href="chimreff.html" class="case-study-link">View Case Study →</a>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ADDITIONAL WORK -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">
+      <span class="section-num">03</span>
+      Additional Work
+    </div>
   </div>
 
-  <div>
-    <div class="card">
-      <a href="paperboymusic.html">
+  <div class="cards-two">
+    <div class="card-grid-item">
+      <div class="card-grid-img">
         <img src="images/paperboymusic-mockup.jpg" alt="Paperboy Music">
-        <div class="overlay"><span>Paperboy Music</span></div>
-      </a>
+      </div>
+      <div class="card-grid-body">
+        <p class="card-grid-tag">Visual Design · Branding</p>
+        <h3 class="card-grid-title">Paperboy Music</h3>
+        <p class="card-grid-desc">Designing bold visuals that capture attention instantly.</p>
+        <a href="paperboymusic.html" class="card-link">View Case Study</a>
+      </div>
     </div>
-    <p class="desc">Designing bold visuals that capture attention instantly.</p>
-    <a href="paperboymusic.html" class="case-study-link">View Case Study →</a>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<div class="contact">
+  <div>
+    <h2 class="contact-headline">Have something<br>in <em>mind?</em></h2>
+  </div>
+  <div class="contact-right">
+    <p class="contact-label">Get in touch</p>
+    <a href="mailto:chimaconfidence086@gmail.com" class="contact-email">chimaconfidence086@gmail.com</a>
+    <a href="Confidence_Chima_Product_Designer_Resume.pdf" download class="btn-cv">
+      Download CV ↓
+    </a>
   </div>
 </div>
 
-<h3>Contact</h3>
-<p>
-Have a project in mind? I'd love to hear about it.
-</p>
-
-<p>
-<strong>chimaconfidence086@gmail.com</strong>
-</p>
-
-<a href="Confidence_Chima_Product_Designer_Resume.pdf" download 
-style="
-display: inline-block;
-margin-top: 12px;
-padding: 12px 20px;
-background: #111;
-color: #fff;
-border-radius: 8px;
-text-decoration: none;
-font-size: 14px;
-font-weight: 600;
-transition: 0.3s;
-">
-Download CV
-</a>
+<footer>
+  <span class="footer-copy">© 2025 Confidence Chima</span>
+  <span class="footer-copy">Product Designer</span>
+</footer>
 
 <script>
+const cursor = document.querySelector('.cursor');
+const ring = document.querySelector('.cursor-ring');
+let ringX = 0, ringY = 0, mouseX = 0, mouseY = 0;
 
-/* SCROLL REVEAL */
-const cards = document.querySelectorAll('.card');
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX;
+  mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px';
+  cursor.style.top = mouseY + 'px';
+});
 
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting){
-      entry.target.classList.add('show');
-    }
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12;
+  ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px';
+  ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
+
+const interactables = document.querySelectorAll('a, .card-featured, .card-grid-item');
+interactables.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.classList.add('hover');
+    ring.classList.add('hover');
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.classList.remove('hover');
+    ring.classList.remove('hover');
   });
 });
 
-cards.forEach(card => observer.observe(card));
+/* SCROLL REVEAL */
+const revealEls = document.querySelectorAll('.card-featured, .card-grid-item');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) entry.target.classList.add('show');
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => observer.observe(el));
 
-/* CURSOR */
-const cursor = document.querySelector('.cursor');
-
-document.addEventListener('mousemove', e => {
-  cursor.style.left = e.clientX + 'px';
-  cursor.style.top = e.clientY + 'px';
-});
-
-/* CURSOR INTERACTION */
-document.querySelectorAll('a, .card').forEach(el => {
-  el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-  el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-});
-
-/* MOBILE TAP OVERLAY FIX */
-document.querySelectorAll('.card').forEach(card => {
+/* MOBILE TAP OVERLAY */
+document.querySelectorAll('.card-featured, .card-grid-item').forEach(card => {
   let tapped = false;
-
   card.addEventListener('click', function(e) {
     if (window.innerWidth <= 768) {
       if (!tapped) {
         e.preventDefault();
         tapped = true;
-        card.classList.add('active');
-
-        document.querySelectorAll('.card').forEach(c => {
-          if (c !== card) c.classList.remove('active');
-        });
-
         setTimeout(() => tapped = false, 2000);
       }
     }
   });
 });
-
 </script>
 
 </body>
