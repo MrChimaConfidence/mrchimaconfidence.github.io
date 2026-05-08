@@ -273,6 +273,77 @@ nav {
   font-size: 13px; line-height: 1.7;
   color: var(--muted); font-weight: 300;
 }
+.timeline-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  margin-top: 12px;
+  padding: 5px 12px;
+  border: 1px solid rgba(201,169,110,0.35);
+  border-radius: 999px;
+  font-size: 10px; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--accent);
+  font-weight: 400;
+}
+.timeline-badge::before {
+  content: '';
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.6); }
+}
+/* ─── BEYOND DESIGN STAGGER ─── */
+.beyond-link {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity 0.55s cubic-bezier(0.16,1,0.3,1),
+              transform 0.55s cubic-bezier(0.16,1,0.3,1),
+              color 0.3s ease, gap 0.3s ease;
+}
+.beyond-link.show { opacity: 1; transform: translateY(0); }
+.beyond-link:nth-child(1) { transition-delay: 0s; }
+.beyond-link:nth-child(2) { transition-delay: 0.14s; }
+.beyond-link:nth-child(3) { transition-delay: 0.28s; }
+/* ─── PHOTO SHINE ─── */
+.photo-frame::after {
+  content: '';
+  position: absolute; inset: 0; z-index: 2;
+  background: linear-gradient(105deg, transparent 40%, rgba(201,169,110,0.07) 50%, transparent 60%);
+  transform: translateX(-100%);
+  transition: transform 0.75s ease;
+  pointer-events: none;
+}
+.photo-frame:hover::after { transform: translateX(100%); }
+/* ─── STATS ROW ─── */
+.stats-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px;
+  overflow: hidden; margin-top: 48px;
+}
+@media (max-width: 640px) { .stats-row { grid-template-columns: 1fr; } }
+.stat-cell {
+  background: var(--card); padding: 32px 28px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.stat-cell.show { opacity: 1; transform: translateY(0); }
+.stat-cell:nth-child(1) { transition-delay: 0s; }
+.stat-cell:nth-child(2) { transition-delay: 0.1s; }
+.stat-cell:nth-child(3) { transition-delay: 0.2s; }
+.stat-num {
+  font-family: var(--serif);
+  font-size: clamp(44px, 6vw, 72px);
+  font-weight: 300; color: var(--text); line-height: 1;
+  display: block;
+}
+.stat-num em { font-style: italic; color: var(--accent); }
+.stat-label {
+  font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--muted);
+  margin-top: 8px; display: block;
+}
 
 /* ─── TOOLS ─── */
 .tools-grid {
@@ -424,6 +495,23 @@ footer {
       <p>Design is how I think. Whether I'm building an interface or a community, I'm always asking the same question: does this feel clear, useful, and worth returning to?</p>
     </div>
   </div>
+
+  <!-- STATS ROW -->
+  <div class="stats-row">
+    <div class="stat-cell">
+      <span class="stat-num" data-count="5">0</span>
+      <span class="stat-label">Case Studies</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num" data-count="2000"><em>2k</em></span>
+      <span class="stat-label">Followers Across Platforms</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num" data-count="500">0</span>
+      <span class="stat-label">Community Members</span>
+    </div>
+  </div>
+
 </section>
 
 <div class="divider"></div>
@@ -450,9 +538,10 @@ footer {
     </div>
 
     <div class="timeline-item">
-      <div class="timeline-year">2023 — 2025</div>
+      <div class="timeline-year">2023 — Present</div>
       <div class="timeline-role">Product Designer & Marketing Lead<br><span style="font-size:13px; color: var(--muted);">Chimreff Technical Services</span></div>
-      <p class="timeline-desc">Led digital campaigns informed by UX thinking. Improved usability, branding, and customer engagement through structured design decisions.</p>
+      <p class="timeline-desc">Currently contracted for usability testing and marketing. Led digital campaigns informed by UX thinking, improving usability, branding, and customer engagement through structured design decisions.</p>
+      <span class="timeline-badge">Active Contract</span>
     </div>
 
     <div class="timeline-item">
@@ -538,9 +627,9 @@ footer {
     <div>
       <div class="contact-group-label">Beyond Design</div>
       <div class="contact-links">
-        <a href="https://youtube.com/@justmrpaper" target="_blank" class="contact-link">YouTube</a>
-        <a href="https://twitch.tv/justmrpaper_" target="_blank" class="contact-link">Twitch</a>
-        <a href="https://kick.com/justmrpaper" target="_blank" class="contact-link">Kick</a>
+        <a href="https://youtube.com/@justmrpaper" target="_blank" class="contact-link beyond-link">YouTube</a>
+        <a href="https://twitch.tv/justmrpaper_" target="_blank" class="contact-link beyond-link">Twitch</a>
+        <a href="https://kick.com/justmrpaper" target="_blank" class="contact-link beyond-link">Kick</a>
       </div>
     </div>
   </div>
@@ -660,6 +749,52 @@ const headlineObs = new IntersectionObserver(entries => {
   });
 }, { threshold: 0.1 });
 headlineEls.forEach(el => headlineObs.observe(el));
+
+/* ─── STAT CELLS REVEAL ─── */
+const statCells = document.querySelectorAll('.stat-cell');
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+      // animate counter
+      const numEl = entry.target.querySelector('[data-count]');
+      if (numEl && !numEl.dataset.animated) {
+        numEl.dataset.animated = '1';
+        const target = parseInt(numEl.dataset.count);
+        const isStatic = numEl.querySelector('em');
+        if (!isStatic) {
+          let start = 0;
+          const duration = 1200;
+          const startTime = performance.now();
+          function tick(now) {
+            const elapsed = now - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = 1 - Math.pow(1 - progress, 3);
+            numEl.textContent = Math.round(ease * target);
+            if (progress < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+      }
+    }
+  });
+}, { threshold: 0.3 });
+statCells.forEach(el => statObs.observe(el));
+
+/* ─── BEYOND DESIGN STAGGER REVEAL ─── */
+const beyondLinks = document.querySelectorAll('.beyond-link');
+if (beyondLinks.length) {
+  const beyondObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        beyondLinks.forEach(link => link.classList.add('show'));
+        beyondObs.disconnect();
+      }
+    });
+  }, { threshold: 0.6 });
+  // observe the parent container
+  beyondObs.observe(beyondLinks[0].closest('.contact-links') || beyondLinks[0].parentElement);
+}
 
 /* ─── SECTION LABEL PARALLAX ─── */
 const sectionLabels = document.querySelectorAll('.section-label');
