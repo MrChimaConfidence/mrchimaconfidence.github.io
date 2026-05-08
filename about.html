@@ -2,385 +2,677 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>About</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Confidence Chima</title>
 
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+:root {
+  --bg: #0C0B09;
+  --surface: #141310;
+  --card: #1A1916;
+  --text: #EDE8DF;
+  --muted: #7A7469;
+  --accent: #C9A96E;
+  --border: rgba(237, 232, 223, 0.08);
+  --serif: 'Cormorant Garamond', serif;
+  --sans: 'DM Sans', sans-serif;
 }
 
-html{
-  scroll-behavior:smooth;
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  cursor: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
 }
 
-body{
-  font-family:'Plus Jakarta Sans';
-  background:#f7f7f7;
-  max-width:880px;
-  margin:auto;
-  padding:60px 24px;
-  color:#111;
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(237,232,223,0.4) 100%);
+  border-radius: 0 2px 2px 0;
+  transition: width 0.05s linear;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(201,169,110,0.5);
 }
 
-/* NAV */
-nav{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:60px;
+/* ─── CURSOR ─── */
+.cursor {
+  width: 8px; height: 8px;
+  background: var(--accent); border-radius: 50%;
+  position: fixed; pointer-events: none;
+  transform: translate(-50%, -50%); z-index: 9999;
+  transition: width 0.25s ease, height 0.25s ease, background 0.25s ease;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201, 169, 110, 0.4); border-radius: 50%;
+  position: fixed; pointer-events: none;
+  transform: translate(-50%, -50%); z-index: 9998;
+  transition: width 0.4s ease, height 0.4s ease, border-color 0.3s ease;
+}
+.cursor.hover { width: 4px; height: 4px; }
+.cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(201,169,110,0.7); }
+
+.cursor-glow {
+  position: fixed; width: 380px; height: 380px; border-radius: 50%;
+  pointer-events: none; z-index: 0;
+  transform: translate(-50%, -50%);
+  background: radial-gradient(circle, rgba(201,169,110,0.1) 0%, rgba(201,169,110,0.03) 40%, transparent 70%);
+  opacity: 0; transition: opacity 0.4s ease; will-change: transform;
+}
+.cursor-glow.active { opacity: 1; }
+
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor, .cursor-ring { display: none; }
 }
 
-nav a{
-  text-decoration:none;
-  color:#111;
-  font-weight:500;
-  margin-left:20px;
-  position:relative;
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(12, 11, 9, 0.85);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--serif); font-weight: 400; font-size: 18px;
+  letter-spacing: 0.02em; color: var(--text); text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  text-decoration: none; color: var(--muted);
+  font-size: 13px; font-weight: 400;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  transition: color 0.3s ease; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--accent); transition: width 0.3s ease;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--text); }
+.nav-links a.active::after { width: 100%; }
+
+/* ─── LAYOUT ─── */
+.section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+@media (max-width: 768px) { .section { padding: 60px 24px; } }
+
+.divider {
+  height: 1px; background: var(--border);
+  max-width: calc(1080px - 80px); margin: 0 auto;
 }
 
-nav a::after{
-  content:'';
-  position:absolute;
-  left:0;
-  bottom:-3px;
-  width:0;
-  height:2px;
-  background:#111;
-  transition:0.3s;
+/* ─── SECTION LABEL ─── */
+.section-label {
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 16px;
+  margin-bottom: 48px;
+}
+.section-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 1080px; margin: 0 auto;
+  padding: 120px 40px 100px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: center;
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 80px 24px 60px; gap: 48px; }
 }
 
-nav a:hover::after{
-  width:100%;
+.hero-label {
+  font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-label::before {
+  content: ''; display: inline-block; width: 24px; height: 1px; background: var(--accent);
 }
 
-/* HERO */
-.hero{
-  display:grid;
-  grid-template-columns:1.1fr 0.9fr;
-  gap:60px;
-  align-items:center;
-  margin-bottom:100px;
+.hero-name {
+  font-family: var(--serif);
+  font-size: clamp(56px, 7vw, 96px);
+  font-weight: 300; line-height: 0.92;
+  letter-spacing: -0.01em; color: var(--text); margin-bottom: 28px;
+}
+.hero-name em { font-style: italic; color: var(--accent); }
+
+.hero-bio {
+  font-size: 15px; line-height: 1.8; color: var(--muted);
+  font-weight: 300; max-width: 480px;
+}
+.hero-bio p + p { margin-top: 16px; }
+
+/* ─── PHOTO ─── */
+.photo-wrap {
+  position: relative;
+}
+.photo-frame {
+  position: relative;
+  border: 1px solid var(--border);
+  border-radius: 4px; overflow: hidden;
+  background: var(--card);
+}
+.photo-frame::before {
+  content: '';
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(to bottom, transparent 60%, rgba(12,11,9,0.6) 100%);
+  pointer-events: none;
+}
+.photo-frame img {
+  width: 100%; display: block;
+  aspect-ratio: 3/4; object-fit: cover;
+  transition: transform 0.8s ease;
+  filter: grayscale(20%);
+}
+.photo-frame:hover img { transform: scale(1.03); }
+
+.photo-meta {
+  position: absolute; bottom: 20px; left: 20px; z-index: 2;
+  font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: rgba(237,232,223,0.6);
 }
 
-/* IMAGE */
-.image-wrap{
-  background:linear-gradient(135deg,#f2f2f2,#e8e8e8);
-  padding:20px;
-  border-radius:30px;
-  display:flex;
-  justify-content:center;
+/* ─── HEADLINE ROLL-IN ─── */
+[data-headline] { overflow: visible; }
+.word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
+.char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.2; }
+.char {
+  display: inline-block; transform: translateY(110%); opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  will-change: transform, opacity;
+}
+.char.in { transform: translateY(0); opacity: 1; }
+
+/* ─── REVEAL ─── */
+.reveal {
+  opacity: 0; transform: translateY(32px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+.reveal.show { opacity: 1; transform: translateY(0); }
+
+/* ─── ABOUT BODY GRID ─── */
+.about-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 80px; align-items: start;
+}
+@media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 48px; } }
+
+.about-copy p {
+  font-size: 15px; line-height: 1.85; color: var(--muted);
+  font-weight: 300; margin-bottom: 20px;
+}
+.about-copy p:last-child { margin-bottom: 0; }
+
+.about-pull {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 32px);
+  font-weight: 300; font-style: italic;
+  color: var(--text); line-height: 1.4;
+  border-left: 1px solid var(--accent);
+  padding-left: 28px;
+  margin-bottom: 32px;
 }
 
-.image-wrap img{
-  width:100%;
-  max-width:300px;
-  max-height:360px;
-  object-fit:cover;
-  border-radius:20px;
-  transition:0.4s ease;
+/* ─── TIMELINE ─── */
+.timeline { display: flex; flex-direction: column; gap: 0; }
+
+.timeline-item {
+  padding: 28px 0 28px 28px;
+  border-left: 1px solid var(--border);
+  position: relative;
+  opacity: 0; transform: translateX(-12px);
+  transition: opacity 0.6s ease, transform 0.6s ease, border-color 0.3s ease;
+}
+.timeline-item.show { opacity: 1; transform: translateX(0); }
+.timeline-item:nth-child(1) { transition-delay: 0s; }
+.timeline-item:nth-child(2) { transition-delay: 0.08s; }
+.timeline-item:nth-child(3) { transition-delay: 0.16s; }
+.timeline-item:nth-child(4) { transition-delay: 0.24s; }
+.timeline-item:nth-child(5) { transition-delay: 0.32s; }
+
+.timeline-item::before {
+  content: '';
+  width: 6px; height: 6px;
+  background: var(--border);
+  border: 1px solid var(--muted);
+  border-radius: 50%;
+  position: absolute; left: -4px; top: 32px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.timeline-item.show::before {
+  background: var(--accent); border-color: var(--accent);
 }
 
-.image-wrap img:hover{
-  transform:scale(1.03);
+.timeline-year {
+  font-size: 11px; letter-spacing: 0.12em;
+  text-transform: uppercase; color: var(--accent);
+  font-weight: 400; margin-bottom: 8px;
+}
+.timeline-role {
+  font-family: var(--serif); font-size: 20px;
+  font-weight: 300; color: var(--text); margin-bottom: 6px;
+  line-height: 1.2;
+}
+.timeline-desc {
+  font-size: 13px; line-height: 1.7;
+  color: var(--muted); font-weight: 300;
 }
 
-/* TEXT */
-h1{
-  font-family:'Clash Display';
-  font-size:56px;
-  line-height:1.05;
-  margin-bottom:16px;
+/* ─── TOOLS ─── */
+.tools-grid {
+  display: flex; gap: 24px; align-items: center; flex-wrap: wrap;
+}
+.tool-item {
+  display: flex; flex-direction: column;
+  align-items: center; gap: 10px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.tool-item.show { opacity: 1; transform: translateY(0); }
+.tool-item:nth-child(1) { transition-delay: 0s; }
+.tool-item:nth-child(2) { transition-delay: 0.1s; }
+.tool-item:nth-child(3) { transition-delay: 0.2s; }
+
+.tool-icon {
+  width: 40px; height: 40px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 4px;
+  display: flex; align-items: center; justify-content: center;
+  transition: border-color 0.3s ease;
+  padding: 8px;
+}
+.tool-item:hover .tool-icon { border-color: rgba(201,169,110,0.3); }
+.tool-icon img { width: 100%; height: 100%; object-fit: contain; }
+.tool-name {
+  font-size: 11px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
 }
 
-h2{
-  font-size:20px;
-  margin-bottom:18px;
-  color:#555;
+/* ─── CONTACT LINKS ─── */
+.contact-columns {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
 }
+@media (max-width: 768px) { .contact-columns { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .contact-columns { grid-template-columns: 1fr; } }
 
-p{
-  margin-bottom:20px;
-  color:#444;
-  line-height:1.75;
-  font-size:16px;
+.contact-group-label {
+  font-size: 10px; letter-spacing: 0.16em;
+  text-transform: uppercase; color: var(--accent);
+  font-weight: 400; margin-bottom: 20px;
 }
-
-/* SECTIONS */
-.section{
-  margin-bottom:110px;
+.contact-links { display: flex; flex-direction: column; gap: 12px; }
+.contact-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 13px; color: var(--muted); text-decoration: none;
+  font-weight: 300; letter-spacing: 0.02em;
+  transition: color 0.3s ease, gap 0.3s ease;
 }
+.contact-link::before { content: '→'; color: var(--accent); font-size: 11px; }
+.contact-link:hover { color: var(--text); gap: 14px; }
 
-/* TIMELINE */
-.timeline{
-  display:flex;
-  flex-direction:column;
-  gap:32px;
+/* ─── BEYOND SECTION ─── */
+.beyond-wrap {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 4px; padding: 40px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 40px; align-items: center;
 }
+@media (max-width: 768px) { .beyond-wrap { grid-template-columns: 1fr; padding: 28px; } }
 
-.timeline-item{
-  padding-left:20px;
-  border-left:2px solid #e5e5e5;
-  position:relative;
-  transition:0.3s;
+.beyond-stat {
+  font-family: var(--serif);
+  font-size: clamp(48px, 6vw, 72px);
+  font-weight: 300; color: var(--text); line-height: 1;
+  margin-bottom: 8px;
 }
-
-.timeline-item::before{
-  content:'';
-  width:10px;
-  height:10px;
-  background:#111;
-  border-radius:50%;
-  position:absolute;
-  left:-6px;
-  top:6px;
-  transform:scale(0);
-  transition:0.4s;
+.beyond-stat em { font-style: italic; color: var(--accent); }
+.beyond-stat-label {
+  font-size: 12px; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--muted);
 }
-
-.timeline-item.active::before{
-  transform:scale(1);
+.beyond-text {
+  font-size: 14px; line-height: 1.8;
+  color: var(--muted); font-weight: 300;
 }
+.beyond-text p + p { margin-top: 14px; }
 
-.timeline-item:hover{
-  border-color:#111;
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px 40px;
+  max-width: 1080px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
 }
-
-.year{
-  font-weight:600;
-  margin-bottom:6px;
-}
-
-/* TOOLS */
-.tools{
-  display:flex;
-  gap:18px;
-  opacity:0.7;
-  margin-top:12px;
-}
-
-.tools img{
-  width:28px;
-  transition:0.3s;
-}
-
-.tools img:hover{
-  transform:scale(1.2);
-  opacity:1;
-}
-
-/* CONTACT */
-.contact-group{
-  margin-top:14px;
-}
-
-.contact-group strong{
-  display:block;
-  margin-top:18px;
-  margin-bottom:8px;
-  font-size:14px;
-  color:#777;
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-}
-
-.contact-group a{
-  display:block;
-  text-decoration:none;
-  color:#111;
-  margin-bottom:8px;
-  transition:0.2s;
-}
-
-.contact-group a:hover{
-  transform:translateX(4px);
-}
-
-/* LINKS */
-a{
-  transition:0.2s ease;
-}
-
-a:hover{
-  opacity:0.7;
-}
-
-/* REVEAL */
-.reveal{
-  opacity:0;
-  transform:translateY(40px);
-  transition:0.8s ease;
-}
-
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  .hero{
-    grid-template-columns:1fr;
-  }
-
-  .image-wrap img{
-    max-width:100%;
-  }
-}
+@media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
+.footer-copy { font-size: 12px; color: var(--muted); }
 </style>
 </head>
 
 <body>
 
+<div class="scroll-progress-bar" id="scrollProgressBar"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<!-- NAV -->
 <nav>
-  <div><strong>Confidence</strong></div>
-  <div>
-    <a href="index.html">Home</a>
+  <a href="index.html" class="nav-logo">Confidence Chima</a>
+  <div class="nav-links">
+    <a href="about.html" class="active">About</a>
     <a href="contact.html">Contact</a>
   </div>
 </nav>
 
 <!-- HERO -->
-<div class="hero reveal">
+<section class="hero">
   <div>
-    <h1>About Me</h1>
-    <h2>UI/UX Designer • Lagos, Nigeria</h2>
-
-    <p>I’m a UI/UX designer focused on creating structured, clear, and intuitive digital experiences.</p>
-
-    <p>I enjoy turning complex ideas into simple, usable interfaces that guide users naturally without confusion.</p>
-
-    <p>My work combines user research, interaction design, and visual clarity to improve how people experience products.</p>
-
-    <p>I design with intention — simplifying decisions, improving flow, and creating experiences that feel effortless.</p>
-
-    <p>Clarity, simplicity, and purpose drive every design decision I make.</p>
+    <p class="hero-label">About Me</p>
+    <h1 class="hero-name" data-headline>Confidence<br><em>Chima</em></h1>
+    <div class="hero-bio">
+      <p>I'm a UI/UX designer focused on creating structured, clear, and intuitive digital experiences.</p>
+      <p>I design with intention — simplifying decisions, improving flow, and creating experiences that feel effortless.</p>
+      <p>Clarity, simplicity, and purpose drive every design decision I make.</p>
+    </div>
   </div>
 
-  <div class="image-wrap">
-    <img src="images/confidence.png" alt="Confidence Chima">
+  <div class="photo-wrap reveal">
+    <div class="photo-frame">
+      <img src="images/confidence.png" alt="Confidence Chima">
+      <div class="photo-meta">Product Designer</div>
+    </div>
   </div>
-</div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ABOUT BODY -->
+<section class="section">
+  <div class="section-label">
+    <span class="section-num">01</span>
+    The Work Behind the Work
+  </div>
+
+  <div class="about-grid">
+    <div class="about-copy reveal">
+      <p class="about-pull">I enjoy turning complex ideas into simple, usable interfaces that guide users naturally without confusion.</p>
+      <p>My work combines user research, interaction design, and visual clarity to improve how people experience products.</p>
+      <p>Every project starts with a question: what is the user actually trying to accomplish, and what stands between them and that goal? The answer shapes everything — from structure and flow to the smallest interaction detail.</p>
+      <p>I work across the full design process: discovery, wireframing, prototyping, and final UI — always with the user at the centre.</p>
+    </div>
+
+    <div class="about-copy reveal" style="transition-delay: 0.15s;">
+      <p>Outside of product design, I run a content brand under the name <strong style="color: var(--text); font-weight: 400;">justmrpaper</strong> — a community of over 500 members and nearly 2,000 followers across platforms.</p>
+      <p>That experience shapes how I think about engagement, long-term user behavior, and what keeps people coming back to a digital product.</p>
+      <p>Design is how I think. Whether I'm building an interface or a community, I'm always asking the same question: does this feel clear, useful, and worth returning to?</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
 
 <!-- EXPERIENCE -->
-<div class="section reveal">
-  <h2>Experience & Growth</h2>
+<section class="section">
+  <div class="section-label">
+    <span class="section-num">02</span>
+    Experience & Growth
+  </div>
 
   <div class="timeline">
 
     <div class="timeline-item">
-      <div class="year">2026</div>
-      <p><strong>UI/UX Design & Google UX Certification</strong><br>
-      Completed the Google UX Design Professional Certificate and designed multiple UX projects including MindCare and Profile Studio, focusing on user flow, structure, and usability.</p>
+      <div class="timeline-year">2026</div>
+      <div class="timeline-role">UI/UX Design & Google UX Certification</div>
+      <p class="timeline-desc">Completed the Google UX Design Professional Certificate and designed multiple UX projects including MindCare and Profile Studio, focusing on user flow, structure, and usability.</p>
     </div>
 
     <div class="timeline-item">
-      <div class="year">2024 — Present</div>
-      <p><strong>Interface Designer & Product Builder (Winning Wizards HQ)</strong><br>
-      Designed and developed digital experiences for a growing community. Created user flows, wireframes, and interfaces while improving engagement through testing and iteration.</p>
+      <div class="timeline-year">2024 — Present</div>
+      <div class="timeline-role">Interface Designer & Product Builder<br><span style="font-size:13px; color: var(--muted);">Winning Wizards HQ</span></div>
+      <p class="timeline-desc">Designed and developed digital experiences for a growing community. Created user flows, wireframes, and interfaces while improving engagement through testing and iteration.</p>
     </div>
 
     <div class="timeline-item">
-      <div class="year">2023 — 2025</div>
-      <p><strong>Product Designer & Marketing Lead (Chimreff Technical Services)</strong><br>
-      Led digital campaigns informed by UX thinking. Improved usability, branding, and customer engagement through structured design decisions.</p>
+      <div class="timeline-year">2023 — 2025</div>
+      <div class="timeline-role">Product Designer & Marketing Lead<br><span style="font-size:13px; color: var(--muted);">Chimreff Technical Services</span></div>
+      <p class="timeline-desc">Led digital campaigns informed by UX thinking. Improved usability, branding, and customer engagement through structured design decisions.</p>
     </div>
 
     <div class="timeline-item">
-      <div class="year">2020 — Present</div>
-      <p><strong>Founder & Creative Lead (Paperboy Music)</strong><br>
-      Built and scaled a digital brand, leading design, branding, and content direction across multiple platforms.</p>
+      <div class="timeline-year">2020 — Present</div>
+      <div class="timeline-role">Founder & Creative Lead<br><span style="font-size:13px; color: var(--muted);">Paperboy Music</span></div>
+      <p class="timeline-desc">Built and scaled a digital brand, leading design, branding, and content direction across multiple platforms.</p>
     </div>
 
     <div class="timeline-item">
-      <div class="year">2018 — 2019</div>
-      <p><strong>IT Intern (DreamworksDirect)</strong><br>
-      Worked on e-commerce platforms, improving usability, workflows, and customer experience.</p>
+      <div class="timeline-year">2018 — 2019</div>
+      <div class="timeline-role">IT Intern<br><span style="font-size:13px; color: var(--muted);">DreamworksDirect</span></div>
+      <p class="timeline-desc">Worked on e-commerce platforms, improving usability, workflows, and customer experience.</p>
     </div>
 
   </div>
-</div>
+</section>
+
+<div class="divider"></div>
 
 <!-- TOOLS -->
-<div class="section reveal">
-  <h2>Designed With</h2>
-
-  <div class="tools">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg">
-    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg">
+<section class="section">
+  <div class="section-label">
+    <span class="section-num">03</span>
+    Designed With
   </div>
-</div>
 
-<!-- BEYOND DESIGN -->
-<div class="section reveal">
-  <h2>Beyond Design</h2>
+  <div class="tools-grid">
+    <div class="tool-item">
+      <div class="tool-icon">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/figma/figma-original.svg" alt="Figma">
+      </div>
+      <span class="tool-name">Figma</span>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
+      </div>
+      <span class="tool-name">HTML</span>
+    </div>
+    <div class="tool-item">
+      <div class="tool-icon">
+        <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
+      </div>
+      <span class="tool-name">CSS</span>
+    </div>
+  </div>
+</section>
 
-  <p>
-  Outside of design, I create content under the name justmrpaper, building a growing community of over 500 members and nearly 2,000 followers across platforms.
-  </p>
-
-  <p>
-  This experience influences how I think about user behavior, engagement, and long-term interaction with digital products.
-  </p>
-</div>
+<div class="divider"></div>
 
 <!-- CONTACT -->
-<div class="section reveal">
-  <h2>Contact</h2>
-
-  <p>Open to freelance projects, collaborations, and full-time opportunities (remote or relocation).</p>
-
-  <div class="contact-group">
-    <strong>Main</strong>
-    <a href="mailto:Chimaconfidence086@gmail.com">→ Email</a>
-    <a href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank">→ Upwork</a>
-    <a href="https://wa.me/2349163784422" target="_blank">→ WhatsApp</a>
+<section class="section" style="padding-bottom: 120px;">
+  <div class="section-label">
+    <span class="section-num">04</span>
+    Get in Touch
   </div>
 
-  <div class="contact-group">
-    <strong>Professional</strong>
-    <a href="https://github.com/MrChimaConfidence" target="_blank">→ GitHub</a>
-    <a href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank">→ LinkedIn</a>
+  <div class="reveal" style="margin-bottom: 48px;">
+    <h2 style="font-family: var(--serif); font-size: clamp(32px, 4vw, 52px); font-weight: 300; line-height: 1.15; color: var(--text); margin-bottom: 16px;">
+      Open to freelance, contracts,<br>and <em style="font-style: italic; color: var(--accent);">remote</em> opportunities
+    </h2>
+    <p style="font-size: 14px; color: var(--muted); font-weight: 300; max-width: 480px; line-height: 1.75;">
+      Available for new projects and collaborations. If you're building something that needs clarity and intention, let's talk.
+    </p>
   </div>
 
-  <div class="contact-group">
-    <strong>Beyond Design</strong>
-    <a href="https://youtube.com/@justmrpaper" target="_blank">→ YouTube</a>
-    <a href="https://twitch.tv/justmrpaper_" target="_blank">→ Twitch</a>
-    <a href="https://kick.com/justmrpaper" target="_blank">→ Kick</a>
+  <div class="contact-columns reveal">
+    <div>
+      <div class="contact-group-label">Main</div>
+      <div class="contact-links">
+        <a href="mailto:Chimaconfidence086@gmail.com" class="contact-link">Email</a>
+        <a href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank" class="contact-link">Upwork</a>
+        <a href="https://wa.me/2349163784422" target="_blank" class="contact-link">WhatsApp</a>
+      </div>
+    </div>
+    <div>
+      <div class="contact-group-label">Professional</div>
+      <div class="contact-links">
+        <a href="https://github.com/MrChimaConfidence" target="_blank" class="contact-link">GitHub</a>
+        <a href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank" class="contact-link">LinkedIn</a>
+      </div>
+    </div>
+    <div>
+      <div class="contact-group-label">Beyond Design</div>
+      <div class="contact-links">
+        <a href="https://youtube.com/@justmrpaper" target="_blank" class="contact-link">YouTube</a>
+        <a href="https://twitch.tv/justmrpaper_" target="_blank" class="contact-link">Twitch</a>
+        <a href="https://kick.com/justmrpaper" target="_blank" class="contact-link">Kick</a>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 Confidence Chima</span>
+  <span class="footer-copy">Product Designer</span>
+</footer>
 
 <script>
-const reveals = document.querySelectorAll(".reveal");
-const timelineItems = document.querySelectorAll(".timeline-item");
+/* ─── SCROLL PROGRESS ─── */
+const progressBar = document.getElementById('scrollProgressBar');
+function updateProgressBar() {
+  const scrollTop = window.scrollY;
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (docHeight > 0 ? (scrollTop / docHeight) * 100 : 0) + '%';
+}
+window.addEventListener('scroll', updateProgressBar, { passive: true });
+updateProgressBar();
 
-function revealOnScroll(){
-  reveals.forEach(el=>{
-    let windowHeight = window.innerHeight;
-    let elementTop = el.getBoundingClientRect().top;
+/* ─── CURSOR ─── */
+const cursor = document.querySelector('.cursor');
+const ring   = document.querySelector('.cursor-ring');
+let ringX = 0, ringY = 0, mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
+});
+function animateRing() {
+  ringX += (mouseX - ringX) * 0.12; ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
+  requestAnimationFrame(animateRing);
+}
+animateRing();
 
-    if(elementTop < windowHeight - 100){
-      el.classList.add("active");
-    }
-  });
+document.querySelectorAll('a, .photo-frame, .tool-item, .timeline-item').forEach(el => {
+  el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+  el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+});
 
-  timelineItems.forEach(item=>{
-    let windowHeight = window.innerHeight;
-    let elementTop = item.getBoundingClientRect().top;
-
-    if(elementTop < windowHeight - 100){
-      item.classList.add("active");
-    }
-  });
+/* ─── CURSOR GLOW ─── */
+const cursorGlow = document.getElementById('cursorGlow');
+let glowX = 0, glowY = 0, targetGlowX = 0, targetGlowY = 0, glowActive = false;
+document.addEventListener('mousemove', e => {
+  targetGlowX = e.clientX; targetGlowY = e.clientY;
+  if (!glowActive) { glowActive = true; cursorGlow.classList.add('active'); animateGlow(); }
+});
+document.addEventListener('mouseleave', () => { glowActive = false; cursorGlow.classList.remove('active'); });
+function animateGlow() {
+  glowX += (targetGlowX - glowX) * 0.1; glowY += (targetGlowY - glowY) * 0.1;
+  cursorGlow.style.left = glowX + 'px'; cursorGlow.style.top = glowY + 'px';
+  if (glowActive) requestAnimationFrame(animateGlow);
 }
 
-window.addEventListener("load", revealOnScroll);
-window.addEventListener("scroll", revealOnScroll);
+/* ─── SCROLL REVEAL ─── */
+const revealEls = document.querySelectorAll('.reveal');
+const timelineItems = document.querySelectorAll('.timeline-item');
+const toolItems = document.querySelectorAll('.tool-item');
+
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+}, { threshold: 0.1 });
+
+revealEls.forEach(el => obs.observe(el));
+timelineItems.forEach(el => obs.observe(el));
+toolItems.forEach(el => obs.observe(el));
+
+/* ─── HEADLINE ROLL-IN ─── */
+function splitHeadlineIntoChars(el) {
+  const tempDiv = document.createElement('div');
+  tempDiv.innerHTML = el.innerHTML;
+  let charIndex = 0;
+  function processNode(node, output) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const tokens = node.textContent.split(/(\s+)/);
+      tokens.forEach(token => {
+        if (/^\s+$/.test(token)) { output.push(token); }
+        else if (token.length > 0) {
+          const wordChars = [];
+          for (let i = 0; i < token.length; i++) {
+            const ch = token[i];
+            const delay = charIndex * 26;
+            const safe = ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch;
+            wordChars.push(`<span class="char-wrap"><span class="char" style="transition-delay:${delay}ms">${safe}</span></span>`);
+            charIndex++;
+          }
+          output.push(`<span class="word-group">${wordChars.join('')}</span>`);
+        }
+      });
+    } else if (node.nodeName === 'BR') {
+      output.push('<br>');
+    } else if (['EM','STRONG','SPAN'].includes(node.nodeName)) {
+      const inner = [];
+      node.childNodes.forEach(child => processNode(child, inner));
+      const tag = node.nodeName.toLowerCase();
+      const cls = node.className ? ` class="${node.className}"` : '';
+      output.push(`<${tag}${cls}>${inner.join('')}</${tag}>`);
+    } else {
+      node.childNodes.forEach(child => processNode(child, output));
+    }
+  }
+  const output = [];
+  tempDiv.childNodes.forEach(node => processNode(node, output));
+  el.innerHTML = output.join('');
+}
+function triggerCharReveal(el) {
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    el.querySelectorAll('.char').forEach(ch => ch.classList.add('in'));
+  }));
+}
+const headlineEls = document.querySelectorAll('[data-headline]');
+headlineEls.forEach(el => splitHeadlineIntoChars(el));
+const headlineObs = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) { triggerCharReveal(entry.target); headlineObs.unobserve(entry.target); }
+  });
+}, { threshold: 0.1 });
+headlineEls.forEach(el => headlineObs.observe(el));
+
+/* ─── SECTION LABEL PARALLAX ─── */
+const sectionLabels = document.querySelectorAll('.section-label');
+function updateLabelParallax() {
+  const vhMid = window.innerHeight / 2;
+  sectionLabels.forEach(label => {
+    const rect = label.getBoundingClientRect();
+    const dist = ((rect.top + rect.height / 2) - vhMid) / vhMid;
+    label.style.transform = `translate(${dist * 12}px, ${dist * -5}px)`;
+  });
+}
+window.addEventListener('scroll', updateLabelParallax, { passive: true });
+updateLabelParallax();
 </script>
 
 </body>
