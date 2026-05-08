@@ -136,11 +136,31 @@ nav {
 
 /* ─── HERO ─── */
 .hero {
-  padding: 120px 40px 100px;
+  padding: 120px 40px 80px;
   max-width: 1080px;
   margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 80px;
+  align-items: start;
 }
-@media (max-width: 900px) { .hero { padding: 80px 24px 60px; } }
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    padding: 80px 24px 60px;
+    gap: 48px;
+  }
+}
+
+.hero-left {}
+.hero-right {
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-self: end;
+  padding-bottom: 8px;
+}
 
 .hero-label {
   font-size: 11px;
@@ -161,7 +181,7 @@ nav {
 }
 .hero-name {
   font-family: var(--serif);
-  font-size: clamp(64px, 8vw, 108px);
+  font-size: clamp(64px, 7vw, 100px);
   font-weight: 300;
   line-height: 0.92;
   letter-spacing: -0.01em;
@@ -172,7 +192,7 @@ nav {
 
 .hero-role {
   font-family: var(--serif);
-  font-size: clamp(28px, 4vw, 44px);
+  font-size: clamp(24px, 3.5vw, 40px);
   font-weight: 300; font-style: italic;
   color: var(--muted);
   margin-bottom: 48px;
@@ -181,61 +201,103 @@ nav {
 .hero-tagline {
   font-size: 15px; line-height: 1.75;
   color: var(--muted);
-  max-width: 560px;
+  max-width: 480px;
   font-weight: 300;
-  margin-bottom: 56px;
+  margin-bottom: 40px;
 }
 
-/* ─── HERO TAGS ─── */
-.hero-tags {
+/* ─── HERO META ─── */
+.hero-meta {
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 0;
+  flex-direction: column;
+  gap: 20px;
 }
-
-.hero-tag-pill {
-  padding: 10px 20px;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 400;
+.hero-meta-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.hero-meta-line {
+  width: 24px; height: 1px;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.hero-meta-text {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
   color: var(--muted);
-  letter-spacing: 0.04em;
-  cursor: default;
-  transition: background 0.35s ease, color 0.35s ease, border-color 0.35s ease,
-              transform 0.55s cubic-bezier(0.16,1,0.3,1),
-              opacity 0.55s cubic-bezier(0.16,1,0.3,1);
-  will-change: transform, opacity;
+}
+.hero-meta-text strong {
+  color: var(--text);
+  font-weight: 400;
 }
 
-.hero-tag-pill.tag-hidden {
-  opacity: 0;
-  transform: translateY(20px) scale(0.92);
+/* ─── ORBITAL MAP SECTION ─── */
+.orbital-section {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0 40px 80px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 80px;
+  align-items: center;
 }
-.hero-tag-pill.tag-visible {
-  opacity: 1;
-  transform: translateY(0) scale(1);
+@media (max-width: 900px) {
+  .orbital-section {
+    grid-template-columns: 1fr;
+    padding: 0 24px 60px;
+    gap: 40px;
+  }
 }
 
-@keyframes tagBreathe {
-  0%, 100% { transform: translateY(0px); }
-  50%       { transform: translateY(-5px); }
+.orbital-intro {}
+.orbital-intro-label {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 400;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
 }
-.hero-tag-pill.tag-breathe { animation: tagBreathe 3.2s ease-in-out infinite; }
-.hero-tag-pill.tag-breathe:nth-child(2) { animation-delay: 0.35s; animation-duration: 3.7s; }
-.hero-tag-pill.tag-breathe:nth-child(3) { animation-delay: 0.7s;  animation-duration: 2.9s; }
-.hero-tag-pill.tag-breathe:nth-child(4) { animation-delay: 1.05s; animation-duration: 3.5s; }
-.hero-tag-pill.tag-breathe:nth-child(5) { animation-delay: 0.5s;  animation-duration: 3.1s; }
-.hero-tag-pill.tag-breathe:nth-child(6) { animation-delay: 1.3s;  animation-duration: 3.8s; }
-.hero-tag-pill.tag-breathe:nth-child(7) { animation-delay: 0.9s;  animation-duration: 3.3s; }
-
-.hero-tag-pill:hover {
-  animation-play-state: paused;
+.orbital-intro-label::before {
+  content: '';
+  display: inline-block;
+  width: 24px; height: 1px;
   background: var(--accent);
-  color: var(--bg);
-  border-color: var(--accent);
-  transform: translateY(-4px) scale(1.05);
+}
+.orbital-heading {
+  font-family: var(--serif);
+  font-size: clamp(32px, 4vw, 52px);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 20px;
+}
+.orbital-heading em { font-style: italic; color: var(--accent); }
+.orbital-desc {
+  font-size: 14px;
+  line-height: 1.75;
+  color: var(--muted);
+  font-weight: 300;
+  max-width: 360px;
+}
+
+/* ─── CANVAS CONTAINER ─── */
+.orbital-canvas-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 480px;
+  margin: 0 auto;
+}
+#orbitalCanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
 }
 
 /* ─── DIVIDER ─── */
@@ -397,7 +459,6 @@ nav {
 }
 @media (max-width: 768px) { .contact-section { padding: 60px 24px 80px; } }
 
-/* Contact intro row */
 .contact-intro {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -416,9 +477,7 @@ nav {
 }
 .contact-headline em { font-style: italic; color: var(--accent); }
 
-.contact-intro-right {
-  padding-bottom: 4px;
-}
+.contact-intro-right { padding-bottom: 4px; }
 .contact-intro-desc {
   font-size: 14px; line-height: 1.75;
   color: var(--muted); font-weight: 300;
@@ -511,11 +570,8 @@ nav {
 }
 .form-input.error,
 .form-select.error,
-.form-textarea.error {
-  border-color: rgba(220, 100, 80, 0.6);
-}
+.form-textarea.error { border-color: rgba(220, 100, 80, 0.6); }
 
-/* Custom select arrow */
 .select-wrap { position: relative; }
 .select-wrap::after {
   content: '';
@@ -530,25 +586,12 @@ nav {
 .select-wrap:focus-within::after { background: var(--accent); }
 
 .form-select { padding-right: 40px; cursor: pointer; color: var(--text); }
-.form-select option {
-  background: #1A1916;
-  color: var(--text);
-}
-/* Placeholder-style for selects */
+.form-select option { background: #1A1916; color: var(--text); }
 .form-select.placeholder-active { color: rgba(122, 116, 105, 0.5); }
 
-.form-textarea {
-  resize: vertical;
-  min-height: 160px;
-  line-height: 1.65;
-}
+.form-textarea { resize: vertical; min-height: 160px; line-height: 1.65; }
 
-/* ─── BUDGET BUTTONS ─── */
-.budget-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
+.budget-grid { display: flex; flex-wrap: wrap; gap: 8px; }
 .budget-btn {
   padding: 10px 18px;
   border: 1px solid var(--border);
@@ -569,18 +612,10 @@ nav {
 }
 @media (max-width: 768px) { .budget-btn { cursor: pointer; } }
 
-/* ─── CHAR COUNT ─── */
-.textarea-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-top: 8px;
-}
+.textarea-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 8px; }
 .char-count {
-  font-size: 11px;
-  color: var(--muted);
-  font-weight: 400;
-  letter-spacing: 0.04em;
+  font-size: 11px; color: var(--muted);
+  font-weight: 400; letter-spacing: 0.04em;
   transition: color 0.3s ease;
 }
 .char-count.warn { color: var(--accent); }
@@ -595,14 +630,8 @@ nav {
 }
 .field-error.visible { display: block; }
 
-/* ─── FORM DIVIDER ─── */
-.form-divider {
-  height: 1px;
-  background: var(--border);
-  margin: 32px 0;
-}
+.form-divider { height: 1px; background: var(--border); margin: 32px 0; }
 
-/* ─── FORM FOOTER ─── */
 .form-footer {
   display: flex;
   justify-content: space-between;
@@ -611,24 +640,9 @@ nav {
   flex-wrap: wrap;
 }
 
-.form-privacy {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex: 1;
-}
-.privacy-icon {
-  width: 18px; height: 18px;
-  flex-shrink: 0;
-  color: var(--muted);
-  opacity: 0.7;
-}
-.form-privacy p {
-  font-size: 12px;
-  color: var(--muted);
-  font-weight: 300;
-  line-height: 1.5;
-}
+.form-privacy { display: flex; align-items: center; gap: 10px; flex: 1; }
+.privacy-icon { width: 18px; height: 18px; flex-shrink: 0; color: var(--muted); opacity: 0.7; }
+.form-privacy p { font-size: 12px; color: var(--muted); font-weight: 300; line-height: 1.5; }
 
 .btn-submit {
   display: inline-flex;
@@ -645,8 +659,7 @@ nav {
   color: var(--text);
   font-weight: 400;
   cursor: none;
-  transition: border-color 0.3s ease, color 0.3s ease,
-              background 0.3s ease, gap 0.3s ease;
+  transition: border-color 0.3s ease, color 0.3s ease, background 0.3s ease, gap 0.3s ease;
   white-space: nowrap;
   position: relative;
   overflow: hidden;
@@ -659,20 +672,12 @@ nav {
   transition: transform 0.4s ease;
 }
 .btn-submit:hover::before { transform: translateX(0); }
-.btn-submit:hover {
-  border-color: var(--accent);
-  color: var(--accent);
-  gap: 18px;
-}
-.btn-submit:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
+.btn-submit:hover { border-color: var(--accent); color: var(--accent); gap: 18px; }
+.btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 .btn-submit .arrow { transition: transform 0.3s ease; }
 .btn-submit:hover .arrow { transform: translateX(4px); }
 @media (max-width: 768px) { .btn-submit { cursor: pointer; } }
 
-/* ─── SUCCESS STATE ─── */
 .form-success {
   display: none;
   flex-direction: column;
@@ -682,7 +687,6 @@ nav {
   padding: 72px 40px;
   gap: 20px;
 }
-.form-success.visible { display: flex; }
 .contact-form.submitted .form-content { display: none; }
 .contact-form.submitted .form-success { display: flex; }
 
@@ -694,17 +698,9 @@ nav {
   color: var(--accent);
   font-size: 20px;
 }
-.success-title {
-  font-family: var(--serif);
-  font-size: 32px; font-weight: 300;
-  color: var(--text);
-}
+.success-title { font-family: var(--serif); font-size: 32px; font-weight: 300; color: var(--text); }
 .success-title em { font-style: italic; color: var(--accent); }
-.success-desc {
-  font-size: 14px; color: var(--muted);
-  font-weight: 300; line-height: 1.7;
-  max-width: 400px;
-}
+.success-desc { font-size: 14px; color: var(--muted); font-weight: 300; line-height: 1.7; max-width: 400px; }
 .btn-reset {
   display: inline-flex; align-items: center; gap: 8px;
   font-size: 12px; letter-spacing: 0.1em;
@@ -727,7 +723,6 @@ footer {
 @media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
 .footer-copy { font-size: 12px; color: var(--muted); }
 
-/* ─── SENDING SPINNER ─── */
 @keyframes spin { to { transform: rotate(360deg); } }
 .spinner {
   width: 14px; height: 14px;
@@ -742,12 +737,8 @@ footer {
 
 <body>
 
-<!-- SCROLL PROGRESS BAR -->
 <div class="scroll-progress-bar" id="scrollProgressBar"></div>
-
-<!-- CURSOR GLOW -->
 <div class="cursor-glow" id="cursorGlow"></div>
-
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
 
@@ -760,23 +751,36 @@ footer {
   </div>
 </nav>
 
-<!-- HERO -->
+<!-- HERO — two column: text left, orbital right -->
 <section class="hero">
-  <p class="hero-label">Product Designer</p>
-  <h1 class="hero-name">Confidence<br><em>Chima</em></h1>
-  <p class="hero-role" data-headline>Product Designer</p>
-  <p class="hero-tagline">
-    I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
-  </p>
+  <div class="hero-left">
+    <p class="hero-label">Product Designer</p>
+    <h1 class="hero-name">Confidence<br><em>Chima</em></h1>
+    <p class="hero-role" data-headline>Product Designer</p>
+    <p class="hero-tagline">
+      I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
+    </p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-text"><strong>5+</strong> Case Studies</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-text">Based in <strong>Lagos, NG</strong></span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-text">Available for <strong>Freelance</strong></span>
+      </div>
+    </div>
+  </div>
 
-  <div class="hero-tags">
-    <span class="hero-tag-pill">5+ Case Studies</span>
-    <span class="hero-tag-pill">UX Research</span>
-    <span class="hero-tag-pill">Interaction Design</span>
-    <span class="hero-tag-pill">User Flows</span>
-    <span class="hero-tag-pill">Figma</span>
-    <span class="hero-tag-pill">Mobile UX</span>
-    <span class="hero-tag-pill">Visual Design</span>
+  <!-- ORBITAL CANVAS -->
+  <div class="hero-right">
+    <div class="orbital-canvas-wrap">
+      <canvas id="orbitalCanvas"></canvas>
+    </div>
   </div>
 </section>
 
@@ -884,10 +888,8 @@ footer {
   </div>
 </section>
 
-<!-- ─── CONTACT SECTION ─── -->
+<!-- CONTACT SECTION -->
 <section class="contact-section" id="contact">
-
-  <!-- Intro row -->
   <div class="contact-intro">
     <h2 class="contact-headline" data-headline>Start a <em>project</em><br>with me</h2>
     <div class="contact-intro-right">
@@ -897,68 +899,35 @@ footer {
     </div>
   </div>
 
-  <!-- Email before form -->
-  <div class="contact-after" style="margin-top: 32px; margin-bottom: 40px; border-top: none; padding-top: 0; border-bottom: 1px solid var(--border); padding-bottom: 32px;">
+  <div class="contact-after" style="margin-top:32px;margin-bottom:40px;border-top:none;padding-top:0;border-bottom:1px solid var(--border);padding-bottom:32px;">
     <p class="contact-email-line">Or reach out directly</p>
     <a href="mailto:chimaconfidence086@gmail.com" class="contact-email-link">chimaconfidence086@gmail.com</a>
   </div>
 
-  <!-- The form card -->
   <div class="contact-form" id="contactForm">
-
-    <!-- Main form content -->
     <div class="form-content">
-
-      <!-- Row 1: Name + Email -->
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="fullName">Full Name <span class="req">*</span></label>
-          <input
-            class="form-input"
-            id="fullName"
-            type="text"
-            placeholder="e.g. Amara Okafor"
-            autocomplete="name"
-          >
+          <input class="form-input" id="fullName" type="text" placeholder="e.g. Amara Okafor" autocomplete="name">
           <span class="field-error" id="err-fullName">Please enter your name.</span>
         </div>
         <div class="form-group">
           <label class="form-label" for="emailAddr">Email Address <span class="req">*</span></label>
-          <input
-            class="form-input"
-            id="emailAddr"
-            type="email"
-            placeholder="you@company.com"
-            autocomplete="email"
-          >
+          <input class="form-input" id="emailAddr" type="email" placeholder="you@company.com" autocomplete="email">
           <span class="field-error" id="err-emailAddr">Please enter a valid email.</span>
         </div>
       </div>
-
-      <!-- Row 2: Company + Role -->
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="company">Company / Project</label>
-          <input
-            class="form-input"
-            id="company"
-            type="text"
-            placeholder="Your company or project name"
-            autocomplete="organization"
-          >
+          <input class="form-input" id="company" type="text" placeholder="Your company or project name" autocomplete="organization">
         </div>
         <div class="form-group">
           <label class="form-label" for="role">Your Role</label>
-          <input
-            class="form-input"
-            id="role"
-            type="text"
-            placeholder="e.g. Founder, Product Manager"
-          >
+          <input class="form-input" id="role" type="text" placeholder="e.g. Founder, Product Manager">
         </div>
       </div>
-
-      <!-- Row 3: Service + Timeline -->
       <div class="form-row">
         <div class="form-group">
           <label class="form-label" for="service">Service Needed <span class="req">*</span></label>
@@ -990,9 +959,7 @@ footer {
           </div>
         </div>
       </div>
-
-      <!-- Budget row -->
-      <div class="form-row" style="margin-bottom: 20px;">
+      <div class="form-row" style="margin-bottom:20px;">
         <div class="form-group full">
           <label class="form-label">Budget Range</label>
           <div class="budget-grid" id="budgetGrid">
@@ -1005,27 +972,17 @@ footer {
           </div>
         </div>
       </div>
-
-      <!-- Brief -->
       <div class="form-row">
         <div class="form-group full">
           <label class="form-label" for="brief">Project Brief <span class="req">*</span></label>
-          <textarea
-            class="form-textarea"
-            id="brief"
-            maxlength="1200"
-            placeholder="Describe your project — what problem are you solving, who are the users, and what outcome matters most to you?"
-          ></textarea>
+          <textarea class="form-textarea" id="brief" maxlength="1200" placeholder="Describe your project — what problem are you solving, who are the users, and what outcome matters most to you?"></textarea>
           <div class="textarea-footer">
             <span class="field-error" id="err-brief" style="margin-top:0;">Please describe your project.</span>
             <span class="char-count" id="charCount">0 / 1200</span>
           </div>
         </div>
       </div>
-
       <div class="form-divider"></div>
-
-      <!-- Form footer -->
       <div class="form-footer">
         <div class="form-privacy">
           <svg class="privacy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
@@ -1040,19 +997,15 @@ footer {
           <span class="arrow" id="submitArrow">→</span>
         </button>
       </div>
+    </div>
 
-    </div><!-- /form-content -->
-
-    <!-- Success state -->
     <div class="form-success" id="formSuccess">
       <div class="success-icon">✓</div>
       <h3 class="success-title">Message <em>sent</em></h3>
       <p class="success-desc">Thanks for reaching out. I'll review your brief and get back to you within 48 hours.</p>
       <button class="btn-reset" id="resetBtn" type="button">← Send another message</button>
     </div>
-
-  </div><!-- /contact-form -->
-
+  </div>
 </section>
 
 <footer>
@@ -1061,6 +1014,308 @@ footer {
 </footer>
 
 <script>
+/* ─── ORBITAL SKILL MAP ─── */
+(function() {
+  const canvas = document.getElementById('orbitalCanvas');
+  const ctx = canvas.getContext('2d');
+
+  const ACCENT = '#C9A96E';
+  const TEXT_PRIMARY = '#EDE8DF';
+  const TEXT_MUTED = '#7A7469';
+  const BG = '#0C0B09';
+  const CARD = '#1A1916';
+  const BORDER = 'rgba(237,232,223,0.08)';
+
+  const skills = [
+    { label: 'UX Research',         orbit: 1, angle: -Math.PI / 2,      speed: 0.00028, circled: true },
+    { label: 'Figma',               orbit: 1, angle: -Math.PI / 2 + Math.PI * 0.55, speed: 0.00028, circled: true },
+    { label: 'Mobile UX',           orbit: 2, angle: Math.PI,            speed: 0.00018, circled: true },
+    { label: 'Flows',               orbit: 2, angle: 0,                  speed: 0.00018, circled: false },
+    { label: 'Clarity',             orbit: 2, angle: Math.PI * 0.75,     speed: 0.00018, circled: false },
+    { label: 'Prototyping',         orbit: 2, angle: -0.1,               speed: 0.00018, circled: false },
+    { label: 'Wireframes',          orbit: 3, angle: Math.PI * 1.15,     speed: 0.00011, circled: false },
+    { label: 'Interaction Design',  orbit: 3, angle: Math.PI * 0.1,      speed: 0.00011, circled: false },
+    { label: 'Systems',             orbit: 3, angle: -Math.PI * 0.45,    speed: 0.00011, circled: false },
+    { label: 'Visual Design',       orbit: 3, angle: Math.PI * 1.65,     speed: 0.00011, circled: true },
+  ];
+
+  // Stagger dots around canvas edges
+  const decorDots = [
+    { nx: 0.5, ny: 0.02 },
+    { nx: 0.04, ny: 0.34 },
+    { nx: 0.96, ny: 0.34 },
+    { nx: 0.21, ny: 0.94 },
+    { nx: 0.79, ny: 0.94 },
+  ];
+
+  // Corner labels matching the original
+  const cornerLabels = [
+    { text: 'PRODUCT DESIGN · UI/UX · CLARITY', nx: 0.5, ny: 0.025, anchor: 'center' },
+    { text: 'CC — 2025', nx: 0.03, ny: 0.075, anchor: 'left' },
+    { text: 'v.01', nx: 0.97, ny: 0.075, anchor: 'right' },
+    { text: 'Lagos · NG', nx: 0.07, ny: 0.97, anchor: 'left' },
+  ];
+
+  let hoveredIdx = -1;
+  let mouseX = -999, mouseY = -999;
+  let dpr = 1;
+  let W = 0, H = 0;
+  let introComplete = false;
+  let introProgress = 0;
+  let lastTime = 0;
+
+  function resize() {
+    dpr = window.devicePixelRatio || 1;
+    const rect = canvas.parentElement.getBoundingClientRect();
+    W = rect.width;
+    H = rect.width; // square
+    canvas.width = W * dpr;
+    canvas.height = H * dpr;
+    canvas.style.width = W + 'px';
+    canvas.style.height = H + 'px';
+    ctx.scale(dpr, dpr);
+  }
+
+  function orbitRadius(orbitIdx) {
+    const base = Math.min(W, H) * 0.5;
+    const radii = [0, base * 0.28, base * 0.56, base * 0.84];
+    return radii[orbitIdx];
+  }
+
+  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+
+  function draw(timestamp) {
+    const dt = timestamp - lastTime;
+    lastTime = timestamp;
+
+    // Intro animation
+    if (!introComplete) {
+      introProgress = Math.min(1, introProgress + dt / 1400);
+      if (introProgress >= 1) introComplete = true;
+    }
+
+    ctx.clearRect(0, 0, W, H);
+
+    const cx = W / 2;
+    const cy = H / 2;
+    const prog = easeOutCubic(introProgress);
+
+    // ── Starfield background dots ──
+    ctx.save();
+    for (let i = 0; i < 60; i++) {
+      // deterministic pseudo-random
+      const px = ((i * 137.508 + 41) % W);
+      const py = ((i * 97.3 + 19) % H);
+      const alpha = 0.06 + (i % 5) * 0.025;
+      ctx.fillStyle = `rgba(237,232,223,${alpha * prog})`;
+      ctx.beginPath();
+      ctx.arc(px, py, 0.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+    ctx.restore();
+
+    // ── Grid crosshatch (subtle) ──
+    ctx.save();
+    ctx.strokeStyle = `rgba(237,232,223,${0.035 * prog})`;
+    ctx.lineWidth = 0.5;
+    const gridStep = W / 8;
+    for (let x = 0; x <= W; x += gridStep) {
+      ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, H); ctx.stroke();
+    }
+    for (let y = 0; y <= H; y += gridStep) {
+      ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(W, y); ctx.stroke();
+    }
+    ctx.restore();
+
+    // ── Corner decorative dots ──
+    decorDots.forEach(d => {
+      ctx.save();
+      ctx.fillStyle = `rgba(201,169,110,${0.6 * prog})`;
+      ctx.beginPath();
+      ctx.arc(d.nx * W, d.ny * H, 2.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.restore();
+    });
+
+    // ── Corner text labels ──
+    ctx.save();
+    ctx.font = `300 ${Math.max(8, W * 0.02)}px 'DM Sans', sans-serif`;
+    ctx.fillStyle = `rgba(122,116,105,${0.7 * prog})`;
+    ctx.letterSpacing = '0.12em';
+    cornerLabels.forEach(lb => {
+      ctx.textAlign = lb.anchor === 'center' ? 'center' : lb.anchor === 'right' ? 'right' : 'left';
+      ctx.fillText(lb.text, lb.nx * W, lb.ny * H);
+    });
+    ctx.restore();
+
+    // ── Advance skill angles ──
+    skills.forEach(s => { s.angle += s.speed * dt; });
+
+    // ── Orbit rings ──
+    for (let i = 1; i <= 3; i++) {
+      const r = orbitRadius(i);
+      ctx.save();
+      ctx.strokeStyle = `rgba(237,232,223,${0.08 * prog})`;
+      ctx.lineWidth = 0.5;
+      ctx.setLineDash([4, 6]);
+      ctx.beginPath();
+      ctx.arc(cx, cy, r * prog, 0, Math.PI * 2);
+      ctx.stroke();
+      ctx.setLineDash([]);
+      ctx.restore();
+    }
+
+    // ── Inner ring (double) ──
+    const innerR = orbitRadius(1) * 0.55;
+    ctx.save();
+    ctx.strokeStyle = `rgba(201,169,110,${0.18 * prog})`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.arc(cx, cy, innerR * prog, 0, Math.PI * 2); ctx.stroke();
+    ctx.strokeStyle = `rgba(201,169,110,${0.09 * prog})`;
+    ctx.lineWidth = 0.5;
+    ctx.beginPath(); ctx.arc(cx, cy, (innerR + 6) * prog, 0, Math.PI * 2); ctx.stroke();
+    ctx.restore();
+
+    // ── Compass tick marks on outer orbit ──
+    const outerR = orbitRadius(3);
+    ctx.save();
+    ctx.strokeStyle = `rgba(237,232,223,${0.12 * prog})`;
+    ctx.lineWidth = 0.5;
+    for (let t = 0; t < Math.PI * 2; t += Math.PI / 6) {
+      const cos = Math.cos(t), sin = Math.sin(t);
+      const len = t % (Math.PI / 2) === 0 ? 7 : 4;
+      ctx.beginPath();
+      ctx.moveTo(cx + cos * (outerR - len), cy + sin * (outerR - len));
+      ctx.lineTo(cx + cos * outerR, cy + sin * outerR);
+      ctx.stroke();
+    }
+    ctx.restore();
+
+    // Center N/S/E/W tick extensions
+    ctx.save();
+    ctx.strokeStyle = `rgba(201,169,110,${0.3 * prog})`;
+    ctx.lineWidth = 0.5;
+    [[0,-1],[0,1],[1,0],[-1,0]].forEach(([cos,sin]) => {
+      ctx.beginPath();
+      ctx.moveTo(cx + cos * innerR, cy + sin * innerR);
+      ctx.lineTo(cx + cos * (innerR + (outerR - innerR) * 0.5), cy + sin * (innerR + (outerR - innerR) * 0.5));
+      ctx.stroke();
+    });
+    ctx.restore();
+
+    // ── Center node ──
+    const centerR = Math.min(W, H) * 0.13;
+    ctx.save();
+    // outer glow ring
+    ctx.strokeStyle = `rgba(201,169,110,${0.15 * prog})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, (centerR + 4) * prog, 0, Math.PI * 2); ctx.stroke();
+    // main fill
+    ctx.fillStyle = CARD;
+    ctx.strokeStyle = `rgba(201,169,110,${0.35 * prog})`;
+    ctx.lineWidth = 1;
+    ctx.beginPath(); ctx.arc(cx, cy, centerR * prog, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+    // name text
+    ctx.fillStyle = `rgba(237,232,223,${prog})`;
+    ctx.font = `300 ${Math.max(12, centerR * 0.34)}px 'Cormorant Garamond', serif`;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText('Confidence', cx, cy - centerR * 0.12);
+    ctx.font = `italic 300 ${Math.max(10, centerR * 0.26)}px 'Cormorant Garamond', serif`;
+    ctx.fillStyle = `rgba(201,169,110,${prog})`;
+    ctx.fillText('Chima', cx, cy + centerR * 0.22);
+    ctx.restore();
+
+    // ── Skill nodes ──
+    skills.forEach((s, i) => {
+      const r = orbitRadius(s.orbit);
+      const x = cx + Math.cos(s.angle) * r;
+      const y = cy + Math.sin(s.angle) * r;
+
+      const dx = mouseX - x, dy = mouseY - y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      const nodeR = Math.min(W, H) * (s.circled ? 0.068 : 0.01);
+      const isHovered = dist < nodeR + 10;
+      if (isHovered) hoveredIdx = i;
+
+      const alpha = prog;
+
+      if (s.circled) {
+        // Circle node (like in the image)
+        ctx.save();
+        ctx.fillStyle = isHovered ? `rgba(28,26,22,${alpha})` : `rgba(20,19,16,${alpha})`;
+        ctx.strokeStyle = isHovered ? `rgba(201,169,110,${0.7 * alpha})` : `rgba(237,232,223,${0.18 * alpha})`;
+        ctx.lineWidth = isHovered ? 1 : 0.5;
+        ctx.beginPath(); ctx.arc(x, y, nodeR, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
+
+        const fontSize = Math.max(8, nodeR * 0.38);
+        const words = s.label.split(' ');
+        ctx.font = `400 ${fontSize}px 'DM Sans', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.fillStyle = isHovered ? `rgba(201,169,110,${alpha})` : `rgba(237,232,223,${0.7 * alpha})`;
+        ctx.letterSpacing = '0.08em';
+
+        if (words.length === 1) {
+          ctx.fillText(s.label, x, y);
+        } else if (words.length === 2) {
+          ctx.fillText(words[0], x, y - fontSize * 0.65);
+          ctx.fillText(words[1], x, y + fontSize * 0.65);
+        } else {
+          ctx.fillText(words[0] + ' ' + words[1], x, y - fontSize * 0.65);
+          ctx.fillText(words.slice(2).join(' '), x, y + fontSize * 0.65);
+        }
+        ctx.restore();
+      } else {
+        // Plain text node (no circle)
+        ctx.save();
+        const fontSize = Math.max(8, Math.min(W, H) * 0.024);
+        ctx.font = `${isHovered ? 400 : 300} ${fontSize}px 'DM Sans', sans-serif`;
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        ctx.letterSpacing = '0.12em';
+        ctx.fillStyle = isHovered
+          ? `rgba(201,169,110,${alpha})`
+          : `rgba(122,116,105,${0.9 * alpha})`;
+
+        // Measure for hover underline
+        const tw = ctx.measureText(s.label).width;
+
+        ctx.fillText(s.label, x, y);
+
+        if (isHovered) {
+          ctx.strokeStyle = `rgba(201,169,110,${0.5 * alpha})`;
+          ctx.lineWidth = 0.5;
+          ctx.beginPath();
+          ctx.moveTo(x - tw / 2, y + fontSize * 0.85);
+          ctx.lineTo(x + tw / 2, y + fontSize * 0.85);
+          ctx.stroke();
+        }
+        ctx.restore();
+      }
+    });
+
+    requestAnimationFrame(draw);
+  }
+
+  // Mouse tracking
+  canvas.addEventListener('mousemove', e => {
+    const rect = canvas.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+    hoveredIdx = -1;
+  });
+  canvas.addEventListener('mouseleave', () => { mouseX = -999; mouseY = -999; hoveredIdx = -1; });
+
+  window.addEventListener('resize', () => {
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    resize();
+  });
+
+  resize();
+  requestAnimationFrame(t => { lastTime = t; draw(t); });
+})();
+
 /* ─── SCROLL PROGRESS BAR ─── */
 const progressBar = document.getElementById('scrollProgressBar');
 function updateProgressBar() {
@@ -1075,23 +1330,19 @@ updateProgressBar();
 const cursor = document.querySelector('.cursor');
 const ring   = document.querySelector('.cursor-ring');
 let ringX = 0, ringY = 0, mouseX = 0, mouseY = 0;
-
 document.addEventListener('mousemove', e => {
   mouseX = e.clientX; mouseY = e.clientY;
-  cursor.style.left = mouseX + 'px';
-  cursor.style.top  = mouseY + 'px';
+  cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
 });
 function animateRing() {
-  ringX += (mouseX - ringX) * 0.12;
-  ringY += (mouseY - ringY) * 0.12;
-  ring.style.left = ringX + 'px';
-  ring.style.top  = ringY + 'px';
+  ringX += (mouseX - ringX) * 0.12; ringY += (mouseY - ringY) * 0.12;
+  ring.style.left = ringX + 'px'; ring.style.top = ringY + 'px';
   requestAnimationFrame(animateRing);
 }
 animateRing();
 
 function refreshInteractables() {
-  document.querySelectorAll('a, .card-featured, .card-grid-item, .hero-tag-pill, .btn-cv, .card-link, .budget-btn, .btn-submit, .btn-reset, .form-input, .form-select, .form-textarea').forEach(el => {
+  document.querySelectorAll('a, .card-featured, .card-grid-item, .btn-submit, .btn-reset, .form-input, .form-select, .form-textarea, .budget-btn').forEach(el => {
     el.removeEventListener('mouseenter', onEnter);
     el.removeEventListener('mouseleave', onLeave);
     el.addEventListener('mouseenter', onEnter);
@@ -1111,10 +1362,8 @@ document.addEventListener('mousemove', e => {
 });
 document.addEventListener('mouseleave', () => { glowActive = false; cursorGlow.classList.remove('active'); });
 function animateGlow() {
-  glowX += (targetGlowX - glowX) * 0.1;
-  glowY += (targetGlowY - glowY) * 0.1;
-  cursorGlow.style.left = glowX + 'px';
-  cursorGlow.style.top  = glowY + 'px';
+  glowX += (targetGlowX - glowX) * 0.1; glowY += (targetGlowY - glowY) * 0.1;
+  cursorGlow.style.left = glowX + 'px'; cursorGlow.style.top = glowY + 'px';
   if (glowActive) requestAnimationFrame(animateGlow);
 }
 
@@ -1124,26 +1373,6 @@ const revealObs = new IntersectionObserver(entries => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
 }, { threshold: 0.1 });
 revealEls.forEach(el => revealObs.observe(el));
-
-/* ─── HERO TAGS ─── */
-const heroTags = document.querySelectorAll('.hero-tag-pill');
-heroTags.forEach(tag => tag.classList.add('tag-hidden'));
-const tagObs = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      heroTags.forEach((tag, i) => {
-        setTimeout(() => {
-          tag.classList.remove('tag-hidden');
-          tag.classList.add('tag-visible');
-          setTimeout(() => tag.classList.add('tag-breathe'), 600);
-        }, i * 80);
-      });
-      tagObs.disconnect();
-    }
-  });
-}, { threshold: 0.2 });
-const tagsSection = document.querySelector('.hero-tags');
-if (tagsSection) tagObs.observe(tagsSection);
 
 /* ─── HEADLINE LETTER ROLL-IN ─── */
 function splitHeadlineIntoChars(el) {
@@ -1169,7 +1398,7 @@ function splitHeadlineIntoChars(el) {
       });
     } else if (node.nodeName === 'BR') {
       output.push('<br>');
-    } else if (['EM', 'STRONG', 'SPAN'].includes(node.nodeName)) {
+    } else if (['EM','STRONG','SPAN'].includes(node.nodeName)) {
       const inner = [];
       node.childNodes.forEach(child => processNode(child, inner));
       const tag = node.nodeName.toLowerCase();
@@ -1185,9 +1414,7 @@ function splitHeadlineIntoChars(el) {
 }
 function triggerCharReveal(el) {
   const chars = el.querySelectorAll('.char');
-  requestAnimationFrame(() => requestAnimationFrame(() => {
-    chars.forEach(ch => ch.classList.add('in'));
-  }));
+  requestAnimationFrame(() => requestAnimationFrame(() => { chars.forEach(ch => ch.classList.add('in')); }));
 }
 const headlineEls = document.querySelectorAll('[data-headline]');
 headlineEls.forEach(el => splitHeadlineIntoChars(el));
@@ -1199,16 +1426,16 @@ const headlineObs = new IntersectionObserver(entries => {
 headlineEls.forEach(el => headlineObs.observe(el));
 
 /* ─── MAGNETIC BUTTONS ─── */
-document.querySelectorAll('.card-link, .btn-cv, .btn-submit').forEach(btn => {
+document.querySelectorAll('.card-link, .btn-submit').forEach(btn => {
   btn.addEventListener('mousemove', e => {
     const rect = btn.getBoundingClientRect();
     const dx = e.clientX - (rect.left + rect.width / 2);
-    const dy = e.clientY - (rect.top  + rect.height / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
     btn.style.transform = `translate(${dx * 0.3}px, ${dy * 0.3}px)`;
   });
   btn.addEventListener('mouseleave', () => {
-    btn.style.transition = 'transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
-    btn.style.transform = 'translate(0, 0)';
+    btn.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+    btn.style.transform = 'translate(0,0)';
     setTimeout(() => { btn.style.transition = ''; }, 500);
   });
   btn.addEventListener('mouseenter', () => { btn.style.transition = 'transform 0.1s ease'; });
@@ -1227,21 +1454,9 @@ function updateLabelParallax() {
 window.addEventListener('scroll', updateLabelParallax, { passive: true });
 updateLabelParallax();
 
-/* ─── MOBILE TAP OVERLAY ─── */
-document.querySelectorAll('.card-featured, .card-grid-item').forEach(card => {
-  let tapped = false;
-  card.addEventListener('click', function(e) {
-    if (window.innerWidth <= 768) {
-      if (!tapped) { e.preventDefault(); tapped = true; setTimeout(() => tapped = false, 2000); }
-    }
-  });
-});
-
 /* ─── SELECT PLACEHOLDER STYLING ─── */
 document.querySelectorAll('.form-select').forEach(sel => {
-  sel.addEventListener('change', () => {
-    sel.classList.toggle('placeholder-active', sel.value === '');
-  });
+  sel.addEventListener('change', () => { sel.classList.toggle('placeholder-active', sel.value === ''); });
 });
 
 /* ─── BUDGET BUTTONS ─── */
@@ -1266,7 +1481,6 @@ brief.addEventListener('input', () => {
 
 /* ─── VALIDATION ─── */
 function validateEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
-
 function setError(fieldId, errId, show) {
   const field = document.getElementById(fieldId);
   const err = document.getElementById(errId);
@@ -1274,13 +1488,11 @@ function setError(fieldId, errId, show) {
   else { field.classList.remove('error'); err.classList.remove('visible'); }
   return show;
 }
-
 function validateForm() {
   const name = document.getElementById('fullName').value.trim();
   const email = document.getElementById('emailAddr').value.trim();
   const service = document.getElementById('service').value;
   const briefVal = document.getElementById('brief').value.trim();
-
   let hasError = false;
   if (setError('fullName', 'err-fullName', !name)) hasError = true;
   if (setError('emailAddr', 'err-emailAddr', !validateEmail(email))) hasError = true;
@@ -1288,9 +1500,7 @@ function validateForm() {
   if (setError('brief', 'err-brief', !briefVal)) hasError = true;
   return !hasError;
 }
-
-/* Clear error on input */
-['fullName', 'emailAddr', 'service', 'brief'].forEach(id => {
+['fullName','emailAddr','service','brief'].forEach(id => {
   const el = document.getElementById(id);
   const event = el.tagName === 'SELECT' ? 'change' : 'input';
   el.addEventListener(event, () => {
@@ -1305,27 +1515,18 @@ const submitBtn = document.getElementById('submitBtn');
 const submitLabel = document.getElementById('submitLabel');
 const submitArrow = document.getElementById('submitArrow');
 const formEl = document.getElementById('contactForm');
-const formSuccess = document.getElementById('formSuccess');
 
 submitBtn.addEventListener('click', async () => {
   if (!validateForm()) return;
-
-  // Loading state
   submitBtn.disabled = true;
   submitLabel.textContent = 'Sending';
   submitArrow.outerHTML = '<span class="spinner" id="submitArrow"></span>';
-
-  // Simulate a send (replace with actual fetch/formspree/emailjs)
   await new Promise(r => setTimeout(r, 1800));
-
-  // Show success
   formEl.classList.add('submitted');
 });
 
-/* ─── RESET ─── */
 document.getElementById('resetBtn').addEventListener('click', () => {
   formEl.classList.remove('submitted');
-
   document.getElementById('fullName').value = '';
   document.getElementById('emailAddr').value = '';
   document.getElementById('company').value = '';
@@ -1339,8 +1540,6 @@ document.getElementById('resetBtn').addEventListener('click', () => {
   charCount.className = 'char-count';
   document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('active'));
   selectedBudget = null;
-
-  // Restore button
   submitBtn.disabled = false;
   const spinnerEl = document.getElementById('submitArrow');
   if (spinnerEl) spinnerEl.outerHTML = '<span class="arrow" id="submitArrow">→</span>';
