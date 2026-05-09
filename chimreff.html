@@ -4,826 +4,1184 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Chimreff — Confidence Chima</title>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+
 <style>
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Space Grotesk', sans-serif;
+:root {
+  --bg:      #0C0B09;
+  --surface: #141310;
+  --card:    #1A1916;
+  --text:    #EDE8DF;
+  --muted:   #7A7469;
+  --accent:  #C9A96E;
+  --border:  rgba(237,232,223,0.08);
+  --serif:   'Cormorant Garamond', serif;
+  --sans:    'DM Sans', sans-serif;
 }
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-  background: #f7f7f7;
-  color: #111;
-  padding: 40px 20px;
-  max-width: 900px;
-  margin: auto;
-  line-height: 1.7;
+  cursor: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
 }
 
-a {
-  text-decoration: none;
-  color: #111;
-  opacity: 0.7;
-}
-a:hover { opacity: 1; }
-
-h1 { font-size: 42px; margin-top: 20px; }
-
-h2 {
-  font-size: 13px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: #777;
-  margin-top: 8px;
+body::before {
+  content: ''; position: fixed; inset: 0;
+  pointer-events: none; z-index: 1; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 
-h3 {
-  margin-bottom: 10px;
-  font-size: 22px;
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(237,232,223,0.4) 100%);
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(201,169,110,0.5);
+  transition: width 0.05s linear;
 }
 
-p {
-  margin-top: 10px;
-  color: #555;
-  max-width: 600px;
+/* ─── CURSOR ─── */
+.cursor {
+  width: 8px; height: 8px; background: var(--accent);
+  border-radius: 50%; position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9999;
+  transition: width .25s, height .25s;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 50%;
+  position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9998;
+  transition: width .4s, height .4s, border-color .3s;
+}
+.cursor.hover   { width: 4px; height: 4px; }
+.cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(201,169,110,.7); }
+.cursor-glow {
+  position: fixed; width: 380px; height: 380px; border-radius: 50%;
+  pointer-events: none; z-index: 0; transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(201,169,110,.09) 0%, rgba(201,169,110,.02) 40%, transparent 70%);
+  opacity: 0; transition: opacity .4s;
+}
+.cursor-glow.active { opacity: 1; }
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor, .cursor-ring, .cursor-glow { display: none; }
 }
 
-.section { margin-bottom: 80px; }
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(12,11,9,.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--serif); font-weight: 400; font-size: 18px;
+  letter-spacing: .02em; color: var(--text); text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  text-decoration: none; color: var(--muted); font-size: 13px;
+  font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+  transition: color .3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--accent); transition: width .3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+@media (max-width: 768px) { nav { padding: 20px 24px; } }
 
-.hero { margin: 50px 0; }
-.hero img {
-  width: 100%;
-  border-radius: 20px;
-  box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
-
-.section-img { margin-top: 25px; }
-.section-img img {
-  width: 100%;
-  border-radius: 18px;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-/* META ROW */
-.meta-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 32px;
-  margin-top: 32px;
-  padding: 28px;
-  background: #fff;
-  border-radius: 16px;
-  border: 1px solid #e8e8e8;
-}
-.meta-item {}
-.meta-label {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #999;
-  margin-bottom: 4px;
-}
-.meta-value {
-  font-size: 15px;
-  font-weight: 600;
-  color: #111;
-  margin-top: 0;
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px; background: var(--border);
+  max-width: calc(1080px - 80px); margin: 0 auto;
 }
 
-/* LIVE PLATFORM BANNER */
+/* ─── BACK LINK ─── */
+.back-wrap { max-width: 1080px; margin: 0 auto; padding: 36px 40px 0; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--muted);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  transition: color .3s, gap .3s;
+}
+.back-link:hover { color: var(--accent); gap: 6px; }
+.back-link .arrow { transition: transform .3s; }
+.back-link:hover .arrow { transform: translateX(-4px); }
+@media (max-width: 768px) { .back-wrap { padding: 28px 24px 0; } }
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 1080px; margin: 0 auto;
+  padding: 56px 40px 72px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: end;
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 48px 24px 56px; gap: 40px; }
+}
+
+.hero-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.hero-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.hero-label.show { opacity: 1; transform: none; }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(52px, 7vw, 90px);
+  font-weight: 300; line-height: .92; letter-spacing: -.01em;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+
+.hero-right { padding-bottom: 4px; }
+.hero-desc {
+  font-size: 15px; line-height: 1.75; color: var(--muted);
+  font-weight: 300; max-width: 400px; margin-bottom: 36px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .2s, transform .7s ease .2s;
+}
+.hero-desc.show { opacity: 1; transform: none; }
+
+.hero-meta-list {
+  display: flex; flex-direction: column; gap: 16px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .35s, transform .7s ease .35s;
+}
+.hero-meta-list.show { opacity: 1; transform: none; }
+.hero-meta-item { display: flex; align-items: center; gap: 14px; }
+.hero-meta-line { width: 24px; height: 1px; background: var(--border); flex-shrink: 0; }
+.hero-meta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.hero-meta-val { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); font-weight: 400; margin-left: auto; }
+
+/* ─── HERO IMAGE ─── */
+.hero-image-wrap {
+  max-width: 1080px; margin: 0 auto; padding: 0 40px 48px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .9s ease, transform .9s ease;
+  overflow: hidden;
+}
+.hero-image-wrap.show { opacity: 1; transform: none; }
+.hero-image-wrap img {
+  width: 100%; display: block; border-radius: 4px;
+  border: 1px solid var(--border);
+  object-fit: cover;
+  animation: heroFloat 7s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+.hero-image-wrap:hover img { animation-play-state: paused; }
+@keyframes heroFloat {
+  0%   { transform: scale(1.00) translateY(0px); }
+  30%  { transform: scale(1.02) translateY(-6px); }
+  60%  { transform: scale(1.04) translateY(-10px); }
+  80%  { transform: scale(1.02) translateY(-6px); }
+  100% { transform: scale(1.00) translateY(0px); }
+}
+@media (max-width: 768px) { .hero-image-wrap { padding: 0 24px 40px; } }
+
+/* ─── LIVE BANNER ─── */
+.live-banner-wrap {
+  max-width: 1080px; margin: 0 auto; padding: 0 40px 64px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s ease .4s, transform .7s ease .4s;
+}
+.live-banner-wrap.show { opacity: 1; transform: none; }
 .live-banner {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 16px;
-  padding: 18px 24px;
-  background: #fff;
-  border-radius: 14px;
-  border: 1px solid #e8e8e8;
+  display: flex; align-items: center; justify-content: space-between; gap: 20px;
+  padding: 20px 28px;
+  background: var(--card); border: 1px solid var(--border); border-radius: 4px;
+  transition: border-color .3s;
 }
-.live-banner-left {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
+.live-banner:hover { border-color: rgba(201,169,110,.25); }
+.live-banner-left { display: flex; align-items: center; gap: 16px; }
 .live-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: #2e7d32;
-  flex-shrink: 0;
-  box-shadow: 0 0 0 3px rgba(46,125,50,0.15);
+  width: 8px; height: 8px; border-radius: 50%;
+  background: #4caf50; flex-shrink: 0;
+  box-shadow: 0 0 0 3px rgba(76,175,80,.2);
+  animation: pulse 2s ease-in-out infinite;
 }
-.live-label {
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: #999;
+@keyframes pulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(76,175,80,.2); }
+  50%       { box-shadow: 0 0 0 6px rgba(76,175,80,.08); }
+}
+.live-meta-label {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 4px;
 }
 .live-url {
-  font-size: 15px;
-  font-weight: 600;
-  color: #111;
-  opacity: 1 !important;
-  text-decoration: none;
+  font-family: var(--serif); font-size: 18px; font-weight: 300;
+  color: var(--text); text-decoration: none; display: inline-block;
+  transition: color .3s;
 }
-.live-url:hover {
-  text-decoration: underline;
+.live-url:hover { color: var(--accent); }
+.live-status {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted);
+}
+@media (max-width: 768px) { .live-banner-wrap { padding: 0 24px 48px; } }
+
+/* ─── SECTION ─── */
+.section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+@media (max-width: 768px) { .section { padding: 60px 24px; } }
+
+.section-header {
+  display: flex; align-items: baseline;
+  justify-content: space-between; margin-bottom: 48px;
+}
+.section-title {
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 16px;
+}
+.section-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
+
+/* ─── OVERVIEW TRIO ─── */
+.overview-trio {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 768px) { .overview-trio { grid-template-columns: 1fr; } }
+
+.overview-cell {
+  background: var(--card); padding: 36px 32px;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.overview-cell.show { opacity: 1; transform: none; }
+.overview-cell:nth-child(1) { transition-delay: 0s; }
+.overview-cell:nth-child(2) { transition-delay: .1s; }
+.overview-cell:nth-child(3) { transition-delay: .2s; }
+
+.overview-cell-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px; font-weight: 400;
+  display: flex; align-items: center; gap: 10px;
+}
+.overview-cell-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.overview-cell-heading {
+  font-family: var(--serif); font-size: 26px; font-weight: 300;
+  line-height: 1.1; color: var(--text); margin-bottom: 12px;
+}
+.overview-cell-heading em { font-style: italic; color: var(--accent); }
+.overview-cell-text { font-size: 13px; line-height: 1.75; color: var(--muted); font-weight: 300; }
+
+/* ─── META STRIP ─── */
+.meta-strip {
+  display: grid; grid-template-columns: repeat(5, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.meta-strip.show { opacity: 1; transform: none; }
+@media (max-width: 900px) { .meta-strip { grid-template-columns: repeat(3,1fr); } }
+@media (max-width: 640px) { .meta-strip { grid-template-columns: repeat(2,1fr); } }
+
+.meta-cell { background: var(--card); padding: 28px 24px; }
+.meta-cell-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px; font-weight: 400;
+}
+.meta-cell-val {
+  font-family: var(--serif); font-size: 18px;
+  font-weight: 300; color: var(--text); line-height: 1.2;
 }
 
-/* ROLE TAGS */
-.tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 20px;
+/* ─── STAT STRIP ─── */
+.stat-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
 }
-.tag {
-  font-size: 12px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 6px 14px;
-  border-radius: 100px;
-  background: #111;
-  color: #f7f7f7;
-  font-weight: 500;
-}
-.tag.outline {
-  background: transparent;
-  border: 1.5px solid #ccc;
-  color: #555;
-}
+.stat-strip.show { opacity: 1; transform: none; }
+@media (max-width: 640px) { .stat-strip { grid-template-columns: 1fr; } }
 
-/* STAT CARDS */
-.stat-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 28px;
-}
-.stat-card {
-  background: #fff;
-  border-radius: 16px;
-  padding: 24px 20px;
-  border: 1px solid #e8e8e8;
-  text-align: center;
-}
+.stat-cell { background: var(--card); padding: 40px 32px; text-align: center; }
 .stat-num {
-  font-size: 38px;
-  font-weight: 700;
-  color: #111;
-  line-height: 1;
+  font-family: var(--serif);
+  font-size: clamp(48px, 5vw, 72px);
+  font-weight: 300; color: var(--text); line-height: 1;
+  margin-bottom: 10px;
 }
+.stat-num em { font-style: italic; color: var(--accent); }
 .stat-label {
-  font-size: 12px;
-  color: #888;
-  margin-top: 6px;
-  text-transform: uppercase;
-  letter-spacing: 1px;
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
 }
 
-/* FINDING ROWS */
-.finding-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
-.finding {
-  display: flex;
-  align-items: flex-start;
-  gap: 14px;
-  background: #fff;
-  border-radius: 14px;
-  padding: 18px 20px;
-  border: 1px solid #e8e8e8;
+/* ─── KEY INSIGHT ─── */
+.insight-block {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 4px; padding: 56px 48px;
+  display: grid; grid-template-columns: 1fr 2fr;
+  gap: 0 60px; align-items: center;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
 }
-.badge {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 6px;
-  white-space: nowrap;
-  margin-top: 2px;
-  flex-shrink: 0;
+.insight-block.show { opacity: 1; transform: none; }
+@media (max-width: 768px) {
+  .insight-block { grid-template-columns: 1fr; gap: 24px; padding: 36px 28px; }
 }
-.badge.high { background: #fde8e8; color: #c0392b; }
-.badge.mod  { background: #fef0d9; color: #b7651a; }
-.badge.low  { background: #e8f5e9; color: #2e7d32; }
+.insight-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400;
+  display: flex; align-items: center; gap: 10px;
+}
+.insight-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.insight-text {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 300; line-height: 1.4; color: var(--text);
+}
+.insight-text em { font-style: italic; color: var(--accent); }
 
-.finding-text {}
-.finding-title { font-weight: 600; font-size: 15px; color: #111; }
-.finding-desc  { font-size: 14px; color: #666; margin-top: 3px; }
+/* ─── FINDING LIST ─── */
+.finding-list { display: flex; flex-direction: column; gap: 1px; }
 
-/* SCORECARD TABLE */
+.finding-item {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 0 32px; align-items: start;
+  background: var(--card); padding: 28px 32px;
+  border-top: 1px solid var(--border);
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease, border-color .3s;
+}
+.finding-item:first-child { border-top: none; border-radius: 4px 4px 0 0; }
+.finding-item:last-child  { border-radius: 0 0 4px 4px; }
+.finding-item.show { opacity: 1; transform: none; }
+.finding-item:hover { border-color: rgba(201,169,110,.15); }
+.finding-item:nth-child(1) { transition-delay: 0s; }
+.finding-item:nth-child(2) { transition-delay: .07s; }
+.finding-item:nth-child(3) { transition-delay: .14s; }
+.finding-item:nth-child(4) { transition-delay: .21s; }
+.finding-item:nth-child(5) { transition-delay: .28s; }
+.finding-item:nth-child(6) { transition-delay: .35s; }
+.finding-item:nth-child(7) { transition-delay: .42s; }
+
+@media (max-width: 640px) { .finding-item { grid-template-columns: 1fr; gap: 10px; } }
+
+.severity-badge {
+  font-size: 9px; letter-spacing: .14em; text-transform: uppercase;
+  font-weight: 500; padding: 6px 10px; border-radius: 2px;
+  white-space: nowrap; display: inline-block; margin-top: 2px;
+}
+.severity-badge.high { background: rgba(201,80,60,.12); color: rgba(220,100,80,.9); border: 1px solid rgba(201,80,60,.2); }
+.severity-badge.mod  { background: rgba(201,169,110,.1); color: var(--accent); border: 1px solid rgba(201,169,110,.2); }
+.severity-badge.low  { background: rgba(100,180,100,.08); color: rgba(100,180,100,.8); border: 1px solid rgba(100,180,100,.15); }
+
+.finding-title {
+  font-family: var(--serif); font-size: 20px; font-weight: 300;
+  color: var(--text); margin-bottom: 8px; line-height: 1.15;
+}
+.finding-title em { font-style: italic; color: var(--accent); }
+.finding-desc { font-size: 13px; line-height: 1.75; color: var(--muted); font-weight: 300; }
+
+/* ─── SCORECARD ─── */
 .scorecard {
-  margin-top: 24px;
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid #e8e8e8;
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .8s ease, transform .8s ease;
 }
+.scorecard.show { opacity: 1; transform: none; }
+
 .scorecard-header {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 12px;
-  padding: 12px 20px;
-  background: #111;
-  color: #f7f7f7;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  font-weight: 600;
+  display: grid; grid-template-columns: 1fr 90px 110px;
+  gap: 16px; padding: 14px 24px;
+  background: rgba(237,232,223,.04);
+  border-bottom: 1px solid var(--border);
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
 }
 .scorecard-row {
-  display: grid;
-  grid-template-columns: 1fr auto auto;
-  gap: 12px;
-  padding: 14px 20px;
-  background: #fff;
-  border-top: 1px solid #f0f0f0;
-  align-items: center;
+  display: grid; grid-template-columns: 1fr 90px 110px;
+  gap: 16px; padding: 18px 24px;
+  background: var(--card); border-top: 1px solid var(--border);
+  align-items: center; transition: background .2s;
 }
-.scorecard-row:nth-child(even) { background: #fafafa; }
-.scorecard-issue { font-size: 14px; color: #333; }
-.scorecard-section { font-size: 11px; color: #999; margin-top: 2px; }
+.scorecard-row:hover { background: rgba(201,169,110,.03); }
+.scorecard-issue { font-size: 14px; color: var(--text); font-weight: 300; }
+.scorecard-section { font-size: 11px; color: var(--muted); margin-top: 3px; letter-spacing: .04em; }
+@media (max-width: 640px) {
+  .scorecard-header, .scorecard-row { grid-template-columns: 1fr 90px; }
+  .scorecard-header span:last-child, .scorecard-row span:last-child { display: none; }
+}
+
 .pill {
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  padding: 4px 10px;
-  border-radius: 6px;
-  white-space: nowrap;
+  font-size: 9px; letter-spacing: .12em; text-transform: uppercase;
+  padding: 5px 10px; border-radius: 2px; white-space: nowrap;
+  font-weight: 500; display: inline-block;
 }
-.pill.high    { background: #fde8e8; color: #c0392b; }
-.pill.mod     { background: #fef0d9; color: #b7651a; }
-.pill.low     { background: #e8f8e8; color: #2e7d32; }
-.pill.resolved{ background: #e8f5e9; color: #2e7d32; }
-.pill.partial { background: #fef0d9; color: #b7651a; }
-.pill.open    { background: #fde8e8; color: #c0392b; }
+.pill.high     { background: rgba(201,80,60,.12);   color: rgba(220,100,80,.9);  border: 1px solid rgba(201,80,60,.2); }
+.pill.mod      { background: rgba(201,169,110,.1);  color: var(--accent);        border: 1px solid rgba(201,169,110,.2); }
+.pill.low      { background: rgba(100,180,100,.08); color: rgba(100,180,100,.8); border: 1px solid rgba(100,180,100,.15); }
+.pill.resolved { background: rgba(100,180,100,.1);  color: rgba(120,200,120,.9); border: 1px solid rgba(100,180,100,.2); }
+.pill.partial  { background: rgba(201,169,110,.1);  color: var(--accent);        border: 1px solid rgba(201,169,110,.2); }
+.pill.open     { background: rgba(201,80,60,.08);   color: rgba(220,100,80,.8);  border: 1px solid rgba(201,80,60,.15); }
 
-/* PHASE BLOCKS */
-.phase-list { display: flex; flex-direction: column; gap: 16px; margin-top: 24px; }
-.phase {
-  display: flex;
-  gap: 20px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 22px 24px;
-  border: 1px solid #e8e8e8;
-  align-items: flex-start;
-}
-.phase-num {
-  font-size: 13px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  background: #111;
-  color: #f7f7f7;
-  padding: 6px 14px;
-  border-radius: 8px;
-  white-space: nowrap;
-  flex-shrink: 0;
-}
-.phase-content {}
-.phase-title { font-weight: 700; font-size: 16px; color: #111; }
-.phase-sub   { font-size: 13px; color: #999; margin-bottom: 6px; }
-.phase-desc  { font-size: 14px; color: #555; margin-top: 4px; }
-
-/* SCREENSHOT GRID */
-.screen-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-  margin-top: 24px;
-}
-.screen-grid img {
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-}
-.screen-grid-3 {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 16px;
-  margin-top: 24px;
-}
-.screen-grid-3 img {
-  width: 100%;
-  border-radius: 16px;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.08);
-}
-
-/* CALLOUT */
+/* ─── CALLOUT ─── */
 .callout {
-  background: #111;
-  color: #f7f7f7;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin-top: 24px;
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 4px; padding: 40px 44px;
+  border-left: 2px solid var(--accent);
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
 }
-.callout p {
-  color: #ccc;
-  max-width: 100%;
-  font-size: 15px;
+.callout.show { opacity: 1; transform: none; }
+.callout-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 16px;
+  display: flex; align-items: center; gap: 10px;
 }
-.callout strong { color: #fff; }
+.callout-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.callout-text {
+  font-family: var(--serif); font-size: clamp(18px, 2.5vw, 24px);
+  font-weight: 300; line-height: 1.5; color: var(--text);
+}
+.callout-text em { font-style: italic; color: var(--accent); }
+@media (max-width: 768px) { .callout { padding: 28px 24px; } }
 
-/* DIVIDER */
-.divider {
-  border: none;
-  border-top: 1px solid #e8e8e8;
-  margin: 0 0 80px 0;
+/* ─── SCREEN GRID ─── */
+.screen-grid-2 {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
 }
+@media (max-width: 640px) { .screen-grid-2 { grid-template-columns: 1fr; } }
 
-/* CONTACT */
-.contact {
-  text-align: center;
-  padding: 30px;
-  border-radius: 20px;
-  background: #f1f1f1;
+.screen-item {
+  background: var(--card); overflow: hidden;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
 }
+.screen-item.show { opacity: 1; transform: none; }
+.screen-item:nth-child(1) { transition-delay: 0s; }
+.screen-item:nth-child(2) { transition-delay: .12s; }
+.screen-item img { width: 100%; display: block; transition: transform .7s ease; }
+.screen-item:hover img { transform: scale(1.03); }
 
-/* FADE ANIMATION */
-.fade {
-  transform: translateY(40px);
-  opacity: 0;
-  transition: all 0.8s ease;
-}
-.fade.show {
-  transform: translateY(0);
-  opacity: 1;
-}
+/* ─── PHASE LIST ─── */
+.phase-list { display: flex; flex-direction: column; }
 
-@media (max-width: 768px) {
-  body { padding: 24px; }
-  h1   { font-size: 34px; }
-  .stat-grid { grid-template-columns: repeat(3, 1fr); }
-  .screen-grid-3 { grid-template-columns: repeat(2, 1fr); }
-  .scorecard-header,
-  .scorecard-row { grid-template-columns: 1fr auto; }
-  .scorecard-header span:last-child,
-  .scorecard-row  span:last-child { display: none; }
-  .live-banner { flex-direction: column; align-items: flex-start; gap: 8px; }
+.phase-item {
+  display: grid; grid-template-columns: 60px 1fr;
+  gap: 0 40px; padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
 }
+.phase-item.show { opacity: 1; transform: none; }
+.phase-item:first-child { border-top: 1px solid var(--border); }
+.phase-item:nth-child(1) { transition-delay: 0s; }
+.phase-item:nth-child(2) { transition-delay: .1s; }
+.phase-item:nth-child(3) { transition-delay: .2s; }
+.phase-item:nth-child(4) { transition-delay: .3s; }
+@media (max-width: 640px) { .phase-item { grid-template-columns: 1fr; gap: 14px; } }
+
+.phase-num {
+  font-family: var(--serif); font-size: 11px; color: var(--accent);
+  font-weight: 400; letter-spacing: .1em; padding-top: 4px;
+}
+.phase-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--text); margin-bottom: 6px; line-height: 1.1;
+}
+.phase-heading em { font-style: italic; color: var(--accent); }
+.phase-sub {
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 12px; font-weight: 400;
+}
+.phase-text { font-size: 14px; line-height: 1.75; color: var(--muted); font-weight: 300; max-width: 560px; }
+
+/* ─── OUTCOME ─── */
+.outcome-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .outcome-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.outcome-heading {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05; color: var(--text);
+}
+.outcome-heading em { font-style: italic; color: var(--accent); }
+.outcome-text { font-size: 14px; line-height: 1.8; color: var(--muted); font-weight: 300; margin-bottom: 24px; }
+
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.tag {
+  display: inline-flex; align-items: center; padding: 8px 16px;
+  border: 1px solid var(--border); border-radius: 2px;
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+  transition: border-color .3s, color .3s;
+}
+.tag:hover { border-color: rgba(201,169,110,.4); color: var(--text); }
+
+/* ─── WORK WITH ME ─── */
+.work-with-me {
+  max-width: 1080px; margin: 0 auto;
+  padding: 80px 40px 120px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) { .work-with-me { padding: 60px 24px 80px; } }
+
+.wwm-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .wwm-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+.wwm-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.wwm-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.wwm-heading {
+  font-family: var(--serif); font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05; color: var(--text);
+}
+.wwm-heading em { font-style: italic; color: var(--accent); }
+.wwm-right { padding-top: 4px; }
+.wwm-desc {
+  font-size: 14px; line-height: 1.75; color: var(--muted);
+  font-weight: 300; margin-bottom: 28px; max-width: 400px;
+}
+.wwm-email-label {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.wwm-email-link {
+  font-family: var(--serif); font-size: 18px; font-weight: 300;
+  color: var(--text); text-decoration: none;
+  transition: color .3s; display: inline-block; margin-bottom: 32px;
+}
+.wwm-email-link:hover { color: var(--accent); }
+.wwm-cta-wrap { padding-top: 24px; border-top: 1px solid var(--border); }
+.wwm-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  text-decoration: none; color: var(--text);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 2px;
+  padding: 16px 28px;
+  transition: border-color .3s, color .3s, gap .3s;
+  position: relative; overflow: hidden;
+}
+.wwm-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(201,169,110,.06); transform: translateX(-100%);
+  transition: transform .4s ease;
+}
+.wwm-cta:hover::before { transform: translateX(0); }
+.wwm-cta:hover { border-color: var(--accent); color: var(--accent); gap: 18px; }
+.wwm-cta .arrow { transition: transform .3s; }
+.wwm-cta:hover .arrow { transform: translateX(4px); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border); padding: 24px 40px;
+  max-width: 1080px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+@media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+/* ─── CHAR ANIMATION ─── */
+.char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.15; }
+.char {
+  display: inline-block; transform: translateY(110%); opacity: 0;
+  transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+.char.in { transform: translateY(0); opacity: 1; }
+.word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
+
+/* ─── GENERIC REVEAL ─── */
+.reveal {
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.reveal.show { opacity: 1; transform: none; }
 </style>
 </head>
 <body>
 
-<a href="index.html" class="fade">← Back to Home</a>
+<div class="scroll-progress-bar" id="scrollProgressBar"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
 
-<h1 class="fade">Chimreff</h1>
-<h2 class="fade">UX Research &amp; Strategy • Repair-Tech Platform • Lagos</h2>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Confidence Chima</a>
+  <div class="nav-links">
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-<p class="fade">
-  Led end-to-end UX research, heuristic evaluation across two rounds, and go-to-market strategy for a live repair-tech platform serving customers, artisans, and riders across Lagos.
-</p>
-
-<div class="tag-row fade">
-  <span class="tag">UX Research</span>
-  <span class="tag">Heuristic Evaluation</span>
-  <span class="tag">Launch Strategy</span>
-  <span class="tag outline">Multi-Persona Platform</span>
-  <span class="tag outline">Live Product</span>
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-link">
+    <span class="arrow">←</span> All Work
+  </a>
 </div>
 
 <!-- HERO -->
-<div class="hero fade">
-  <img src="images/chimreff-hero.png" alt="Chimreff platform hero">
-</div>
-
-<!-- META -->
-<div class="meta-row fade">
-  <div class="meta-item">
-    <div class="meta-label">Role</div>
-    <div class="meta-value">Product Designer</div>
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label" id="heroLabel">Mobile UX · Service Platform</p>
+    <h1 class="hero-title" data-headline>Chimreff</h1>
   </div>
-  <div class="meta-item">
-    <div class="meta-label">Method</div>
-    <div class="meta-value">Heuristic Evaluation</div>
-  </div>
-  <div class="meta-item">
-    <div class="meta-label">Rounds</div>
-    <div class="meta-value">2 of 2</div>
-  </div>
-  <div class="meta-item">
-    <div class="meta-label">Platform</div>
-    <div class="meta-value">chimreff.com.ng</div>
-  </div>
-  <div class="meta-item">
-    <div class="meta-label">Status</div>
-    <div class="meta-value">Live &amp; Launch-Ready</div>
-  </div>
-</div>
-
-<!-- LIVE PLATFORM BANNER -->
-<div class="live-banner fade">
-  <div class="live-banner-left">
-    <div class="live-dot"></div>
-    <div>
-      <div class="live-label">Live Platform</div>
-      <a href="https://chimreff.com.ng" target="_blank" rel="noopener" class="live-url">chimreff.com.ng ↗</a>
+  <div class="hero-right">
+    <p class="hero-desc" id="heroDesc">
+      End-to-end UX research and go-to-market strategy for a live repair-tech platform — serving customers, artisans, and riders across Lagos.
+    </p>
+    <div class="hero-meta-list" id="heroMeta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Role</span>
+        <span class="hero-meta-val">Product Designer</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Method</span>
+        <span class="hero-meta-val">Heuristic Evaluation</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Rounds</span>
+        <span class="hero-meta-val">2 of 2</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Status</span>
+        <span class="hero-meta-val">Live · Launch-Ready</span>
+      </div>
     </div>
   </div>
-  <span style="font-size: 13px; color: #aaa;">Active in Lagos</span>
+</section>
+
+<!-- HERO IMAGE -->
+<div class="hero-image-wrap" id="heroImg">
+  <img src="images/chimreff-hero.png" alt="Chimreff platform">
 </div>
 
+<!-- LIVE BANNER -->
+<div class="live-banner-wrap" id="liveBanner">
+  <div class="live-banner">
+    <div class="live-banner-left">
+      <div class="live-dot"></div>
+      <div>
+        <div class="live-meta-label">Live Platform</div>
+        <a href="https://chimreff.com.ng" target="_blank" rel="noopener" class="live-url">chimreff.com.ng ↗</a>
+      </div>
+    </div>
+    <span class="live-status">Active in Lagos</span>
+  </div>
+</div>
+
+<div class="divider"></div>
+
 <!-- OVERVIEW -->
-<section class="section fade">
-  <h3>Overview</h3>
-  <p>
-    Chimreff is a Lagos-based repair-tech platform connecting customers with skilled artisans for device and appliance repairs — with rider pickup, live tracking, and delivery built in. The platform serves three distinct user types: Customers booking repairs, Artisans managing jobs and availability, and Riders handling pickup and delivery logistics.
-  </p>
-  <p style="margin-top: 12px;">
-    As the Product Designer, I was responsible for evaluating the full platform before launch — testing all three user flows across two structured rounds of heuristic evaluation, then translating research findings into a phased go-to-market strategy.
-  </p>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">01</span> Overview</div>
+  </div>
+  <div class="overview-trio">
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Platform</p>
+      <h3 class="overview-cell-heading">Three personas. One <em>system.</em></h3>
+      <p class="overview-cell-text">Chimreff connects Lagos customers with skilled artisans for device and appliance repairs — with rider pickup, live tracking, and delivery built in. Each of the three user types has its own onboarding, dashboard, and core task flow.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Brief</p>
+      <h3 class="overview-cell-heading">Evaluate before <em>launch.</em></h3>
+      <p class="overview-cell-text">I was brought in to run two structured rounds of heuristic evaluation across all three user flows before go-live — identifying friction points, inconsistencies, and drop-off risks before real users encountered them.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Outcome</p>
+      <h3 class="overview-cell-heading">21 findings, all <em>resolved.</em></h3>
+      <p class="overview-cell-text">Round 1 surfaced 21 findings including 5 high-severity issues. By Round 2, all critical issues were resolved. The platform entered a launch-ready state, with research directly shaping the phased go-to-market strategy.</p>
+    </div>
+  </div>
 </section>
 
-<hr class="divider">
+<div class="divider"></div>
 
 <!-- PLATFORM SCOPE -->
-<section class="section fade">
-  <h3>Platform Scope</h3>
-  <p>Three user types. Three distinct flows. Each with its own onboarding, dashboard, and core tasks.</p>
-
-  <div class="screen-grid" style="margin-top: 24px;">
-    <img src="images/chimreff-hero.png" alt="Chimreff homepage hero — Repair Faster. Live Easier.">
-    <img src="images/chimreff-mockup.jpg" alt="Chimreff sign-in with Customer, Artisan, Rider role selection">
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">02</span> Platform Scope</div>
   </div>
 
-  <div class="callout" style="margin-top: 24px;">
-    <p>
-      <strong>Why this matters:</strong> Most repair platforms serve one user type. Chimreff's three-persona model — with role-specific auth, onboarding tours, dashboards, and task flows — meant every design decision had to work across fundamentally different mental models and goals.
-    </p>
+  <div class="screen-grid-2" style="margin-bottom: 32px;">
+    <div class="screen-item">
+      <img src="images/chimreff-hero.png" alt="Chimreff homepage hero">
+    </div>
+    <div class="screen-item">
+      <img src="images/chimreff-mockup.jpg" alt="Chimreff sign-in with role selection">
+    </div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-label">Why this matters</p>
+    <p class="callout-text">Most repair platforms serve one user type. Chimreff's three-persona model — with role-specific auth, onboarding, dashboards, and task flows — meant every design decision had to work across <em>fundamentally different</em> mental models and goals.</p>
   </div>
 </section>
 
-<hr class="divider">
+<div class="divider"></div>
 
 <!-- ROUND 1 -->
-<section class="section fade">
-  <h3>Round 1 — Heuristic Evaluation</h3>
-  <p>
-    Conducted across all three user flows before the official app launch. Focus was on identifying friction points, inconsistencies, and drop-off risks before go-live.
-  </p>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">03</span> Round 1 — Heuristic Evaluation</div>
+  </div>
 
-  <div class="stat-grid" style="margin-top: 28px;">
-    <div class="stat-card">
+  <div class="stat-strip reveal" style="margin-bottom: 48px;">
+    <div class="stat-cell">
       <div class="stat-num">21</div>
       <div class="stat-label">Total Findings</div>
     </div>
-    <div class="stat-card">
-      <div class="stat-num">5</div>
+    <div class="stat-cell">
+      <div class="stat-num"><em>5</em></div>
       <div class="stat-label">High Severity</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-cell">
       <div class="stat-num">5</div>
       <div class="stat-label">Areas Tested</div>
     </div>
   </div>
 
-  <p style="margin-top: 28px; font-weight: 600; color: #111;">Key Findings — High &amp; Moderate Severity</p>
-
-  <div class="finding-list">
-    <div class="finding">
-      <span class="badge high">HIGH</span>
-      <div class="finding-text">
-        <div class="finding-title">No onboarding guidance for new artisans</div>
-        <div class="finding-desc">A new artisan completing their profile had no indication of what to do next or what completing their profile unlocks. No progress checklist, no prompt. Significant drop-off risk.</div>
+  <div class="finding-list" style="border: 1px solid var(--border); border-radius: 4px; overflow: hidden;">
+    <div class="finding-item">
+      <span class="severity-badge high">High</span>
+      <div>
+        <h4 class="finding-title">No onboarding guidance for new <em>artisans</em></h4>
+        <p class="finding-desc">A new artisan completing their profile had no indication of what to do next. No progress checklist, no prompt. A significant drop-off risk on the platform's most critical persona.</p>
       </div>
     </div>
-    <div class="finding">
-      <span class="badge high">HIGH</span>
-      <div class="finding-text">
-        <div class="finding-title">Bio field has no guidance</div>
-        <div class="finding-desc">The bio field was blank with no example or placeholder. Artisans didn't know what to write or how it affects their visibility to customers.</div>
+    <div class="finding-item">
+      <span class="severity-badge high">High</span>
+      <div>
+        <h4 class="finding-title">Bio field with no <em>guidance</em></h4>
+        <p class="finding-desc">The bio field was blank with no example or placeholder. Artisans didn't know what to write or how it affects their visibility to customers.</p>
       </div>
     </div>
-    <div class="finding">
-      <span class="badge high">HIGH</span>
-      <div class="finding-text">
-        <div class="finding-title">GPS error state too alarming on first load</div>
-        <div class="finding-desc">Riders logging in for the first time were immediately confronted with multiple red error messages about location permission — creating unnecessary anxiety before any context was given.</div>
+    <div class="finding-item">
+      <span class="severity-badge high">High</span>
+      <div>
+        <h4 class="finding-title">GPS error state too alarming on <em>first load</em></h4>
+        <p class="finding-desc">Riders were immediately confronted with multiple red error messages about location permission — creating unnecessary anxiety before any context was given.</p>
       </div>
     </div>
-    <div class="finding">
-      <span class="badge high">HIGH</span>
-      <div class="finding-text">
-        <div class="finding-title">Conflicting 'Live' badge when GPS is denied</div>
-        <div class="finding-desc">The header showed a green 'Live' badge even when location permission was denied — a direct contradiction that undermines trust in the system.</div>
+    <div class="finding-item">
+      <span class="severity-badge high">High</span>
+      <div>
+        <h4 class="finding-title">Conflicting 'Live' badge when GPS is <em>denied</em></h4>
+        <p class="finding-desc">The header showed a green 'Live' badge even when location permission was denied — a direct contradiction that undermines trust in the system's reliability.</p>
       </div>
     </div>
-    <div class="finding">
-      <span class="badge high">HIGH</span>
-      <div class="finding-text">
-        <div class="finding-title">Artisan dashboard gives no direction to new users</div>
-        <div class="finding-desc">A new artisan with all zeros sees no guidance on what to do. No getting-started checklist, no prompt to complete availability. The dashboard was silent.</div>
+    <div class="finding-item">
+      <span class="severity-badge high">High</span>
+      <div>
+        <h4 class="finding-title">Dashboard gives no direction to new <em>users</em></h4>
+        <p class="finding-desc">A new artisan with all zeros sees no guidance. No getting-started checklist, no prompt to complete availability. The dashboard was completely silent.</p>
       </div>
     </div>
-    <div class="finding">
-      <span class="badge mod">MOD</span>
-      <div class="finding-text">
-        <div class="finding-title">Commission section uses alarming language</div>
-        <div class="finding-desc">'What You Owe (Personal Account Payments)' in orange created a sense of debt even when the balance was zero. Recommended reword: 'Commission Summary'.</div>
+    <div class="finding-item">
+      <span class="severity-badge mod">Mod</span>
+      <div>
+        <h4 class="finding-title">Commission section uses <em>alarming language</em></h4>
+        <p class="finding-desc">'What You Owe (Personal Account Payments)' in orange created a sense of debt even at zero balance. Recommended reword: 'Commission Summary'.</p>
       </div>
     </div>
-    <div class="finding">
-      <span class="badge mod">MOD</span>
-      <div class="finding-text">
-        <div class="finding-title">Trust signals missing on homepage</div>
-        <div class="finding-desc">The platform's operational history is never mentioned on the homepage — a missed opportunity to differentiate from newer startups and build immediate credibility.</div>
+    <div class="finding-item">
+      <span class="severity-badge mod">Mod</span>
+      <div>
+        <h4 class="finding-title">Trust signals missing on <em>homepage</em></h4>
+        <p class="finding-desc">The platform's operational history was never mentioned — a missed opportunity to differentiate from newer startups and build immediate credibility.</p>
       </div>
     </div>
   </div>
 
-  <p style="margin-top: 28px; color: #888; font-size: 13px;">
-    Full breakdown: Homepage (4), Sign In (1), Artisan Profile (7), Artisan Dashboard (5), Rider Dashboard (4)
+  <p class="reveal" style="margin-top: 20px; font-size: 12px; color: var(--muted); letter-spacing: .04em;">
+    Full breakdown: Homepage (4) · Sign In (1) · Artisan Profile (7) · Artisan Dashboard (5) · Rider Dashboard (4)
   </p>
 </section>
 
-<hr class="divider">
+<div class="divider"></div>
+
+<!-- KEY INSIGHT -->
+<section class="section" style="padding-top: 0; padding-bottom: 0;">
+  <div class="insight-block">
+    <p class="insight-label">Key Insight</p>
+    <p class="insight-text">Users weren't struggling to <em>use</em> the app. They were struggling to feel <em>guided</em> by it.</p>
+  </div>
+</section>
+
+<div class="divider" style="margin-top: 80px;"></div>
 
 <!-- ROUND 2 -->
-<section class="section fade">
-  <h3>Round 2 — Validation &amp; Fix Scorecard</h3>
-  <p>
-    Round 2 was conducted via screenshot review across the Artisan and Rider flows, validating fixes implemented after Round 1. Focus: confirm all HIGH and MODERATE severity findings had been resolved, and identify any new issues introduced during implementation.
-  </p>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">04</span> Round 2 — Validation</div>
+  </div>
 
-  <div class="stat-grid" style="margin-top: 28px;">
-    <div class="stat-card">
-      <div class="stat-num">14–15</div>
+  <div class="stat-strip reveal" style="margin-bottom: 48px;">
+    <div class="stat-cell">
+      <div class="stat-num">14<em>–</em>15</div>
       <div class="stat-label">Issues Resolved</div>
     </div>
-    <div class="stat-card">
-      <div class="stat-num">0</div>
+    <div class="stat-cell">
+      <div class="stat-num"><em>0</em></div>
       <div class="stat-label">High Severity Remaining</div>
     </div>
-    <div class="stat-card">
+    <div class="stat-cell">
       <div class="stat-num">✓</div>
       <div class="stat-label">Launch-Ready</div>
     </div>
   </div>
 
-  <!-- SCORECARD -->
-  <div class="scorecard" style="margin-top: 32px;">
+  <div class="scorecard">
     <div class="scorecard-header">
       <span>Finding</span>
       <span>Severity</span>
       <span>Round 2 Status</span>
     </div>
-
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">No onboarding guidance for new artisans</div>
-        <div class="scorecard-section">Artisan Profile</div>
-      </div>
-      <span class="pill high">HIGH</span>
+      <div><div class="scorecard-issue">No onboarding guidance for new artisans</div><div class="scorecard-section">Artisan Profile</div></div>
+      <span class="pill high">High</span>
       <span class="pill resolved">Resolved</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Bio field has no guidance</div>
-        <div class="scorecard-section">Artisan Profile</div>
-      </div>
-      <span class="pill high">HIGH</span>
+      <div><div class="scorecard-issue">Bio field has no guidance</div><div class="scorecard-section">Artisan Profile</div></div>
+      <span class="pill high">High</span>
       <span class="pill resolved">Resolved</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">GPS error state too alarming on first load</div>
-        <div class="scorecard-section">Rider Dashboard</div>
-      </div>
-      <span class="pill high">HIGH</span>
+      <div><div class="scorecard-issue">GPS error state too alarming on first load</div><div class="scorecard-section">Rider Dashboard</div></div>
+      <span class="pill high">High</span>
       <span class="pill resolved">Resolved</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Conflicting 'Live' badge when GPS denied</div>
-        <div class="scorecard-section">Rider Dashboard</div>
-      </div>
-      <span class="pill high">HIGH</span>
+      <div><div class="scorecard-issue">Conflicting 'Live' badge when GPS denied</div><div class="scorecard-section">Rider Dashboard</div></div>
+      <span class="pill high">High</span>
       <span class="pill resolved">Resolved</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Dashboard gives no direction to new artisans</div>
-        <div class="scorecard-section">Artisan Dashboard</div>
-      </div>
-      <span class="pill high">HIGH</span>
+      <div><div class="scorecard-issue">Dashboard gives no direction to new artisans</div><div class="scorecard-section">Artisan Dashboard</div></div>
+      <span class="pill high">High</span>
       <span class="pill resolved">Resolved</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Commission section uses alarming language</div>
-        <div class="scorecard-section">Artisan Dashboard</div>
-      </div>
-      <span class="pill mod">MOD</span>
+      <div><div class="scorecard-issue">Commission section uses alarming language</div><div class="scorecard-section">Artisan Dashboard</div></div>
+      <span class="pill mod">Mod</span>
       <span class="pill resolved">Resolved</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Notification bell turns green on click</div>
-        <div class="scorecard-section">Artisan Dashboard</div>
-      </div>
-      <span class="pill mod">MOD</span>
+      <div><div class="scorecard-issue">Notification bell turns green on click</div><div class="scorecard-section">Artisan Dashboard</div></div>
+      <span class="pill mod">Mod</span>
       <span class="pill resolved">Resolved</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Color inconsistency — dropdown uses green</div>
-        <div class="scorecard-section">Artisan Profile</div>
-      </div>
-      <span class="pill mod">MOD</span>
+      <div><div class="scorecard-issue">Colour inconsistency — dropdown uses green</div><div class="scorecard-section">Artisan Profile</div></div>
+      <span class="pill mod">Mod</span>
       <span class="pill partial">Partial</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Trust signals missing on homepage</div>
-        <div class="scorecard-section">Homepage</div>
-      </div>
-      <span class="pill mod">MOD</span>
+      <div><div class="scorecard-issue">Trust signals missing on homepage</div><div class="scorecard-section">Homepage</div></div>
+      <span class="pill mod">Mod</span>
       <span class="pill partial">Partial</span>
     </div>
     <div class="scorecard-row">
-      <div>
-        <div class="scorecard-issue">Explore / Live / Shop Live tabs unclear</div>
-        <div class="scorecard-section">Rider Dashboard</div>
-      </div>
-      <span class="pill low">LOW</span>
+      <div><div class="scorecard-issue">Explore / Live / Shop Live tabs unclear</div><div class="scorecard-section">Rider Dashboard</div></div>
+      <span class="pill low">Low</span>
       <span class="pill open">Open</span>
     </div>
   </div>
 
-  <div class="callout" style="margin-top: 28px;">
-    <p>
-      <strong>Launch decision:</strong> All 5 HIGH severity findings were resolved by Round 2. The platform entered a launch-ready state with a small polish backlog — none of which were blockers. Round 3 testing was deemed unnecessary; remaining items were scoped as a focused post-launch fix pass.
-    </p>
+  <div class="callout" style="margin-top: 32px;">
+    <p class="callout-label">Launch Decision</p>
+    <p class="callout-text">All 5 HIGH severity findings were resolved by Round 2. The platform entered a launch-ready state with a small polish backlog — none of which were blockers. Remaining items were scoped as a focused <em>post-launch fix pass.</em></p>
   </div>
 </section>
 
-<hr class="divider">
+<div class="divider"></div>
 
 <!-- ONBOARDING TOURS -->
-<section class="section fade">
-  <h3>Designing the Onboarding Tours</h3>
-  <p>
-    The single most critical finding from Round 1 was that new artisans and riders had no guidance after signing up. The dashboard showed all zeros with no indication of what to do next — a silent screen that created confusion and drop-off risk.
-  </p>
-  <p style="margin-top: 12px;">
-    The solution was a contextual onboarding tour for each user type: a 5-step guided modal for artisans and a 4-step modal for riders. Each tour highlights the actual UI element being explained, includes a progress bar and step counter for orientation, and ends with a motivational close screen. A replayable help button means users can revisit the tour anytime.
-  </p>
-
-  <!-- ARTISAN TOUR -->
-  <div style="margin-top: 36px;">
-    <p style="font-weight: 600; color: #111; margin-top: 0;">Artisan Tour — 5 Steps</p>
-    <p style="font-size: 14px; color: #888; margin-top: 4px;">Workspace intro → setup checklist → job management → profile &amp; rate → ready to earn</p>
-    <div class="screen-grid" style="margin-top: 16px;">
-      <img src="images/artisan-tour-1.png" alt="Artisan tour step 1 — Welcome, artisan">
-      <img src="images/artisan-tour-5.png" alt="Artisan tour step 5 — Ready to earn">
-    </div>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">05</span> Onboarding Tours</div>
   </div>
 
-  <!-- RIDER TOUR -->
-  <div style="margin-top: 36px;">
-    <p style="font-weight: 600; color: #111; margin-top: 0;">Rider Tour — 4 Steps</p>
-    <p style="font-size: 14px; color: #888; margin-top: 4px;">Dashboard intro → pickups overview → queue management → you're ready to ride</p>
-    <div class="screen-grid" style="margin-top: 16px;">
-      <img src="images/rider-tour-1.png" alt="Rider tour step 1 — Welcome, rider">
-      <img src="images/rider-tour-4.png" alt="Rider tour step 4 — You're ready to ride">
-    </div>
+  <div class="insight-block" style="margin-bottom: 48px;">
+    <p class="insight-label">The Solution</p>
+    <p class="insight-text">A contextual onboarding tour for each user type — <em>anchored to the real UI.</em></p>
   </div>
 
-  <div class="callout" style="margin-top: 32px;">
-    <p>
-      <strong>Why it works:</strong> Each modal is anchored to the part of the screen it's explaining — users see the real UI in the background, not an abstract illustration. The 'Skip tour' option respects autonomy, and the help (?) button means no user is permanently lost after dismissing it.
+  <div class="reveal" style="margin-bottom: 8px;">
+    <p style="font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+      <span style="display:inline-block; width:16px; height:1px; background:var(--accent);"></span>Artisan Tour — 5 Steps
     </p>
+    <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">Workspace intro → setup checklist → job management → profile & rate → ready to earn</p>
+  </div>
+  <div class="screen-grid-2" style="margin-bottom: 32px;">
+    <div class="screen-item"><img src="images/artisan-tour-1.png" alt="Artisan tour step 1"></div>
+    <div class="screen-item"><img src="images/artisan-tour-5.png" alt="Artisan tour step 5"></div>
+  </div>
+
+  <div class="reveal" style="margin-bottom: 8px; margin-top: 48px;">
+    <p style="font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); margin-bottom: 8px; display: flex; align-items: center; gap: 10px;">
+      <span style="display:inline-block; width:16px; height:1px; background:var(--accent);"></span>Rider Tour — 4 Steps
+    </p>
+    <p style="font-size: 13px; color: var(--muted); margin-bottom: 20px;">Dashboard intro → pickups overview → queue management → ready to ride</p>
+  </div>
+  <div class="screen-grid-2" style="margin-bottom: 32px;">
+    <div class="screen-item"><img src="images/rider-tour-1.png" alt="Rider tour step 1"></div>
+    <div class="screen-item"><img src="images/rider-tour-4.png" alt="Rider tour step 4"></div>
+  </div>
+
+  <div class="callout">
+    <p class="callout-label">Why it works</p>
+    <p class="callout-text">Each modal is anchored to the actual part of the screen it explains — users see the real UI in context, not abstract illustrations. 'Skip tour' respects autonomy, and a persistent help button means <em>no user is ever permanently lost.</em></p>
   </div>
 </section>
 
-<hr class="divider">
-
-<!-- KEY DESIGN SOLUTIONS -->
-<section class="section fade">
-  <h3>Other Key Design Solutions</h3>
-  <p>Further examples of how Round 1 findings translated directly into platform improvements.</p>
-
-  <div class="finding-list" style="margin-top: 24px;">
-    <div class="finding">
-      <span class="badge" style="background:#e8f0fe; color:#1a56c4;">BEFORE→AFTER</span>
-      <div class="finding-text">
-        <div class="finding-title">Rider GPS: alarming error wall → single friendly prompt</div>
-        <div class="finding-desc">Round 1 found riders were met with multiple red error messages on first load. Round 2 confirmed this was resolved to a single calm message: 'Please allow location access to receive nearby pickups.' Location permission is now also a structured checklist item — part of onboarding rather than a surprise error state.</div>
-      </div>
-    </div>
-    <div class="finding">
-      <span class="badge" style="background:#e8f0fe; color:#1a56c4;">BEFORE→AFTER</span>
-      <div class="finding-text">
-        <div class="finding-title">Commission language: 'What You Owe' → 'Commission Summary'</div>
-        <div class="finding-desc">Orange 'What You Owe' framing created anxiety even at zero balance. Reworded to neutral, informational language that tracks earnings without implying debt.</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<hr class="divider">
+<div class="divider"></div>
 
 <!-- LAUNCH STRATEGY -->
-<section class="section fade">
-  <h3>Launch Strategy</h3>
-  <p>
-    Following the usability rounds, I developed a phased go-to-market strategy for Chimreff's Lagos launch — an 8-week plan built around a single core principle.
-  </p>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">06</span> Launch Strategy</div>
+  </div>
 
-  <div class="callout" style="margin-top: 24px;">
-    <p>
-      <strong>Core Principle: Supply Before Demand.</strong> Recruit artisans and riders first. A single failed job in Lagos creates lasting damage to word-of-mouth. Build a reliable supply base before spending a single kobo on customer acquisition.
-    </p>
+  <div class="callout" style="margin-bottom: 48px;">
+    <p class="callout-label">Core Principle</p>
+    <p class="callout-text"><em>Supply before demand.</em> Recruit artisans and riders first. A single failed job in Lagos creates lasting damage to word-of-mouth. Build a reliable supply base before spending a single kobo on customer acquisition.</p>
   </div>
 
   <div class="phase-list">
-    <div class="phase">
-      <span class="phase-num">Phase 01</span>
-      <div class="phase-content">
-        <div class="phase-title">Build Your Supply Base</div>
-        <div class="phase-sub">Weeks 1–3</div>
-        <div class="phase-desc">Onboard 30+ active artisans and riders before any customer campaign launches. Field recruitment at Computer Village (Ikeja), Alaba International Market, and AC/appliance repairers in Surulere. WhatsApp community, video testimonials from early sign-ups.</div>
+    <div class="phase-item">
+      <div class="phase-num">01</div>
+      <div>
+        <h3 class="phase-heading">Build the <em>supply base</em></h3>
+        <p class="phase-sub">Weeks 1–3</p>
+        <p class="phase-text">Onboard 30+ active artisans and riders before any customer campaign launches. Field recruitment at Computer Village (Ikeja), Alaba International Market, and AC/appliance repairers in Surulere. WhatsApp community, video testimonials from early sign-ups.</p>
       </div>
     </div>
-    <div class="phase">
-      <span class="phase-num">Phase 02</span>
-      <div class="phase-content">
-        <div class="phase-title">Soft Launch &amp; Stress Test</div>
-        <div class="phase-sub">Weeks 4–5</div>
-        <div class="phase-desc">Complete 30–50 real jobs before public launch. Invite trusted contacts, monitor every job manually, log every issue — bugs, slow response times, artisan no-shows. Fix before going public. Request honest feedback from every test user.</div>
+    <div class="phase-item">
+      <div class="phase-num">02</div>
+      <div>
+        <h3 class="phase-heading">Soft launch & <em>stress test</em></h3>
+        <p class="phase-sub">Weeks 4–5</p>
+        <p class="phase-text">Complete 30–50 real jobs before public launch. Invite trusted contacts, monitor every job manually, log every issue — bugs, slow response times, artisan no-shows. Fix before going public. Request honest feedback from every test user.</p>
       </div>
     </div>
-    <div class="phase">
-      <span class="phase-num">Phase 03</span>
-      <div class="phase-content">
-        <div class="phase-title">Customer-Side Launch</div>
-        <div class="phase-sub">Weeks 6–8</div>
-        <div class="phase-desc">Acquire first 100 paying customers through TikTok/Instagram Reels (authentic content outperforms polished ads), Meta paid ads targeting Lagos residents aged 22–45, and estate WhatsApp community outreach in Lekki, Ajah, Ikeja GRA, Yaba, and Victoria Island.</div>
+    <div class="phase-item">
+      <div class="phase-num">03</div>
+      <div>
+        <h3 class="phase-heading">Customer-side <em>launch</em></h3>
+        <p class="phase-sub">Weeks 6–8</p>
+        <p class="phase-text">Acquire first 100 paying customers through TikTok/Instagram Reels, Meta paid ads targeting Lagos residents aged 22–45, and estate WhatsApp community outreach in Lekki, Ajah, Ikeja GRA, Yaba, and Victoria Island.</p>
       </div>
     </div>
-    <div class="phase">
-      <span class="phase-num">Phase 04</span>
-      <div class="phase-content">
-        <div class="phase-title">Rider Growth &amp; Retention</div>
-        <div class="phase-sub">Ongoing from Week 5</div>
-        <div class="phase-desc">Build a self-sustaining rider network through referral bonuses, monthly leaderboards with cash prizes, and weekly earnings summaries via WhatsApp. Community milestones celebrated to build loyalty at zero cost.</div>
+    <div class="phase-item">
+      <div class="phase-num">04</div>
+      <div>
+        <h3 class="phase-heading">Rider growth & <em>retention</em></h3>
+        <p class="phase-sub">Ongoing from Week 5</p>
+        <p class="phase-text">Build a self-sustaining rider network through referral bonuses, monthly leaderboards with cash prizes, and weekly earnings summaries via WhatsApp. Community milestones celebrated to build loyalty at zero cost.</p>
       </div>
     </div>
   </div>
 
-  <p style="margin-top: 20px; font-size: 14px; color: #888;">
-    Key metrics tracked weekly: Job Completion Rate (target 90%+), Average Response Time (target under 30 mins), Customer Repeat Rate as PMF signal, Cost Per Booking.
+  <p class="reveal" style="margin-top: 28px; font-size: 12px; color: var(--muted); letter-spacing: .04em;">
+    Key metrics tracked weekly: Job Completion Rate (target 90%+) · Average Response Time (target under 30 mins) · Customer Repeat Rate · Cost Per Booking
   </p>
 </section>
 
-<hr class="divider">
+<div class="divider"></div>
 
 <!-- OUTCOME -->
-<section class="section fade">
-  <h3>Outcome</h3>
-  <p>
-    Two structured rounds of heuristic evaluation identified and resolved all critical usability risks before launch. The platform moved from a state where new artisans had zero onboarding guidance and riders faced alarming GPS errors, to a launch-ready product with a thorough fix scorecard and a clear backlog for post-launch iteration.
-  </p>
-  <p style="margin-top: 12px;">
-    The research directly shaped the go-to-market strategy — the supply-before-demand principle, the phased launch plan, and the weekly KPI framework all emerged from understanding where the platform was fragile and where first impressions were most at risk.
-  </p>
-
-  <div class="stat-grid" style="margin-top: 28px;">
-    <div class="stat-card">
-      <div class="stat-num">21</div>
-      <div class="stat-label">Findings Documented</div>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">07</span> Outcome</div>
+  </div>
+  <div class="outcome-grid">
+    <div>
+      <h2 class="outcome-heading" data-headline>Research that<br>made launch<br><em>possible</em></h2>
     </div>
-    <div class="stat-card">
-      <div class="stat-num">14–15</div>
-      <div class="stat-label">Resolved by Round 2</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-num">3</div>
-      <div class="stat-label">User Flows Evaluated</div>
+    <div>
+      <p class="outcome-text">Two structured rounds of heuristic evaluation identified and resolved all critical usability risks before launch. The platform moved from a state where new artisans had zero onboarding guidance and riders faced alarming GPS errors, to a launch-ready product with a thorough fix scorecard and a clear backlog for post-launch iteration.</p>
+      <p class="outcome-text">The research directly shaped the go-to-market strategy — the supply-before-demand principle, the phased launch plan, and the weekly KPI framework all emerged from understanding where the platform was fragile.</p>
+      <div class="tags-wrap">
+        <span class="tag">UX Research</span>
+        <span class="tag">Heuristic Evaluation</span>
+        <span class="tag">Launch Strategy</span>
+        <span class="tag">Multi-Persona</span>
+        <span class="tag">Mobile UX</span>
+        <span class="tag">Live Product</span>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- CONTACT -->
-<div class="contact fade">
-  <p><strong>Available for collaboration</strong></p>
-  <p>Chimaconfidence086@gmail.com</p>
-</div>
+<!-- WORK WITH ME -->
+<section class="work-with-me">
+  <div class="wwm-inner">
+    <div>
+      <p class="wwm-label">Available for new work</p>
+      <h2 class="wwm-heading" data-headline>Start a project<br>with <em>me</em></h2>
+    </div>
+    <div class="wwm-right">
+      <p class="wwm-desc">Open to freelance projects, collaborations, and contracts. Get in touch and I'll get back within 48 hours.</p>
+      <p class="wwm-email-label">Or reach out directly</p>
+      <a href="mailto:chimaconfidence086@gmail.com" class="wwm-email-link">chimaconfidence086@gmail.com</a>
+      <div class="wwm-cta-wrap">
+        <a href="contact.html" class="wwm-cta">Let's Talk <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 Confidence Chima</span>
+  <span class="footer-copy">Product Designer</span>
+</footer>
 
 <script>
-const faders = document.querySelectorAll('.fade');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) entry.target.classList.add('show');
-  });
-}, { threshold: 0.1 });
-faders.forEach(el => observer.observe(el));
-</script>
+/* ─── SCROLL PROGRESS ─── */
+const progressBar = document.getElementById('scrollProgressBar');
+window.addEventListener('scroll', () => {
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (dh > 0 ? (window.scrollY / dh) * 100 : 0) + '%';
+}, { passive: true });
 
+/* ─── CURSOR ─── */
+const cursor = document.querySelector('.cursor');
+const ring   = document.querySelector('.cursor-ring');
+let rx = 0, ry = 0, mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+function onEnter() { cursor.classList.add('hover'); ring.classList.add('hover'); }
+function onLeave() { cursor.classList.remove('hover'); ring.classList.remove('hover'); }
+document.querySelectorAll('a, .screen-item, .tag, .wwm-cta, .scorecard-row, .finding-item').forEach(el => {
+  el.addEventListener('mouseenter', onEnter);
+  el.addEventListener('mouseleave', onLeave);
+});
+
+/* ─── CURSOR GLOW ─── */
+const glow = document.getElementById('cursorGlow');
+let gx = 0, gy = 0, tgx = 0, tgy = 0, glowOn = false;
+document.addEventListener('mousemove', e => {
+  tgx = e.clientX; tgy = e.clientY;
+  if (!glowOn) { glowOn = true; glow.classList.add('active'); animGlow(); }
+});
+document.addEventListener('mouseleave', () => { glowOn = false; glow.classList.remove('active'); });
+function animGlow() {
+  gx += (tgx - gx) * .1; gy += (tgy - gy) * .1;
+  glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
+  if (glowOn) requestAnimationFrame(animGlow);
+}
+
+/* ─── SCROLL REVEAL ─── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.08 });
+
+document.querySelectorAll(
+  '.overview-cell, .finding-item, .insight-block, .phase-item, .screen-item, .stat-strip, .scorecard, .callout, .reveal, .live-banner-wrap'
+).forEach(el => revealObs.observe(el));
+
+/* ─── HERO ENTRANCE ─── */
+setTimeout(() => document.getElementById('heroLabel').classList.add('show'), 200);
+setTimeout(() => document.getElementById('heroDesc').classList.add('show'), 380);
+setTimeout(() => document.getElementById('heroMeta').classList.add('show'), 560);
+setTimeout(() => document.getElementById('heroImg').classList.add('show'), 700);
+setTimeout(() => document.getElementById('liveBanner').classList.add('show'), 900);
+
+/* ─── CHAR ANIMATION ─── */
+function splitChars(el) {
+  const tmp = document.createElement('div'); tmp.innerHTML = el.innerHTML;
+  let idx = 0;
+  function walk(node, out) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split(/(\s+)/).forEach(tok => {
+        if (/^\s+$/.test(tok)) { out.push(tok); }
+        else if (tok.length) {
+          const chars = [...tok].map(ch => {
+            const safe = ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch;
+            return `<span class="char-wrap"><span class="char" style="transition-delay:${idx++ * 26}ms">${safe}</span></span>`;
+          });
+          out.push(`<span class="word-group">${chars.join('')}</span>`);
+        }
+      });
+    } else if (node.nodeName === 'BR') {
+      out.push('<br>');
+    } else if (['EM','STRONG','SPAN'].includes(node.nodeName)) {
+      const inner = []; node.childNodes.forEach(c => walk(c, inner));
+      out.push(`<${node.nodeName.toLowerCase()}>${inner.join('')}</${node.nodeName.toLowerCase()}>`);
+    } else { node.childNodes.forEach(c => walk(c, out)); }
+  }
+  const out = []; tmp.childNodes.forEach(n => walk(n, out)); el.innerHTML = out.join('');
+}
+function revealChars(el) {
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    el.querySelectorAll('.char').forEach(c => c.classList.add('in'))
+  ));
+}
+const headlines = document.querySelectorAll('[data-headline]');
+headlines.forEach(el => splitChars(el));
+const hObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { revealChars(e.target); hObs.unobserve(e.target); } });
+}, { threshold: .1 });
+headlines.forEach(el => hObs.observe(el));
+
+/* ─── MAGNETIC CTA ─── */
+const wwmCta = document.querySelector('.wwm-cta');
+if (wwmCta) {
+  wwmCta.addEventListener('mousemove', e => {
+    const r = wwmCta.getBoundingClientRect();
+    wwmCta.style.transform = `translate(${(e.clientX-(r.left+r.width/2))*.28}px,${(e.clientY-(r.top+r.height/2))*.28}px)`;
+  });
+  wwmCta.addEventListener('mouseleave', () => {
+    wwmCta.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1), border-color .3s, color .3s, gap .3s';
+    wwmCta.style.transform = 'translate(0,0)';
+    setTimeout(() => { wwmCta.style.transition = ''; }, 500);
+  });
+  wwmCta.addEventListener('mouseenter', () => {
+    wwmCta.style.transition = 'transform .1s ease, border-color .3s, color .3s, gap .3s';
+  });
+}
+</script>
 </body>
 </html>
