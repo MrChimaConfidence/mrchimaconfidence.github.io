@@ -3,332 +3,907 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Profile Studio — Confidence Chima</title>
 
-<title>Profile Studio</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Space Grotesk', sans-serif;
+:root {
+  --bg:      #0C0B09;
+  --surface: #141310;
+  --card:    #1A1916;
+  --text:    #EDE8DF;
+  --muted:   #7A7469;
+  --accent:  #C9A96E;
+  --border:  rgba(237,232,223,0.08);
+  --serif:   'Cormorant Garamond', serif;
+  --sans:    'DM Sans', sans-serif;
 }
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-background: #f7f7f7;
-color: #111;
-padding: 40px;
-max-width: 900px;
-margin: auto;
-line-height: 1.8;
+  cursor: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
 }
 
-/* BACK */
-a {
-text-decoration: none;
-color: #111;
-font-weight: 600;
+/* ─── SCROLL PROGRESS BAR ─── */
+.scroll-progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(237,232,223,0.4) 100%);
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(201,169,110,0.5);
+  transition: width 0.05s linear;
 }
 
-/* HEADINGS */
-h1 {
-font-size: 46px;
-margin-bottom: 10px;
+/* ─── CURSOR ─── */
+.cursor {
+  width: 8px; height: 8px; background: var(--accent);
+  border-radius: 50%; position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9999;
+  transition: width .25s, height .25s;
 }
-
-h2 {
-font-size: 14px;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: #777;
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 50%;
+  position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9998;
+  transition: width .4s, height .4s, border-color .3s;
 }
-
-h3 {
-margin-top: 100px;
-font-size: 26px;
+.cursor.hover   { width: 4px; height: 4px; }
+.cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(201,169,110,.7); }
+.cursor-glow {
+  position: fixed; width: 380px; height: 380px; border-radius: 50%;
+  pointer-events: none; z-index: 0; transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(201,169,110,.09) 0%, rgba(201,169,110,.02) 40%, transparent 70%);
+  opacity: 0; transition: opacity .4s;
 }
-
-p {
-margin-top: 16px;
-color: #555;
-font-size: 16px;
-max-width: 600px;
-}
-
-/* HERO IMAGE */
-.hero {
-margin: 60px 0;
-display: flex;
-justify-content: center;
-}
-
-.hero img {
-width: 100%;
-max-width: 700px;
-border-radius: 20px;
-box-shadow: 0 30px 60px rgba(0,0,0,0.1);
-transition: transform 0.4s ease;
-}
-
-.hero img:hover {
-transform: scale(1.02);
-}
-
-/* FLOW IMAGE (HERO STYLE) */
-.flow-img {
-margin-top: 30px;
-}
-
-.flow-img img {
-width: 100%;
-border-radius: 20px;
-box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-}
-.images img,
-.flow img,
-.flow-img img {
-  width: 100%;
-  max-width: 900px;
-  display: block;
-  margin: 40px auto;
-}
-  .container {
-  max-width: 1000px;
-  margin: 0 auto;
-  padding: 20px;
-}
-/* IMAGE GRID */
-.images {
-display: grid;
-gap: 30px;
-margin-top: 30px;
-}
-
-.images img {
-width: 100%;
-border-radius: 20px;
-transition: transform 0.4s ease;
-}
-
-.images img:hover {
-transform: scale(1.02);
-}
-
-/* FLOW ROW */
-.flow {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-gap: 30px;
-margin-top: 30px;
-}
-
-.flow img {
-width: 100%;
-border-radius: 20px;
-transition: transform 0.4s ease;
-}
-
-.flow img:hover {
-transform: scale(1.02);
-}
-
-/* CONTACT */
-.contact {
-margin-top: 100px;
-text-align: center;
-padding: 30px;
-border-radius: 20px;
-background: #f1f1f1;
-}
-
-.contact p {
-margin: 6px 0;
-}
-
-/* REVEAL ANIMATION */
-.reveal {
-transform: translateY(60px);
-opacity: 0;
-transition: all 0.8s ease;
-}
-
-.reveal.show {
-transform: translateY(0);
-opacity: 1;
-}
-
-/* MOBILE */
+.cursor-glow.active { opacity: 1; }
 @media (max-width: 768px) {
-body {
-padding: 24px;
+  body { cursor: auto; }
+  .cursor, .cursor-ring, .cursor-glow { display: none; }
 }
 
-h1 {
-font-size: 36px;
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(12,11,9,.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
 }
+.nav-logo {
+  font-family: var(--serif); font-weight: 400; font-size: 18px;
+  letter-spacing: .02em; color: var(--text); text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  text-decoration: none; color: var(--muted); font-size: 13px;
+  font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+  transition: color .3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--accent); transition: width .3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+@media (max-width: 768px) { nav { padding: 20px 24px; } }
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px; background: var(--border);
+  max-width: calc(1080px - 80px); margin: 0 auto;
+}
+
+/* ─── BACK LINK ─── */
+.back-wrap {
+  max-width: 1080px; margin: 0 auto; padding: 36px 40px 0;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--muted);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  transition: color .3s, gap .3s;
+}
+.back-link:hover { color: var(--accent); gap: 6px; }
+.back-link .arrow { transition: transform .3s; }
+.back-link:hover .arrow { transform: translateX(-4px); }
+@media (max-width: 768px) { .back-wrap { padding: 28px 24px 0; } }
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 1080px; margin: 0 auto;
+  padding: 56px 40px 72px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: end;
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 48px 24px 56px; gap: 40px; }
+}
+
+.hero-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.hero-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.hero-label.show { opacity: 1; transform: none; }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(52px, 7vw, 90px);
+  font-weight: 300; line-height: .92; letter-spacing: -.01em;
+  overflow: visible;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+
+.hero-right { padding-bottom: 4px; }
+
+.hero-desc {
+  font-size: 15px; line-height: 1.75;
+  color: var(--muted); font-weight: 300; max-width: 400px;
+  margin-bottom: 36px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .2s, transform .7s ease .2s;
+}
+.hero-desc.show { opacity: 1; transform: none; }
+
+.hero-meta-list {
+  display: flex; flex-direction: column; gap: 16px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .35s, transform .7s ease .35s;
+}
+.hero-meta-list.show { opacity: 1; transform: none; }
+
+.hero-meta-item { display: flex; align-items: center; gap: 14px; }
+.hero-meta-line { width: 24px; height: 1px; background: var(--border); flex-shrink: 0; }
+.hero-meta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.hero-meta-val { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); font-weight: 400; margin-left: auto; }
+
+/* ─── HERO IMAGE ─── */
+.hero-image-wrap {
+  max-width: 1080px; margin: 0 auto; padding: 0 40px 80px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+.hero-image-wrap.show { opacity: 1; transform: none; }
+.hero-image-wrap img {
+  width: 100%; display: block; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 768px) { .hero-image-wrap { padding: 0 24px 60px; } }
+
+/* ─── SECTION ─── */
+.section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+@media (max-width: 768px) { .section { padding: 60px 24px; } }
+
+.section-header {
+  display: flex; align-items: baseline;
+  justify-content: space-between; margin-bottom: 48px;
+}
+.section-title {
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 16px;
+}
+.section-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
+
+/* ─── PROTOTYPE EMBED ─── */
+.prototype-wrap {
+  max-width: 1080px; margin: 0 auto; padding: 0 40px 80px;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.prototype-wrap.show { opacity: 1; transform: none; }
+@media (max-width: 768px) { .prototype-wrap { padding: 0 24px 60px; } }
+
+.prototype-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.prototype-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+
+.prototype-frame {
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  background: var(--card);
+}
+.prototype-frame iframe {
+  width: 100%; height: 540px; display: block; border: none;
+}
+@media (max-width: 768px) { .prototype-frame iframe { height: 380px; } }
+
+/* ─── OVERVIEW GRID (3-col) ─── */
+.overview-trio {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 768px) { .overview-trio { grid-template-columns: 1fr; } }
+
+.overview-cell {
+  background: var(--card); padding: 36px 32px;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.overview-cell.show { opacity: 1; transform: none; }
+.overview-cell:nth-child(1) { transition-delay: 0s; }
+.overview-cell:nth-child(2) { transition-delay: .1s; }
+.overview-cell:nth-child(3) { transition-delay: .2s; }
+
+.overview-cell-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px; font-weight: 400;
+  display: flex; align-items: center; gap: 10px;
+}
+.overview-cell-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.overview-cell-heading {
+  font-family: var(--serif); font-size: 26px; font-weight: 300;
+  line-height: 1.1; color: var(--text); margin-bottom: 12px;
+}
+.overview-cell-heading em { font-style: italic; color: var(--accent); }
+.overview-cell-text {
+  font-size: 13px; line-height: 1.75; color: var(--muted); font-weight: 300;
+}
+
+/* ─── PROCESS STEPS ─── */
+.process-list { display: flex; flex-direction: column; }
+.process-item {
+  display: grid; grid-template-columns: 60px 1fr;
+  gap: 0 40px; padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.process-item.show { opacity: 1; transform: none; }
+.process-item:first-child { border-top: 1px solid var(--border); }
+.process-item:nth-child(1) { transition-delay: 0s; }
+.process-item:nth-child(2) { transition-delay: .1s; }
+.process-item:nth-child(3) { transition-delay: .2s; }
+.process-item:nth-child(4) { transition-delay: .3s; }
+@media (max-width: 640px) { .process-item { grid-template-columns: 1fr; gap: 16px; } }
+
+.process-num {
+  font-family: var(--serif); font-size: 11px; color: var(--accent);
+  font-weight: 400; letter-spacing: .1em; padding-top: 4px;
+}
+.process-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--text); margin-bottom: 12px; line-height: 1.1;
+}
+.process-heading em { font-style: italic; color: var(--accent); }
+.process-text {
+  font-size: 14px; line-height: 1.75;
+  color: var(--muted); font-weight: 300; max-width: 560px;
+}
+
+/* ─── WIREFRAME SECTION ─── */
+.wf-intro {
+  margin-bottom: 48px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.wf-intro.show { opacity: 1; transform: none; }
+.wf-intro-text {
+  font-size: 14px; line-height: 1.8; color: var(--muted);
+  font-weight: 300; max-width: 560px;
+}
+
+.wf-block {
+  margin-bottom: 2px;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.wf-block.show { opacity: 1; transform: none; }
+.wf-block:nth-child(1) { transition-delay: 0s; }
+.wf-block:nth-child(2) { transition-delay: .12s; }
+.wf-block:nth-child(3) { transition-delay: .24s; }
+
+.wf-image-wrap {
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  background: var(--card);
+}
+.wf-image-wrap img { width: 100%; display: block; }
+
+.wf-caption {
+  padding: 20px 24px 24px;
+  border-top: 1px solid var(--border);
+  display: flex; align-items: baseline; gap: 20px;
+}
+.wf-caption-label {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; flex-shrink: 0;
+}
+.wf-caption-text { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+/* ─── SCREEN FLOW GRID ─── */
+.screen-section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+@media (max-width: 768px) { .screen-section { padding: 60px 24px; } }
+
+.screen-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--text); margin-bottom: 8px;
+}
+.screen-heading em { font-style: italic; color: var(--accent); }
+.screen-desc {
+  font-size: 14px; color: var(--muted); font-weight: 300;
+  line-height: 1.7; max-width: 480px; margin-bottom: 32px;
+}
+
+.screen-single {
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.screen-single.show { opacity: 1; transform: none; }
+.screen-single img { width: 100%; display: block; }
+
+.screen-grid-3 {
+  display: grid; grid-template-columns: repeat(3,1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 768px) { .screen-grid-3 { grid-template-columns: 1fr; } }
+
+.screen-grid-2 {
+  display: grid; grid-template-columns: repeat(2,1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 640px) { .screen-grid-2 { grid-template-columns: 1fr; } }
+
+.screen-item {
+  background: var(--card); overflow: hidden;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.screen-item.show { opacity: 1; transform: none; }
+.screen-item:nth-child(1) { transition-delay: 0s; }
+.screen-item:nth-child(2) { transition-delay: .1s; }
+.screen-item:nth-child(3) { transition-delay: .2s; }
+.screen-item img { width: 100%; display: block; transition: transform .7s ease; }
+.screen-item:hover img { transform: scale(1.03); }
+
+/* ─── FULL IMAGE ─── */
+.full-img {
+  max-width: 1080px; margin: 0 auto; padding: 0 40px;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.full-img.show { opacity: 1; transform: none; }
+.full-img img {
+  width: 100%; display: block; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 768px) { .full-img { padding: 0 24px; } }
+
+/* ─── OUTCOME ─── */
+.outcome-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .outcome-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.outcome-heading {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05; color: var(--text);
+}
+.outcome-heading em { font-style: italic; color: var(--accent); }
+.outcome-text {
+  font-size: 14px; line-height: 1.8; color: var(--muted);
+  font-weight: 300; margin-bottom: 24px;
+}
+
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 8px 16px;
+  border: 1px solid var(--border); border-radius: 2px;
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+  transition: border-color .3s, color .3s;
+}
+.tag:hover { border-color: rgba(201,169,110,.4); color: var(--text); }
+
+/* ─── WORK WITH ME ─── */
+.work-with-me {
+  max-width: 1080px; margin: 0 auto;
+  padding: 80px 40px 120px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) { .work-with-me { padding: 60px 24px 80px; } }
+
+.wwm-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .wwm-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+.wwm-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.wwm-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.wwm-heading {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05; color: var(--text);
+}
+.wwm-heading em { font-style: italic; color: var(--accent); }
+
+.wwm-right { padding-top: 4px; }
+.wwm-desc {
+  font-size: 14px; line-height: 1.75; color: var(--muted); font-weight: 300;
+  margin-bottom: 28px; max-width: 400px;
+}
+.wwm-email-label {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.wwm-email-link {
+  font-family: var(--serif); font-size: 18px; font-weight: 300;
+  color: var(--text); text-decoration: none;
+  transition: color .3s; display: inline-block; margin-bottom: 32px;
+}
+.wwm-email-link:hover { color: var(--accent); }
+.wwm-cta-wrap { padding-top: 24px; border-top: 1px solid var(--border); }
+.wwm-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  text-decoration: none; color: var(--text);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 2px;
+  padding: 16px 28px;
+  transition: border-color .3s, color .3s, gap .3s;
+  position: relative; overflow: hidden;
+}
+.wwm-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(201,169,110,.06); transform: translateX(-100%);
+  transition: transform .4s ease;
+}
+.wwm-cta:hover::before { transform: translateX(0); }
+.wwm-cta:hover { border-color: var(--accent); color: var(--accent); gap: 18px; }
+.wwm-cta .arrow { transition: transform .3s; }
+.wwm-cta:hover .arrow { transform: translateX(4px); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border); padding: 24px 40px;
+  max-width: 1080px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+@media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+/* ─── CHAR ANIMATION ─── */
+.char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.15; }
+.char {
+  display: inline-block; transform: translateY(110%); opacity: 0;
+  transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+.char.in { transform: translateY(0); opacity: 1; }
+.word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
+
+/* ─── NOISE ─── */
+body::before {
+  content: ''; position: fixed; inset: 0;
+  pointer-events: none; z-index: 1; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 </style>
 </head>
-
 <body>
 
-<a href="index.html" class="reveal">← Back to Home</a>
+<div class="scroll-progress-bar" id="scrollProgressBar"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
 
-<h1 class="reveal">Profile Studio</h1>
-<h2 class="reveal">UX Case Study</h2>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Confidence Chima</a>
+  <div class="nav-links">
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-<p class="reveal">
-Designing a guided experience that helps professionals turn their LinkedIn profiles into real opportunities.
-</p>
-
-<div class="hero reveal">
-<img src="images/profilestudio-mockup.jpg">
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-link">
+    <span class="arrow">←</span> All Work
+  </a>
 </div>
-  <div style="margin:60px auto; max-width:1100px; text-align:center;">
 
-  <h3 style="font-size:28px; margin-bottom:20px;">Live Prototype</h3>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label" id="heroLabel">UX · Personal Branding</p>
+    <h1 class="hero-title" data-headline>Profile<br><em>Studio</em></h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-desc" id="heroDesc">
+      Designing a guided experience that helps professionals turn their LinkedIn profiles into real opportunities.
+    </p>
+    <div class="hero-meta-list" id="heroMeta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Discipline</span>
+        <span class="hero-meta-val">UX Design</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Platform</span>
+        <span class="hero-meta-val">Web</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Deliverable</span>
+        <span class="hero-meta-val">End-to-End Flow</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Type</span>
+        <span class="hero-meta-val">UX Case Study</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <iframe 
-    src="https://embed.figma.com/proto/53O2QOxFZ1MxJmJQCkF0rs/Profile-Studio-Profile-Studio-Services-About-Help-Sign-In-1-Goal-2-Career-3-Focus-4-Review-Profile-B?node-id=445-999&starting-point-node-id=445%3A999&embed-host=share"
-    style="width:100%; height:500px; border:none; border-radius:16px; display:block;"
-    allowfullscreen>
-  </iframe>
-
+<!-- HERO IMAGE -->
+<div class="hero-image-wrap" id="heroImg">
+  <img src="images/profilestudio-mockup.jpg" alt="Profile Studio">
 </div>
-<p class="reveal">
-Designing a guided experience that transforms LinkedIn profiles into clear, structured, and opportunity-ready assets.
-</p>
-<h3 class="reveal">Overview</h3>
-<p class="reveal">
-Profile Studio is a web platform that helps professionals improve their LinkedIn presence through guided feedback and structured sessions.
-The experience is designed to simplify decision-making and move users efficiently from intention to action.
-</p>
 
-<h3 class="reveal">The Problem</h3>
-<p class="reveal">
-Many professionals struggle to present themselves clearly on LinkedIn.
-Not due to lack of experience, but because they lack clarity on how to structure and communicate their value.
-This often leads to missed opportunities and low confidence.
-</p>
-
-<h3 class="reveal">The Goal</h3>
-<p class="reveal">
-Design a clear, guided experience that removes confusion, builds user confidence, and encourages users to book a session.
-</p>
-
-<h3 class="reveal">Design Approach</h3>
-<p class="reveal">
-The experience breaks complex decisions into simple, progressive steps.
-Instead of overwhelming users with options, each stage focuses on a single decision, helping users stay focused, confident, and in control.
-</p>
-
-<h3 class="reveal">End-to-End Flow</h3>
-<p class="reveal">
-The product is structured as a guided journey from defining user goals to completing a booking.
-Each step builds on the previous one, creating a smooth and predictable experience.
-</p>
-<h3 class="reveal" style="margin-top:100px;">Wireframes</h3>
-
-<p class="reveal" style="max-width:600px; line-height:1.8; color:#555; margin-top:16px;">
-Low-fidelity wireframes were created to map out the full user journey and validate the structure before moving into visual design. 
-The focus was on clarity, guiding users step by step, and reducing decision fatigue.
-</p>
-
+<div class="divider"></div>
 
 <!-- OVERVIEW -->
-<div class="reveal" style="margin-top:60px; text-align:center;">
-  <img src="images/Wireframe-overview1.png" 
-       alt="Wireframe overview"
-       style="width:100%; max-width:1100px; height:auto; object-fit:contain; display:block; margin:0 auto;">
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">01</span> Overview</div>
+  </div>
+
+  <div class="overview-trio">
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Problem</p>
+      <h3 class="overview-cell-heading">Professionals who can't <em>communicate</em> their value</h3>
+      <p class="overview-cell-text">Many professionals struggle to present themselves clearly on LinkedIn. Not due to lack of experience, but because they lack clarity on how to structure and communicate their value. This often leads to missed opportunities and low confidence.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Goal</p>
+      <h3 class="overview-cell-heading">Remove confusion, <em>build</em> confidence</h3>
+      <p class="overview-cell-text">Design a clear, guided experience that removes confusion, builds user confidence, and encourages users to book a session. Every decision in the product serves this single goal.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Product</p>
+      <h3 class="overview-cell-heading">A platform built around <em>clarity</em></h3>
+      <p class="overview-cell-text">Profile Studio is a web platform that helps professionals improve their LinkedIn presence through guided feedback and structured sessions. Designed to simplify decision-making and move users efficiently from intention to action.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- LIVE PROTOTYPE -->
+<section class="section" style="padding-bottom: 40px;">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">02</span> Live Prototype</div>
+  </div>
+</section>
+
+<div class="prototype-wrap" id="protoWrap">
+  <p class="prototype-label">Interactive — Try it yourself</p>
+  <div class="prototype-frame">
+    <iframe
+      src="https://embed.figma.com/proto/53O2QOxFZ1MxJmJQCkF0rs/Profile-Studio-Profile-Studio-Services-About-Help-Sign-In-1-Goal-2-Career-3-Focus-4-Review-Profile-B?node-id=445-999&starting-point-node-id=445%3A999&embed-host=share"
+      allowfullscreen>
+    </iframe>
+  </div>
 </div>
 
+<div class="divider"></div>
 
-<!-- FLOW 1 -->
-<div class="reveal" style="margin-top:80px; text-align:center;">
-  
-  <h4 style="margin-bottom:16px; font-size:18px;">Goal to Direction Flow</h4>
-  
-  <img src="images/Wireframe-steps.png" 
-       style="width:100%; max-width:900px; height:auto; object-fit:contain; display:block; margin:0 auto 20px auto;">
-  
-  <p style="max-width:600px; margin:0 auto; color:#555;">
-    Breaking the process into guided steps helps users focus on one decision at a time, reducing overwhelm and improving clarity.
-  </p>
+<!-- DESIGN APPROACH -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">03</span> Design Approach</div>
+  </div>
 
+  <div class="process-list">
+    <div class="process-item">
+      <div class="process-num">01</div>
+      <div class="process-body">
+        <h3 class="process-heading">One decision <em>at a time</em></h3>
+        <p class="process-text">The experience breaks complex decisions into simple, progressive steps. Instead of overwhelming users with options, each stage focuses on a single decision, helping users stay focused, confident, and in control.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-num">02</div>
+      <div class="process-body">
+        <h3 class="process-heading">End-to-end <em>flow</em></h3>
+        <p class="process-text">The product is structured as a guided journey from defining user goals to completing a booking. Each step builds on the previous one, creating a smooth and predictable experience that never loses the user.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-num">03</div>
+      <div class="process-body">
+        <h3 class="process-heading">Reducing <em>friction</em> at every turn</h3>
+        <p class="process-text">Every screen was evaluated for unnecessary decisions. Where a choice could be deferred or eliminated, it was. The goal was to ensure users always knew exactly what to do next and why it mattered.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WIREFRAMES -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">04</span> Wireframes</div>
+  </div>
+
+  <div class="wf-intro">
+    <p class="wf-intro-text">Low-fidelity wireframes were created to map out the full user journey and validate the structure before moving into visual design. The focus was on clarity, guiding users step by step, and reducing decision fatigue.</p>
+  </div>
+
+  <div class="wf-block">
+    <div class="wf-image-wrap">
+      <img src="images/Wireframe-overview1.png" alt="Wireframe Overview">
+      <div class="wf-caption">
+        <span class="wf-caption-label">Overview</span>
+        <span class="wf-caption-text">Full-flow wireframe mapping the end-to-end user journey across all screens.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 2px;"></div>
+
+  <div class="wf-block">
+    <div class="wf-image-wrap">
+      <img src="images/Wireframe-steps.png" alt="Goal to Direction Flow">
+      <div class="wf-caption">
+        <span class="wf-caption-label">Goal to Direction</span>
+        <span class="wf-caption-text">Breaking the process into guided steps helps users focus on one decision at a time, reducing overwhelm and improving clarity.</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 2px;"></div>
+
+  <div class="wf-block">
+    <div class="wf-image-wrap">
+      <img src="images/wireframe-booking.png" alt="Session Booking Flow">
+      <div class="wf-caption">
+        <span class="wf-caption-label">Session Booking</span>
+        <span class="wf-caption-text">A simple, linear booking flow reduces friction and makes the final action feel clear and easy to complete.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- FULL FLOW IMAGE -->
+<div class="full-img" id="flowImg" style="padding-top: 80px; padding-bottom: 0;">
+  <img src="images/flow.png" alt="Full Flow">
 </div>
 
+<!-- GOAL SELECTION -->
+<section class="screen-section">
+  <div class="section-header" style="margin-bottom: 32px;">
+    <div class="section-title"><span class="section-num">05</span> Goal Selection</div>
+  </div>
+  <h2 class="screen-heading">Users begin by <em>defining their intent</em></h2>
+  <p class="screen-desc">The first screen sets the tone — simple, direct, and focused on what the user actually wants to achieve.</p>
+  <div class="screen-single" id="goalScreen">
+    <img src="images/goal-selection.png" alt="Goal Selection">
+  </div>
+</section>
 
-<!-- FLOW 2 -->
-<div class="reveal" style="margin-top:80px; text-align:center;">
-  
-  <h4 style="margin-bottom:16px; font-size:18px;">Session Booking Flow</h4>
-  
-  <img src="images/wireframe-booking.png" 
-       style="width:100%; max-width:900px; height:auto; object-fit:contain; display:block; margin:0 auto 20px auto;">
-  
-  <p style="max-width:600px; margin:0 auto; color:#555;">
-    A simple, linear booking flow reduces friction and makes the final action feel clear and easy to complete.
-  </p>
+<div class="divider"></div>
 
-</div>
-<div class="flow-img reveal">
-<img src="images/flow.png">
-</div>
+<!-- STEP PROGRESSION -->
+<section class="screen-section">
+  <div class="section-header" style="margin-bottom: 32px;">
+    <div class="section-title"><span class="section-num">06</span> Step Progression</div>
+  </div>
+  <h2 class="screen-heading">Clear stages to <em>reduce overwhelm</em></h2>
+  <p class="screen-desc">The process is broken into clear stages so users always know where they are and what comes next.</p>
+  <div class="screen-grid-3">
+    <div class="screen-item"><img src="images/step-1.png" alt="Step 1"></div>
+    <div class="screen-item"><img src="images/step-2.png" alt="Step 2"></div>
+    <div class="screen-item"><img src="images/step-3.png" alt="Step 3"></div>
+  </div>
+</section>
 
-<h3 class="reveal">Goal Selection</h3>
-<p class="reveal">Users begin by defining their intent.</p>
+<div class="divider"></div>
 
-<div class="images reveal">
-<img src="images/goal-selection.png">
-</div>
+<!-- BOOKING FLOW -->
+<section class="screen-section">
+  <div class="section-header" style="margin-bottom: 32px;">
+    <div class="section-title"><span class="section-num">07</span> Booking Flow</div>
+  </div>
+  <h2 class="screen-heading">From guidance to <em>booked session</em></h2>
+  <p class="screen-desc">Users move seamlessly from guidance to booking a session — the final action feels like a natural conclusion, not an afterthought.</p>
+  <div class="screen-grid-2">
+    <div class="screen-item"><img src="images/booking.png" alt="Booking"></div>
+    <div class="screen-item"><img src="images/success.png" alt="Success"></div>
+  </div>
+</section>
 
-<h3 class="reveal">Step Progression</h3>
-<p class="reveal">
-The process is broken into clear stages to reduce overwhelm.
-</p>
+<div class="divider"></div>
 
-<div class="flow">
-<img src="images/step-1.png" class="reveal">
-<img src="images/step-2.png" class="reveal">
-<img src="images/step-3.png" class="reveal">
-</div>
+<!-- OUTCOME -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">08</span> Outcome</div>
+  </div>
+  <div class="outcome-grid">
+    <div>
+      <h2 class="outcome-heading" data-headline>Clarity that<br>converts to<br><em>bookings</em></h2>
+    </div>
+    <div>
+      <p class="outcome-text">The final experience transforms a complex and often overwhelming process into a clear, structured journey. By reducing friction and guiding users step-by-step, the design improves clarity, builds confidence, and increases the likelihood of session bookings.</p>
+      <div class="tags-wrap">
+        <span class="tag">UX Research</span>
+        <span class="tag">Wireframing</span>
+        <span class="tag">Interaction Design</span>
+        <span class="tag">Figma</span>
+        <span class="tag">User Flows</span>
+        <span class="tag">Personal Branding</span>
+      </div>
+    </div>
+  </div>
+</section>
 
-<h3 class="reveal">Booking Flow</h3>
-<p class="reveal">
-Users move seamlessly from guidance to booking a session.
-</p>
+<!-- WORK WITH ME -->
+<section class="work-with-me">
+  <div class="wwm-inner">
+    <div>
+      <p class="wwm-label">Available for new work</p>
+      <h2 class="wwm-heading" data-headline>Start a project<br>with <em>me</em></h2>
+    </div>
+    <div class="wwm-right">
+      <p class="wwm-desc">Open to freelance projects, collaborations, and contracts. Get in touch and I'll get back within 48 hours.</p>
+      <p class="wwm-email-label">Or reach out directly</p>
+      <a href="mailto:chimaconfidence086@gmail.com" class="wwm-email-link">chimaconfidence086@gmail.com</a>
+      <div class="wwm-cta-wrap">
+        <a href="contact.html" class="wwm-cta">Let's Talk <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
 
-<div class="flow">
-<img src="images/booking.png" class="reveal">
-<img src="images/success.png" class="reveal">
-</div>
-
-<h3 class="reveal">Outcome</h3>
-<p class="reveal">
-The final experience transforms a complex and often overwhelming process into a clear, structured journey.
-By reducing friction and guiding users step-by-step, the design improves clarity, builds confidence, and increases the likelihood of session bookings.
-</p>
-
-<div class="contact reveal">
-<p><strong>Available for collaboration</strong></p>
-<p>Chimaconfidence086@gmail.com</p>
-</div>
+<footer>
+  <span class="footer-copy">© 2025 Confidence Chima</span>
+  <span class="footer-copy">Product Designer</span>
+</footer>
 
 <script>
-const reveals = document.querySelectorAll('.reveal');
+/* SCROLL PROGRESS */
+const progressBar = document.getElementById('scrollProgressBar');
+window.addEventListener('scroll', () => {
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (dh > 0 ? (window.scrollY / dh) * 100 : 0) + '%';
+}, { passive: true });
 
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('show');
+/* CURSOR */
+const cursor = document.querySelector('.cursor');
+const ring   = document.querySelector('.cursor-ring');
+let rx = 0, ry = 0, mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+function onEnter() { cursor.classList.add('hover'); ring.classList.add('hover'); }
+function onLeave() { cursor.classList.remove('hover'); ring.classList.remove('hover'); }
+document.querySelectorAll('a, .screen-item, .tag, .wwm-cta').forEach(el => {
+  el.addEventListener('mouseenter', onEnter);
+  el.addEventListener('mouseleave', onLeave);
+});
+
+/* CURSOR GLOW */
+const glow = document.getElementById('cursorGlow');
+let gx = 0, gy = 0, tgx = 0, tgy = 0, glowOn = false;
+document.addEventListener('mousemove', e => {
+  tgx = e.clientX; tgy = e.clientY;
+  if (!glowOn) { glowOn = true; glow.classList.add('active'); animGlow(); }
+});
+document.addEventListener('mouseleave', () => { glowOn = false; glow.classList.remove('active'); });
+function animGlow() {
+  gx += (tgx - gx) * .1; gy += (tgy - gy) * .1;
+  glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
+  if (glowOn) requestAnimationFrame(animGlow);
 }
-});
-});
 
-reveals.forEach(el => observer.observe(el));
+/* SCROLL REVEAL */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.08 });
+
+document.querySelectorAll(
+  '.overview-cell, .process-item, .wf-intro, .wf-block, .screen-single, .screen-item, .full-img, .prototype-wrap'
+).forEach(el => revealObs.observe(el));
+
+/* Hero entrance */
+setTimeout(() => document.getElementById('heroLabel').classList.add('show'), 200);
+setTimeout(() => document.getElementById('heroDesc').classList.add('show'), 380);
+setTimeout(() => document.getElementById('heroMeta').classList.add('show'), 560);
+setTimeout(() => document.getElementById('heroImg').classList.add('show'), 700);
+
+/* CHAR ANIMATION */
+function splitChars(el) {
+  const tmp = document.createElement('div'); tmp.innerHTML = el.innerHTML;
+  let idx = 0;
+  function walk(node, out) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split(/(\s+)/).forEach(tok => {
+        if (/^\s+$/.test(tok)) { out.push(tok); }
+        else if (tok.length) {
+          const chars = [...tok].map(ch => {
+            const safe = ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch;
+            return `<span class="char-wrap"><span class="char" style="transition-delay:${idx++ * 26}ms">${safe}</span></span>`;
+          });
+          out.push(`<span class="word-group">${chars.join('')}</span>`);
+        }
+      });
+    } else if (node.nodeName === 'BR') {
+      out.push('<br>');
+    } else if (['EM','STRONG','SPAN'].includes(node.nodeName)) {
+      const inner = []; node.childNodes.forEach(c => walk(c, inner));
+      out.push(`<${node.nodeName.toLowerCase()}>${inner.join('')}</${node.nodeName.toLowerCase()}>`);
+    } else { node.childNodes.forEach(c => walk(c, out)); }
+  }
+  const out = []; tmp.childNodes.forEach(n => walk(n, out)); el.innerHTML = out.join('');
+}
+function revealChars(el) {
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    el.querySelectorAll('.char').forEach(c => c.classList.add('in'))
+  ));
+}
+const headlines = document.querySelectorAll('[data-headline]');
+headlines.forEach(el => splitChars(el));
+const hObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { revealChars(e.target); hObs.unobserve(e.target); } });
+}, { threshold: .1 });
+headlines.forEach(el => hObs.observe(el));
+
+/* MAGNETIC CTA */
+const wwmCta = document.querySelector('.wwm-cta');
+if (wwmCta) {
+  wwmCta.addEventListener('mousemove', e => {
+    const r = wwmCta.getBoundingClientRect();
+    wwmCta.style.transform = `translate(${(e.clientX-(r.left+r.width/2))*.28}px,${(e.clientY-(r.top+r.height/2))*.28}px)`;
+  });
+  wwmCta.addEventListener('mouseleave', () => {
+    wwmCta.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1), border-color .3s, color .3s, gap .3s';
+    wwmCta.style.transform = 'translate(0,0)';
+    setTimeout(() => { wwmCta.style.transition = ''; }, 500);
+  });
+  wwmCta.addEventListener('mouseenter', () => {
+    wwmCta.style.transition = 'transform .1s ease, border-color .3s, color .3s, gap .3s';
+  });
+}
 </script>
-
 </body>
 </html>
