@@ -2,215 +2,798 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Contact</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Confidence Chima</title>
 
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@600,700&f[]=plus-jakarta-sans@400,500&display=swap" rel="stylesheet">
-
-<!-- ICONS -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-*{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+:root {
+  --bg:      #0C0B09;
+  --surface: #141310;
+  --card:    #1A1916;
+  --text:    #EDE8DF;
+  --muted:   #7A7469;
+  --accent:  #C9A96E;
+  --border:  rgba(237,232,223,0.08);
+  --serif:   'Cormorant Garamond', serif;
+  --sans:    'DM Sans', sans-serif;
 }
 
-body{
-  font-family:'Plus Jakarta Sans';
-  background:#f7f7f7;
-  max-width:880px;
-  margin:auto;
-  padding:60px 24px;
-  color:#111;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  cursor: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
+  min-height: 100vh;
 }
 
-/* NAV */
-nav{
-  display:flex;
-  justify-content:space-between;
-  margin-bottom:60px;
+/* ─── SCROLL PROGRESS ─── */
+.scroll-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(237,232,223,0.4) 100%);
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(201,169,110,0.5);
 }
 
-nav a{
-  text-decoration:none;
-  color:#111;
-  font-weight:500;
-  margin-left:20px;
-  position:relative;
+/* ─── CURSOR ─── */
+.cursor {
+  width: 8px; height: 8px; background: var(--accent);
+  border-radius: 50%; position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9999;
+  transition: width .25s, height .25s;
+}
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 50%;
+  position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9998;
+  transition: width .4s, height .4s, border-color .3s;
+}
+.cursor.hover   { width: 4px; height: 4px; }
+.cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(201,169,110,.7); }
+.cursor-glow {
+  position: fixed; width: 380px; height: 380px; border-radius: 50%;
+  pointer-events: none; z-index: 0; transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(201,169,110,.09) 0%, rgba(201,169,110,.02) 40%, transparent 70%);
+  opacity: 0; transition: opacity .4s;
+}
+.cursor-glow.active { opacity: 1; }
+@media (max-width: 768px) {
+  body { cursor: auto; }
+  .cursor, .cursor-ring, .cursor-glow { display: none; }
 }
 
-nav a::after{
-  content:'';
-  position:absolute;
-  left:0;
-  bottom:-3px;
-  width:0;
-  height:2px;
-  background:#111;
-  transition:0.3s;
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(12,11,9,.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--serif); font-weight: 400; font-size: 18px;
+  letter-spacing: .02em; color: var(--text); text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  text-decoration: none; color: var(--muted); font-size: 13px;
+  font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+  transition: color .3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--accent); transition: width .3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+.nav-links a.active { color: var(--accent); }
+.nav-links a.active::after { width: 100%; }
+@media (max-width: 768px) { nav { padding: 20px 24px; } }
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 1080px; margin: 0 auto;
+  padding: 100px 40px 80px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: end;
+  border-bottom: 1px solid var(--border);
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 72px 24px 56px; gap: 40px; }
+}
+.hero-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.hero-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.hero-heading {
+  font-family: var(--serif);
+  font-size: clamp(56px, 7vw, 96px);
+  font-weight: 300; line-height: .92; letter-spacing: -.01em;
+}
+.hero-heading em { font-style: italic; color: var(--accent); }
+.hero-desc {
+  font-size: 15px; line-height: 1.75;
+  color: var(--muted); font-weight: 300; margin-bottom: 36px; max-width: 400px;
+}
+.hero-avail {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted);
+}
+.avail-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #5DB87A;
+  box-shadow: 0 0 8px rgba(93,184,122,.6); flex-shrink: 0;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 6px rgba(93,184,122,.5); }
+  50%      { box-shadow: 0 0 14px rgba(93,184,122,.9); }
 }
 
-nav a:hover::after{
-  width:100%;
+/* ─── PAGE BODY: 2-col ─── */
+.page-body {
+  max-width: 1080px; margin: 0 auto;
+  padding: 80px 40px 100px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 56px; align-items: start;
+}
+@media (max-width: 960px) {
+  .page-body { grid-template-columns: 1fr; padding: 60px 24px 80px; gap: 60px; }
 }
 
-/* HEADER */
-h1{
-  font-family:'Clash Display';
-  font-size:52px;
-  margin-bottom:16px;
+/* ─── SECTION EYEBROW ─── */
+.col-eyebrow {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400; margin-bottom: 28px;
+  display: flex; align-items: center; gap: 16px;
+}
+.col-eyebrow-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
+
+/* ─── CHANNEL ITEMS ─── */
+.channel-item {
+  display: flex; align-items: center;
+  text-decoration: none; color: var(--text);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  margin-bottom: 2px;
+  position: relative; overflow: hidden;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease, border-color .3s;
+}
+.channel-item.show { opacity: 1; transform: none; }
+.channel-item::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(201,169,110,.06) 0%, transparent 60%);
+  transform: translateX(-100%); transition: transform .45s cubic-bezier(.16,1,.3,1);
+}
+.channel-item:hover::before { transform: translateX(0); }
+.channel-item:hover { border-color: rgba(201,169,110,.22); }
+
+.ch-icon {
+  width: 60px; height: 58px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  border-right: 1px solid var(--border); color: var(--muted); transition: color .3s;
+}
+.channel-item:hover .ch-icon { color: var(--accent); }
+.ch-body { flex: 1; padding: 0 18px; display: flex; flex-direction: column; gap: 2px; }
+.ch-name { font-size: 14px; font-weight: 400; transition: color .3s; }
+.channel-item:hover .ch-name { color: var(--accent); }
+.ch-sub  { font-size: 11px; color: var(--muted); font-weight: 300; }
+.ch-arrow {
+  padding: 0 20px; font-size: 12px; color: var(--muted);
+  transition: color .3s, transform .3s; flex-shrink: 0;
+}
+.channel-item:hover .ch-arrow { color: var(--accent); transform: translateX(4px); }
+
+/* group divider */
+.group-sep {
+  display: flex; align-items: center; gap: 14px;
+  margin: 24px 0 12px;
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--muted);
+  opacity: 0; transform: translateY(10px);
+  transition: opacity .5s ease, transform .5s ease;
+}
+.group-sep.show { opacity: 1; transform: none; }
+.group-sep::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* ─── GAMING FOOTNOTE ─── */
+.gaming-footnote {
+  margin-top: 28px; padding-top: 22px;
+  border-top: 1px solid var(--border);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity .6s ease .35s, transform .6s ease .35s;
+}
+.gaming-footnote.show { opacity: 1; transform: none; }
+.gaming-note {
+  font-size: 10px; letter-spacing: .13em; text-transform: uppercase;
+  color: rgba(122,116,105,.5); margin-bottom: 12px;
+}
+.gaming-links { display: flex; flex-wrap: wrap; gap: 6px; }
+.gaming-link {
+  display: inline-flex; align-items: center; gap: 7px;
+  text-decoration: none; padding: 7px 12px;
+  border: 1px solid rgba(237,232,223,.05); border-radius: 2px;
+  font-size: 11px; letter-spacing: .05em;
+  color: rgba(122,116,105,.5);
+  transition: color .3s, border-color .3s;
+}
+.gaming-link:hover { color: rgba(122,116,105,.85); border-color: rgba(237,232,223,.1); }
+
+/* ─── FORM ─── */
+.contact-form {
+  background: var(--card); border: 1px solid var(--border); border-radius: 4px;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease .1s, transform .8s ease .1s, border-color .4s;
+}
+.contact-form.show { opacity: 1; transform: none; }
+.contact-form:focus-within { border-color: rgba(201,169,110,.2); }
+
+.form-head {
+  padding: 32px 36px 26px; border-bottom: 1px solid var(--border);
+}
+.form-head-eyebrow {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px;
+  display: flex; align-items: center; gap: 10px;
+}
+.form-head-eyebrow::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.form-head-title {
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.8vw, 34px);
+  font-weight: 300; line-height: 1.1; color: var(--text);
+}
+.form-head-title em { font-style: italic; color: var(--accent); }
+
+.form-body { padding: 28px 36px 36px; }
+@media (max-width: 640px) {
+  .form-head { padding: 24px 22px 20px; }
+  .form-body { padding: 22px 22px 28px; }
 }
 
-p{
-  color:#555;
-  margin-bottom:40px;
-  font-size:16px;
+.form-row {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 14px; margin-bottom: 14px;
+}
+@media (max-width: 520px) { .form-row { grid-template-columns: 1fr; } }
+
+.form-group { display: flex; flex-direction: column; gap: 7px; }
+.form-group.full { grid-column: 1 / -1; }
+
+.form-label {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+}
+.form-label .req { color: var(--accent); margin-left: 2px; }
+
+.form-input, .form-select, .form-textarea {
+  background: rgba(237,232,223,.04); border: 1px solid var(--border); border-radius: 2px;
+  padding: 12px 14px; font-family: var(--sans); font-size: 13px; font-weight: 300;
+  color: var(--text); outline: none; width: 100%;
+  appearance: none; -webkit-appearance: none;
+  transition: border-color .3s, background .3s;
+}
+.form-input::placeholder, .form-textarea::placeholder { color: rgba(122,116,105,.5); }
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: rgba(201,169,110,.5); background: rgba(201,169,110,.04);
+}
+.form-input.error, .form-select.error, .form-textarea.error { border-color: rgba(220,100,80,.6); }
+
+.select-wrap { position: relative; }
+.select-wrap::after {
+  content: ''; position: absolute; right: 13px; top: 50%;
+  transform: translateY(-50%); width: 7px; height: 5px;
+  background: var(--muted); clip-path: polygon(0 0,100% 0,50% 100%);
+  pointer-events: none; transition: background .3s;
+}
+.select-wrap:focus-within::after { background: var(--accent); }
+.form-select { padding-right: 34px; cursor: pointer; color: var(--text); }
+.form-select option { background: #1A1916; color: var(--text); }
+.form-select.placeholder-active { color: rgba(122,116,105,.5); }
+.form-textarea { resize: vertical; min-height: 130px; line-height: 1.65; }
+
+.budget-grid { display: flex; flex-wrap: wrap; gap: 6px; }
+.budget-btn {
+  padding: 8px 13px; border: 1px solid var(--border); border-radius: 2px;
+  background: transparent; font-family: var(--sans); font-size: 11px; font-weight: 400;
+  color: var(--muted); cursor: none; letter-spacing: .02em;
+  transition: border-color .25s, color .25s, background .25s;
+}
+.budget-btn:hover { border-color: rgba(201,169,110,.4); color: var(--text); }
+.budget-btn.active { border-color: var(--accent); color: var(--accent); background: rgba(201,169,110,.08); }
+@media (max-width: 768px) { .budget-btn { cursor: pointer; } }
+
+.textarea-footer { display: flex; justify-content: flex-end; margin-top: 5px; }
+.char-count { font-size: 11px; color: var(--muted); letter-spacing: .04em; transition: color .3s; }
+.char-count.warn { color: var(--accent); }
+.char-count.over { color: rgba(220,100,80,.8); }
+
+.field-error { font-size: 11px; color: rgba(220,100,80,.8); letter-spacing: .04em; margin-top: 3px; display: none; }
+.field-error.visible { display: block; }
+
+.form-divider { height: 1px; background: var(--border); margin: 26px 0; }
+
+.form-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.form-privacy { display: flex; align-items: center; gap: 10px; flex: 1; }
+.privacy-icon { width: 15px; height: 15px; flex-shrink: 0; color: var(--muted); opacity: .7; }
+.form-privacy p { font-size: 11px; color: var(--muted); font-weight: 300; line-height: 1.5; }
+
+.btn-submit {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 14px 26px; border: 1px solid rgba(201,169,110,.4); border-radius: 2px;
+  background: transparent; font-family: var(--sans); font-size: 12px;
+  letter-spacing: .12em; text-transform: uppercase; color: var(--text);
+  font-weight: 400; cursor: none; white-space: nowrap;
+  position: relative; overflow: hidden;
+  transition: border-color .3s, color .3s, gap .3s;
+}
+.btn-submit::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(201,169,110,.06); transform: translateX(-100%);
+  transition: transform .4s ease;
+}
+.btn-submit:hover::before { transform: translateX(0); }
+.btn-submit:hover { border-color: var(--accent); color: var(--accent); gap: 18px; }
+.btn-submit:disabled { opacity: .4; cursor: not-allowed; }
+.btn-submit .arrow { transition: transform .3s; }
+.btn-submit:hover .arrow { transform: translateX(4px); }
+@media (max-width: 768px) { .btn-submit { cursor: pointer; } }
+
+/* success state */
+.form-success {
+  display: none; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; padding: 60px 36px; gap: 16px;
+}
+.contact-form.submitted .form-content-wrap { display: none; }
+.contact-form.submitted .form-success { display: flex; }
+.success-icon {
+  width: 42px; height: 42px; border: 1px solid rgba(201,169,110,.4);
+  border-radius: 50%; display: flex; align-items: center; justify-content: center;
+  color: var(--accent); font-size: 17px;
+}
+.success-title { font-family: var(--serif); font-size: 28px; font-weight: 300; color: var(--text); }
+.success-title em { font-style: italic; color: var(--accent); }
+.success-desc { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.7; max-width: 320px; }
+.btn-reset {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); background: none; border: none;
+  cursor: none; padding: 6px 0; transition: color .3s; font-family: var(--sans);
+}
+.btn-reset:hover { color: var(--accent); }
+@media (max-width: 768px) { .btn-reset { cursor: pointer; } }
+
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner {
+  width: 13px; height: 13px;
+  border: 1.5px solid rgba(201,169,110,.3); border-top-color: var(--accent);
+  border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0;
 }
 
-/* SECTION */
-.section{
-  margin-bottom:50px;
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border); padding: 24px 40px;
+  max-width: 1080px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
 }
+@media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
+.footer-copy { font-size: 12px; color: var(--muted); }
 
-.section-title{
-  font-size:14px;
-  color:#777;
-  text-transform:uppercase;
-  letter-spacing:0.5px;
-  margin-bottom:14px;
+/* ─── CHAR ANIMATION ─── */
+.char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.15; }
+.char {
+  display: inline-block; transform: translateY(110%); opacity: 0;
+  transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease;
 }
+.char.in { transform: translateY(0); opacity: 1; }
+.word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
 
-/* CONTACT ITEM */
-.contact-item{
-  display:flex;
-  align-items:center;
-  gap:14px;
-  text-decoration:none;
-  color:#111;
-  padding:12px 0;
-  transition:0.25s ease;
-}
-
-.contact-item i{
-  width:22px;
-  font-size:18px;
-  color:#444;
-}
-
-.contact-item:hover{
-  transform:translateX(6px);
-}
-
-/* REVEAL */
-.reveal{
-  opacity:0;
-  transform:translateY(30px);
-  transition:0.7s ease;
-}
-
-.reveal.active{
-  opacity:1;
-  transform:translateY(0);
-}
-
-/* MOBILE */
-@media(max-width:768px){
-  h1{
-    font-size:42px;
-  }
+body::before {
+  content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .02;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 </style>
 </head>
-
 <body>
 
+<div class="scroll-bar" id="scrollBar"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
+
+<!-- NAV -->
 <nav>
-  <div><strong>Confidence</strong></div>
-  <div>
-    <a href="index.html">Home</a>
+  <a href="index.html" class="nav-logo">Confidence Chima</a>
+  <div class="nav-links">
     <a href="about.html">About</a>
+    <a href="contact.html" class="active">Contact</a>
   </div>
 </nav>
 
-<div class="reveal">
-  <h1>Let’s Work Together</h1>
-  <p>Open to freelance projects, collaborations, and full-time opportunities.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label">Get in Touch</p>
+    <h1 class="hero-heading" data-headline>Let's<br>Work<br><em>Together</em></h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-desc">
+      Open to freelance projects, collaborations, and full-time opportunities. Fill in the brief or reach out directly.
+    </p>
+    <div class="hero-avail">
+      <span class="avail-dot"></span>
+      Available for new work
+    </div>
+  </div>
+</section>
+
+<!-- PAGE BODY -->
+<div class="page-body">
+
+  <!-- LEFT: channels -->
+  <div class="channels-col">
+    <div class="col-eyebrow"><span class="col-eyebrow-num">01</span> Direct Channels</div>
+
+    <!-- Main -->
+    <a class="channel-item" href="mailto:Chimaconfidence086@gmail.com" style="transition-delay:.04s">
+      <div class="ch-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
+      </div>
+      <div class="ch-body"><span class="ch-name">Email</span><span class="ch-sub">Chimaconfidence086@gmail.com</span></div>
+      <span class="ch-arrow">→</span>
+    </a>
+
+    <a class="channel-item" href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank" style="transition-delay:.09s">
+      <div class="ch-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2"/><line x1="12" y1="12" x2="12" y2="17"/><line x1="9" y1="14.5" x2="15" y2="14.5"/></svg>
+      </div>
+      <div class="ch-body"><span class="ch-name">Upwork</span><span class="ch-sub">Hire via freelance platform</span></div>
+      <span class="ch-arrow">→</span>
+    </a>
+
+    <a class="channel-item" href="https://wa.me/2349163784422" target="_blank" style="transition-delay:.14s">
+      <div class="ch-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      </div>
+      <div class="ch-body"><span class="ch-name">WhatsApp</span><span class="ch-sub">Quick conversations</span></div>
+      <span class="ch-arrow">→</span>
+    </a>
+
+    <div class="group-sep" id="sepPro">Professional</div>
+
+    <a class="channel-item" href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank" style="transition-delay:.19s">
+      <div class="ch-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+      </div>
+      <div class="ch-body"><span class="ch-name">LinkedIn</span><span class="ch-sub">confidence-chima-596901340</span></div>
+      <span class="ch-arrow">→</span>
+    </a>
+
+    <a class="channel-item" href="https://github.com/MrChimaConfidence" target="_blank" style="transition-delay:.24s">
+      <div class="ch-icon">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+      </div>
+      <div class="ch-body"><span class="ch-name">GitHub</span><span class="ch-sub">MrChimaConfidence</span></div>
+      <span class="ch-arrow">→</span>
+    </a>
+
+    <!-- Gaming — quiet footnote, clearly secondary -->
+    <div class="gaming-footnote" id="gamingFooter">
+      <p class="gaming-note">Outside of design</p>
+      <div class="gaming-links">
+        <a class="gaming-link" href="https://youtube.com/@justmrpaper" target="_blank">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.88 4 12 4 12 4s-6.88 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.12 20 12 20 12 20s6.88 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg>
+          YouTube
+        </a>
+        <a class="gaming-link" href="https://twitch.tv/justmrpaper_" target="_blank">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 2H3v16h5v4l4-4h5l4-4V2z"/><line x1="11" y1="7" x2="11" y2="11"/><line x1="16" y1="7" x2="16" y2="11"/></svg>
+          Twitch
+        </a>
+        <a class="gaming-link" href="https://kick.com/justmrpaper" target="_blank">
+          <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+          Kick
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: form -->
+  <div class="form-col">
+    <div class="col-eyebrow"><span class="col-eyebrow-num">02</span> Start a Project</div>
+
+    <div class="contact-form" id="contactForm">
+      <div class="form-content-wrap">
+        <div class="form-head">
+          <p class="form-head-eyebrow">Project Brief</p>
+          <h2 class="form-head-title">Tell me what<br>you're <em>building</em></h2>
+        </div>
+        <div class="form-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="fullName">Full Name <span class="req">*</span></label>
+              <input class="form-input" id="fullName" type="text" placeholder="Amara Okafor" autocomplete="name">
+              <span class="field-error" id="err-fullName">Please enter your name.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="emailAddr">Email <span class="req">*</span></label>
+              <input class="form-input" id="emailAddr" type="email" placeholder="you@company.com" autocomplete="email">
+              <span class="field-error" id="err-emailAddr">Please enter a valid email.</span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="company">Company / Project</label>
+              <input class="form-input" id="company" type="text" placeholder="Your company or project" autocomplete="organization">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="role">Your Role</label>
+              <input class="form-input" id="role" type="text" placeholder="e.g. Founder, PM">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="service">Service Needed <span class="req">*</span></label>
+              <div class="select-wrap">
+                <select class="form-select placeholder-active" id="service">
+                  <option value="" disabled selected>Select a service…</option>
+                  <option value="ux-research">UX Research</option>
+                  <option value="product-design">Product Design</option>
+                  <option value="interaction-design">Interaction Design</option>
+                  <option value="visual-design">Visual Design</option>
+                  <option value="design-system">Design System</option>
+                  <option value="mobile-ux">Mobile UX</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <span class="field-error" id="err-service">Please select a service.</span>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="timeline">Timeline</label>
+              <div class="select-wrap">
+                <select class="form-select placeholder-active" id="timeline">
+                  <option value="" disabled selected>When do you need this?</option>
+                  <option value="asap">As soon as possible</option>
+                  <option value="2weeks">Within 2 weeks</option>
+                  <option value="1month">Within a month</option>
+                  <option value="3months">1–3 months</option>
+                  <option value="flexible">Flexible / not sure yet</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="form-row" style="margin-bottom:14px">
+            <div class="form-group full">
+              <label class="form-label">Budget Range</label>
+              <div class="budget-grid">
+                <button type="button" class="budget-btn" data-value="lt1k">&lt; $1,000</button>
+                <button type="button" class="budget-btn" data-value="1k3k">$1k – $3k</button>
+                <button type="button" class="budget-btn" data-value="3k7k">$3k – $7k</button>
+                <button type="button" class="budget-btn" data-value="7k15k">$7k – $15k</button>
+                <button type="button" class="budget-btn" data-value="15kplus">$15k+</button>
+                <button type="button" class="budget-btn" data-value="discuss">Let's discuss</button>
+              </div>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group full">
+              <label class="form-label" for="brief">Project Brief <span class="req">*</span></label>
+              <textarea class="form-textarea" id="brief" maxlength="1200" placeholder="Describe your project — what problem are you solving, who are the users, and what outcome matters most?"></textarea>
+              <div class="textarea-footer">
+                <span class="field-error" id="err-brief" style="margin-top:0;flex:1">Please describe your project.</span>
+                <span class="char-count" id="charCount">0 / 1200</span>
+              </div>
+            </div>
+          </div>
+          <div class="form-divider"></div>
+          <div class="form-footer">
+            <div class="form-privacy">
+              <svg class="privacy-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+              </svg>
+              <p>Your details are only used to respond to your enquiry. No spam, no third parties.</p>
+            </div>
+            <button class="btn-submit" id="submitBtn" type="button">
+              <span id="submitLabel">Send Message</span>
+              <span class="arrow" id="submitArrow">→</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="form-success">
+        <div class="success-icon">✓</div>
+        <h3 class="success-title">Message <em>sent</em></h3>
+        <p class="success-desc">Thanks for reaching out. I'll review your brief and get back to you within 48 hours.</p>
+        <button class="btn-reset" id="resetBtn" type="button">← Send another message</button>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<!-- MAIN CONTACT -->
-<div class="section reveal">
-  <div class="section-title">Main</div>
-
-  <a class="contact-item" href="mailto:Chimaconfidence086@gmail.com">
-    <i class="fa-solid fa-envelope"></i>
-    <span>Email</span>
-  </a>
-
-  <a class="contact-item" href="https://www.upwork.com/freelancers/~01f76a4758707e1716" target="_blank">
-    <i class="fa-solid fa-briefcase"></i>
-    <span>Upwork</span>
-  </a>
-
-  <a class="contact-item" href="https://wa.me/2349163784422" target="_blank">
-    <i class="fa-brands fa-whatsapp"></i>
-    <span>WhatsApp</span>
-  </a>
-</div>
-
-<!-- PROFESSIONAL -->
-<div class="section reveal">
-  <div class="section-title">Professional</div>
-
-  <a class="contact-item" href="https://github.com/MrChimaConfidence" target="_blank">
-    <i class="fa-brands fa-github"></i>
-    <span>GitHub</span>
-  </a>
-
-  <a class="contact-item" href="https://www.linkedin.com/in/confidence-chima-596901340" target="_blank">
-    <i class="fa-brands fa-linkedin"></i>
-    <span>LinkedIn</span>
-  </a>
-</div>
-
-<!-- BEYOND DESIGN -->
-<div class="section reveal">
-  <div class="section-title">Beyond Design</div>
-
-  <a class="contact-item" href="https://youtube.com/@justmrpaper" target="_blank">
-    <i class="fa-brands fa-youtube"></i>
-    <span>YouTube</span>
-  </a>
-
-  <a class="contact-item" href="https://twitch.tv/justmrpaper_" target="_blank">
-    <i class="fa-brands fa-twitch"></i>
-    <span>Twitch</span>
-  </a>
-
-  <a class="contact-item" href="https://kick.com/justmrpaper" target="_blank">
-    <i class="fa-solid fa-video"></i>
-    <span>Kick</span>
-  </a>
-</div>
+<footer>
+  <span class="footer-copy">© 2025 Confidence Chima</span>
+  <span class="footer-copy">Product Designer</span>
+</footer>
 
 <script>
-const reveals = document.querySelectorAll(".reveal");
+/* ─── SCROLL BAR ─── */
+const scrollBar = document.getElementById('scrollBar');
+window.addEventListener('scroll', () => {
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  scrollBar.style.width = (dh > 0 ? (window.scrollY / dh) * 100 : 0) + '%';
+}, { passive: true });
 
-function revealOnScroll(){
-  reveals.forEach(el=>{
-    let windowHeight = window.innerHeight;
-    let elementTop = el.getBoundingClientRect().top;
+/* ─── CURSOR ─── */
+const cursor = document.querySelector('.cursor');
+const ring   = document.querySelector('.cursor-ring');
+let rx = 0, ry = 0, mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+function onEnter() { cursor.classList.add('hover'); ring.classList.add('hover'); }
+function onLeave() { cursor.classList.remove('hover'); ring.classList.remove('hover'); }
+document.querySelectorAll('a, .btn-submit, .btn-reset, .budget-btn, .form-input, .form-select, .form-textarea').forEach(el => {
+  el.addEventListener('mouseenter', onEnter);
+  el.addEventListener('mouseleave', onLeave);
+});
 
-    if(elementTop < windowHeight - 80){
-      el.classList.add("active");
-    }
-  });
+/* ─── CURSOR GLOW ─── */
+const glow = document.getElementById('cursorGlow');
+let gx = 0, gy = 0, tgx = 0, tgy = 0, glowOn = false;
+document.addEventListener('mousemove', e => {
+  tgx = e.clientX; tgy = e.clientY;
+  if (!glowOn) { glowOn = true; glow.classList.add('active'); animGlow(); }
+});
+document.addEventListener('mouseleave', () => { glowOn = false; glow.classList.remove('active'); });
+function animGlow() {
+  gx += (tgx - gx) * .1; gy += (tgy - gy) * .1;
+  glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
+  if (glowOn) requestAnimationFrame(animGlow);
 }
 
-window.addEventListener("load", revealOnScroll);
-window.addEventListener("scroll", revealOnScroll);
-</script>
+/* ─── SCROLL REVEAL ─── */
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: .08 });
+document.querySelectorAll('.channel-item, .contact-form, .gaming-footnote, .group-sep').forEach(el => obs.observe(el));
 
+/* ─── CHAR ANIMATION ─── */
+function splitChars(el) {
+  const tmp = document.createElement('div'); tmp.innerHTML = el.innerHTML;
+  let idx = 0;
+  function walk(node, out) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split(/(\s+)/).forEach(tok => {
+        if (/^\s+$/.test(tok)) { out.push(tok); }
+        else if (tok.length) {
+          const chars = [...tok].map(ch => {
+            const safe = ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch;
+            return `<span class="char-wrap"><span class="char" style="transition-delay:${idx++ * 26}ms">${safe}</span></span>`;
+          });
+          out.push(`<span class="word-group">${chars.join('')}</span>`);
+        }
+      });
+    } else if (node.nodeName === 'BR') { out.push('<br>');
+    } else if (['EM','STRONG','SPAN'].includes(node.nodeName)) {
+      const inner = []; node.childNodes.forEach(c => walk(c, inner));
+      out.push(`<${node.nodeName.toLowerCase()}>${inner.join('')}</${node.nodeName.toLowerCase()}>`);
+    } else { node.childNodes.forEach(c => walk(c, out)); }
+  }
+  const out = []; tmp.childNodes.forEach(n => walk(n, out)); el.innerHTML = out.join('');
+}
+function revealChars(el) {
+  requestAnimationFrame(() => requestAnimationFrame(() => el.querySelectorAll('.char').forEach(c => c.classList.add('in'))));
+}
+const headlines = document.querySelectorAll('[data-headline]');
+headlines.forEach(el => splitChars(el));
+const hObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { revealChars(e.target); hObs.unobserve(e.target); } });
+}, { threshold: .1 });
+headlines.forEach(el => hObs.observe(el));
+
+/* ─── SELECT PLACEHOLDER ─── */
+document.querySelectorAll('.form-select').forEach(sel => {
+  sel.addEventListener('change', () => sel.classList.toggle('placeholder-active', !sel.value));
+});
+
+/* ─── BUDGET BUTTONS ─── */
+let selectedBudget = null;
+document.querySelectorAll('.budget-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active'); selectedBudget = btn.dataset.value;
+  });
+});
+
+/* ─── CHAR COUNT ─── */
+const brief = document.getElementById('brief');
+const charCount = document.getElementById('charCount');
+brief.addEventListener('input', () => {
+  const len = brief.value.length;
+  charCount.textContent = `${len} / 1200`;
+  charCount.className = 'char-count' + (len > 1080 ? (len >= 1200 ? ' over' : ' warn') : '');
+});
+
+/* ─── VALIDATION ─── */
+function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
+function setErr(fId, eId, show) {
+  document.getElementById(fId).classList.toggle('error', show);
+  document.getElementById(eId).classList.toggle('visible', show);
+  return show;
+}
+function validate() {
+  let err = false;
+  if (setErr('fullName','err-fullName', !document.getElementById('fullName').value.trim())) err = true;
+  if (setErr('emailAddr','err-emailAddr', !validEmail(document.getElementById('emailAddr').value.trim()))) err = true;
+  if (setErr('service','err-service', !document.getElementById('service').value)) err = true;
+  if (setErr('brief','err-brief', !document.getElementById('brief').value.trim())) err = true;
+  return !err;
+}
+['fullName','emailAddr','service','brief'].forEach(id => {
+  const el = document.getElementById(id);
+  el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => {
+    el.classList.remove('error');
+    const e = document.getElementById('err-' + id); if (e) e.classList.remove('visible');
+  });
+});
+
+/* ─── SUBMIT ─── */
+const submitBtn   = document.getElementById('submitBtn');
+const submitLabel = document.getElementById('submitLabel');
+const formEl      = document.getElementById('contactForm');
+submitBtn.addEventListener('click', async () => {
+  if (!validate()) return;
+  submitBtn.disabled = true;
+  submitLabel.textContent = 'Sending';
+  document.getElementById('submitArrow').outerHTML = '<span class="spinner" id="submitArrow"></span>';
+  await new Promise(r => setTimeout(r, 1800));
+  formEl.classList.add('submitted');
+});
+document.getElementById('resetBtn').addEventListener('click', () => {
+  formEl.classList.remove('submitted');
+  ['fullName','emailAddr','company','role','brief'].forEach(id => document.getElementById(id).value = '');
+  ['service','timeline'].forEach(id => { const s = document.getElementById(id); s.value = ''; s.classList.add('placeholder-active'); });
+  charCount.textContent = '0 / 1200'; charCount.className = 'char-count';
+  document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('active'));
+  selectedBudget = null; submitBtn.disabled = false;
+  const sp = document.getElementById('submitArrow');
+  if (sp) sp.outerHTML = '<span class="arrow" id="submitArrow">→</span>';
+  submitLabel.textContent = 'Send Message';
+});
+
+/* ─── MAGNETIC SUBMIT ─── */
+submitBtn.addEventListener('mousemove', e => {
+  const r = submitBtn.getBoundingClientRect();
+  submitBtn.style.transform = `translate(${(e.clientX-(r.left+r.width/2))*.28}px,${(e.clientY-(r.top+r.height/2))*.28}px)`;
+});
+submitBtn.addEventListener('mouseleave', () => {
+  submitBtn.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1),border-color .3s,color .3s,gap .3s';
+  submitBtn.style.transform = 'translate(0,0)';
+  setTimeout(() => { submitBtn.style.transition = ''; }, 500);
+});
+submitBtn.addEventListener('mouseenter', () => {
+  submitBtn.style.transition = 'transform .1s ease,border-color .3s,color .3s,gap .3s';
+});
+</script>
 </body>
 </html>
