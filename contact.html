@@ -35,7 +35,6 @@ body {
   min-height: 100vh;
 }
 
-/* ─── SCROLL PROGRESS ─── */
 .scroll-bar {
   position: fixed; top: 0; left: 0;
   height: 2px; width: 0%; z-index: 9999;
@@ -45,7 +44,6 @@ body {
   box-shadow: 0 0 8px rgba(201,169,110,0.5);
 }
 
-/* ─── CURSOR ─── */
 .cursor {
   width: 8px; height: 8px; background: var(--accent);
   border-radius: 50%; position: fixed; pointer-events: none;
@@ -73,7 +71,6 @@ body {
   .cursor, .cursor-ring, .cursor-glow { display: none; }
 }
 
-/* ─── NAV ─── */
 nav {
   position: sticky; top: 0; z-index: 100;
   padding: 28px 40px;
@@ -101,7 +98,6 @@ nav {
 .nav-links a.active::after { width: 100%; }
 @media (max-width: 768px) { nav { padding: 20px 24px; } }
 
-/* ─── HERO ─── */
 .hero {
   max-width: 1080px; margin: 0 auto;
   padding: 100px 40px 80px;
@@ -142,7 +138,6 @@ nav {
   50%      { box-shadow: 0 0 14px rgba(93,184,122,.9); }
 }
 
-/* ─── PAGE BODY: 2-col ─── */
 .page-body {
   max-width: 1080px; margin: 0 auto;
   padding: 80px 40px 100px;
@@ -153,7 +148,6 @@ nav {
   .page-body { grid-template-columns: 1fr; padding: 60px 24px 80px; gap: 60px; }
 }
 
-/* ─── SECTION EYEBROW ─── */
 .col-eyebrow {
   font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
   color: var(--muted); font-weight: 400; margin-bottom: 28px;
@@ -161,7 +155,6 @@ nav {
 }
 .col-eyebrow-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
 
-/* ─── CHANNEL ITEMS ─── */
 .channel-item {
   display: flex; align-items: center;
   text-decoration: none; color: var(--text);
@@ -181,7 +174,6 @@ nav {
 }
 .channel-item:hover::before { transform: translateX(0); }
 .channel-item:hover { border-color: rgba(201,169,110,.22); }
-
 .ch-icon {
   width: 60px; height: 58px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
@@ -198,7 +190,6 @@ nav {
 }
 .channel-item:hover .ch-arrow { color: var(--accent); transform: translateX(4px); }
 
-/* group divider */
 .group-sep {
   display: flex; align-items: center; gap: 14px;
   margin: 24px 0 12px;
@@ -209,7 +200,6 @@ nav {
 .group-sep.show { opacity: 1; transform: none; }
 .group-sep::after { content: ''; flex: 1; height: 1px; background: var(--border); }
 
-/* ─── GAMING FOOTNOTE ─── */
 .gaming-footnote {
   margin-top: 28px; padding-top: 22px;
   border-top: 1px solid var(--border);
@@ -232,7 +222,6 @@ nav {
 }
 .gaming-link:hover { color: rgba(122,116,105,.85); border-color: rgba(237,232,223,.1); }
 
-/* ─── FORM ─── */
 .contact-form {
   background: var(--card); border: 1px solid var(--border); border-radius: 4px;
   opacity: 0; transform: translateY(32px);
@@ -241,9 +230,7 @@ nav {
 .contact-form.show { opacity: 1; transform: none; }
 .contact-form:focus-within { border-color: rgba(201,169,110,.2); }
 
-.form-head {
-  padding: 32px 36px 26px; border-bottom: 1px solid var(--border);
-}
+.form-head { padding: 32px 36px 26px; border-bottom: 1px solid var(--border); }
 .form-head-eyebrow {
   font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
   color: var(--accent); margin-bottom: 10px;
@@ -351,7 +338,6 @@ nav {
 .btn-submit:hover .arrow { transform: translateX(4px); }
 @media (max-width: 768px) { .btn-submit { cursor: pointer; } }
 
-/* success state */
 .form-success {
   display: none; flex-direction: column; align-items: center;
   justify-content: center; text-align: center; padding: 60px 36px; gap: 16px;
@@ -382,7 +368,6 @@ nav {
   border-radius: 50%; animation: spin .7s linear infinite; flex-shrink: 0;
 }
 
-/* ─── FOOTER ─── */
 footer {
   border-top: 1px solid var(--border); padding: 24px 40px;
   max-width: 1080px; margin: 0 auto;
@@ -391,7 +376,6 @@ footer {
 @media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
 .footer-copy { font-size: 12px; color: var(--muted); }
 
-/* ─── CHAR ANIMATION ─── */
 .char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.15; }
 .char {
   display: inline-block; transform: translateY(110%); opacity: 0;
@@ -405,6 +389,131 @@ body::before {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   background-size: 180px;
 }
+
+/* ═══════════════════════
+   SERVICE PICKER (new)
+═══════════════════════ */
+
+.service-picker-section {
+  margin-bottom: 14px;
+}
+
+.svc-block-label {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+  margin-bottom: 12px;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.svc-block-label .req { color: var(--accent); margin-left: 2px; }
+.svc-right-label {
+  font-size: 10px; letter-spacing: .1em; color: rgba(122,116,105,.45);
+  text-transform: uppercase; font-weight: 300;
+}
+
+/* 3×2 grid */
+.service-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3px;
+}
+@media (max-width: 480px) {
+  .service-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Individual card */
+.svc-card {
+  position: relative; overflow: hidden;
+  background: rgba(10, 9, 6, 0.7);
+  border: 1px solid rgba(237,232,223,.07);
+  border-radius: 2px;
+  padding: 16px 14px 28px;
+  cursor: none;
+  transition: border-color .28s ease, background .28s ease;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+@media (max-width: 768px) { .svc-card { cursor: pointer; } }
+
+/* Gold top-left bar — mimics screenshot accent lines */
+.svc-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0;
+  width: 20px; height: 2px;
+  background: var(--accent);
+  opacity: .3;
+  transition: opacity .28s, width .3s cubic-bezier(.16,1,.3,1);
+}
+
+.svc-card:hover {
+  border-color: rgba(201,169,110,.22);
+  background: rgba(20,18,12,0.8);
+}
+.svc-card:hover::before { opacity: .65; width: 30px; }
+
+/* Selected */
+.svc-card.selected {
+  border-color: rgba(201,169,110,.48);
+  background: rgba(201,169,110,.055);
+}
+.svc-card.selected::before { opacity: 1; width: 28px; }
+
+/* Validation error highlight */
+.service-grid.has-error .svc-card:not(.selected) {
+  border-color: rgba(220,100,80,.35);
+}
+
+/* Check mark top-right */
+.svc-check {
+  position: absolute; top: 8px; right: 9px;
+  width: 15px; height: 15px; border-radius: 50%;
+  border: 1px solid rgba(201,169,110,.25);
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: scale(.5);
+  transition: opacity .22s ease, transform .25s cubic-bezier(.34,1.56,.64,1);
+}
+.svc-check svg { width: 7px; height: 6px; stroke: var(--accent); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.svc-card.selected .svc-check { opacity: 1; transform: scale(1); }
+
+/* Text */
+.svc-name {
+  font-family: var(--serif);
+  font-size: 19px; font-weight: 300; line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 4px;
+  transition: color .22s;
+}
+.svc-card.selected .svc-name { color: var(--text); }
+
+.svc-sub {
+  font-size: 10px; letter-spacing: .04em; color: var(--muted);
+  font-weight: 300; transition: color .22s;
+}
+.svc-card.selected .svc-sub { color: rgba(201,169,110,.55); }
+
+/* Arrow bottom-right */
+.svc-arr {
+  position: absolute; bottom: 9px; right: 11px;
+  font-size: 11px; color: var(--muted);
+  opacity: 0; transform: translateX(-5px);
+  transition: opacity .22s, transform .22s, color .22s;
+}
+.svc-card:hover .svc-arr { opacity: 1; transform: translateX(0); }
+.svc-card.selected .svc-arr { opacity: 1; color: var(--accent); transform: translateX(0); }
+
+/* Bottom meta */
+.svc-footer-meta {
+  display: flex; align-items: center; justify-content: center;
+  gap: 10px; padding-top: 9px;
+  font-size: 10px; letter-spacing: .1em; text-transform: uppercase;
+  color: rgba(122,116,105,.3); font-weight: 300;
+}
+.svc-footer-meta span.dot { width: 2px; height: 2px; background: currentColor; border-radius: 50%; display: inline-block; }
+
+.svc-error-msg {
+  font-size: 11px; color: rgba(220,100,80,.8); letter-spacing: .04em;
+  margin-top: 6px; display: none;
+}
+.svc-error-msg.visible { display: block; }
 </style>
 </head>
 <body>
@@ -414,7 +523,6 @@ body::before {
 <div class="cursor"></div>
 <div class="cursor-ring"></div>
 
-<!-- NAV -->
 <nav>
   <a href="index.html" class="nav-logo">Confidence Chima</a>
   <div class="nav-links">
@@ -423,7 +531,6 @@ body::before {
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <p class="hero-label">Get in Touch</p>
@@ -440,14 +547,12 @@ body::before {
   </div>
 </section>
 
-<!-- PAGE BODY -->
 <div class="page-body">
 
   <!-- LEFT: channels -->
   <div class="channels-col">
     <div class="col-eyebrow"><span class="col-eyebrow-num">01</span> Direct Channels</div>
 
-    <!-- Main -->
     <a class="channel-item" href="mailto:Chimaconfidence086@gmail.com" style="transition-delay:.04s">
       <div class="ch-icon">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 7l10 7 10-7"/></svg>
@@ -490,7 +595,6 @@ body::before {
       <span class="ch-arrow">→</span>
     </a>
 
-    <!-- Gaming — quiet footnote, clearly secondary -->
     <div class="gaming-footnote" id="gamingFooter">
       <p class="gaming-note">Outside of design</p>
       <div class="gaming-links">
@@ -521,6 +625,7 @@ body::before {
           <h2 class="form-head-title">Tell me what<br>you're <em>building</em></h2>
         </div>
         <div class="form-body">
+
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="fullName">Full Name <span class="req">*</span></label>
@@ -533,6 +638,7 @@ body::before {
               <span class="field-error" id="err-emailAddr">Please enter a valid email.</span>
             </div>
           </div>
+
           <div class="form-row">
             <div class="form-group">
               <label class="form-label" for="company">Company / Project</label>
@@ -543,24 +649,72 @@ body::before {
               <input class="form-input" id="role" type="text" placeholder="e.g. Founder, PM">
             </div>
           </div>
-          <div class="form-row">
-            <div class="form-group">
-              <label class="form-label" for="service">Service Needed <span class="req">*</span></label>
-              <div class="select-wrap">
-                <select class="form-select placeholder-active" id="service">
-                  <option value="" disabled selected>Select a service…</option>
-                  <option value="ux-research">UX Research</option>
-                  <option value="product-design">Product Design</option>
-                  <option value="interaction-design">Interaction Design</option>
-                  <option value="visual-design">Visual Design</option>
-                  <option value="design-system">Design System</option>
-                  <option value="mobile-ux">Mobile UX</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-              <span class="field-error" id="err-service">Please select a service.</span>
+
+          <!-- ══ SERVICE PICKER ══ -->
+          <div class="service-picker-section">
+            <div class="svc-block-label">
+              <span>What I Build <span class="req">*</span></span>
+              <span class="svc-right-label">Product Design · UX</span>
             </div>
-            <div class="form-group">
+
+            <div class="service-grid" id="serviceGrid" role="group" aria-label="Select a service">
+
+              <div class="svc-card" data-value="mobile-app" role="button" tabindex="0" aria-pressed="false">
+                <div class="svc-check"><svg viewBox="0 0 10 8"><polyline points="1 4 4 7 9 1"/></svg></div>
+                <p class="svc-name">Mobile App</p>
+                <p class="svc-sub">iOS · Android</p>
+                <span class="svc-arr">→</span>
+              </div>
+
+              <div class="svc-card" data-value="web-app" role="button" tabindex="0" aria-pressed="false">
+                <div class="svc-check"><svg viewBox="0 0 10 8"><polyline points="1 4 4 7 9 1"/></svg></div>
+                <p class="svc-name">Web App</p>
+                <p class="svc-sub">SaaS · Dashboards</p>
+                <span class="svc-arr">→</span>
+              </div>
+
+              <div class="svc-card" data-value="website" role="button" tabindex="0" aria-pressed="false">
+                <div class="svc-check"><svg viewBox="0 0 10 8"><polyline points="1 4 4 7 9 1"/></svg></div>
+                <p class="svc-name">Website</p>
+                <p class="svc-sub">Landing · Portfolio</p>
+                <span class="svc-arr">→</span>
+              </div>
+
+              <div class="svc-card" data-value="fintech" role="button" tabindex="0" aria-pressed="false">
+                <div class="svc-check"><svg viewBox="0 0 10 8"><polyline points="1 4 4 7 9 1"/></svg></div>
+                <p class="svc-name">Fintech</p>
+                <p class="svc-sub">Payments · Banking</p>
+                <span class="svc-arr">→</span>
+              </div>
+
+              <div class="svc-card" data-value="desktop-app" role="button" tabindex="0" aria-pressed="false">
+                <div class="svc-check"><svg viewBox="0 0 10 8"><polyline points="1 4 4 7 9 1"/></svg></div>
+                <p class="svc-name">Desktop App</p>
+                <p class="svc-sub">Windows · macOS</p>
+                <span class="svc-arr">→</span>
+              </div>
+
+              <div class="svc-card" data-value="design-system" role="button" tabindex="0" aria-pressed="false">
+                <div class="svc-check"><svg viewBox="0 0 10 8"><polyline points="1 4 4 7 9 1"/></svg></div>
+                <p class="svc-name">Design System</p>
+                <p class="svc-sub">Tokens · Components</p>
+                <span class="svc-arr">→</span>
+              </div>
+
+            </div>
+
+            <div class="svc-footer-meta">
+              <span>Freelance</span><span class="dot"></span>
+              <span>Contract</span><span class="dot"></span>
+              <span>Remote</span>
+            </div>
+
+            <span class="svc-error-msg" id="err-service">Please select a service to continue.</span>
+          </div>
+          <!-- ══ END SERVICE PICKER ══ -->
+
+          <div class="form-row">
+            <div class="form-group full">
               <label class="form-label" for="timeline">Timeline</label>
               <div class="select-wrap">
                 <select class="form-select placeholder-active" id="timeline">
@@ -574,6 +728,7 @@ body::before {
               </div>
             </div>
           </div>
+
           <div class="form-row" style="margin-bottom:14px">
             <div class="form-group full">
               <label class="form-label">Budget Range</label>
@@ -587,6 +742,7 @@ body::before {
               </div>
             </div>
           </div>
+
           <div class="form-row">
             <div class="form-group full">
               <label class="form-label" for="brief">Project Brief <span class="req">*</span></label>
@@ -597,6 +753,7 @@ body::before {
               </div>
             </div>
           </div>
+
           <div class="form-divider"></div>
           <div class="form-footer">
             <div class="form-privacy">
@@ -630,14 +787,14 @@ body::before {
 </footer>
 
 <script>
-/* ─── SCROLL BAR ─── */
+/* SCROLL BAR */
 const scrollBar = document.getElementById('scrollBar');
 window.addEventListener('scroll', () => {
   const dh = document.documentElement.scrollHeight - window.innerHeight;
   scrollBar.style.width = (dh > 0 ? (window.scrollY / dh) * 100 : 0) + '%';
 }, { passive: true });
 
-/* ─── CURSOR ─── */
+/* CURSOR */
 const cursor = document.querySelector('.cursor');
 const ring   = document.querySelector('.cursor-ring');
 let rx = 0, ry = 0, mx = 0, my = 0;
@@ -652,12 +809,12 @@ document.addEventListener('mousemove', e => {
 })();
 function onEnter() { cursor.classList.add('hover'); ring.classList.add('hover'); }
 function onLeave() { cursor.classList.remove('hover'); ring.classList.remove('hover'); }
-document.querySelectorAll('a, .btn-submit, .btn-reset, .budget-btn, .form-input, .form-select, .form-textarea').forEach(el => {
+document.querySelectorAll('a, .btn-submit, .btn-reset, .budget-btn, .svc-card, .form-input, .form-select, .form-textarea').forEach(el => {
   el.addEventListener('mouseenter', onEnter);
   el.addEventListener('mouseleave', onLeave);
 });
 
-/* ─── CURSOR GLOW ─── */
+/* CURSOR GLOW */
 const glow = document.getElementById('cursorGlow');
 let gx = 0, gy = 0, tgx = 0, tgy = 0, glowOn = false;
 document.addEventListener('mousemove', e => {
@@ -671,13 +828,13 @@ function animGlow() {
   if (glowOn) requestAnimationFrame(animGlow);
 }
 
-/* ─── SCROLL REVEAL ─── */
+/* SCROLL REVEAL */
 const obs = new IntersectionObserver(entries => {
   entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
 }, { threshold: .08 });
 document.querySelectorAll('.channel-item, .contact-form, .gaming-footnote, .group-sep').forEach(el => obs.observe(el));
 
-/* ─── CHAR ANIMATION ─── */
+/* CHAR ANIMATION */
 function splitChars(el) {
   const tmp = document.createElement('div'); tmp.innerHTML = el.innerHTML;
   let idx = 0;
@@ -711,12 +868,12 @@ const hObs = new IntersectionObserver(entries => {
 }, { threshold: .1 });
 headlines.forEach(el => hObs.observe(el));
 
-/* ─── SELECT PLACEHOLDER ─── */
+/* SELECT PLACEHOLDER */
 document.querySelectorAll('.form-select').forEach(sel => {
   sel.addEventListener('change', () => sel.classList.toggle('placeholder-active', !sel.value));
 });
 
-/* ─── BUDGET BUTTONS ─── */
+/* BUDGET BUTTONS */
 let selectedBudget = null;
 document.querySelectorAll('.budget-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -725,7 +882,7 @@ document.querySelectorAll('.budget-btn').forEach(btn => {
   });
 });
 
-/* ─── CHAR COUNT ─── */
+/* CHAR COUNT */
 const brief = document.getElementById('brief');
 const charCount = document.getElementById('charCount');
 brief.addEventListener('input', () => {
@@ -734,7 +891,26 @@ brief.addEventListener('input', () => {
   charCount.className = 'char-count' + (len > 1080 ? (len >= 1200 ? ' over' : ' warn') : '');
 });
 
-/* ─── VALIDATION ─── */
+/* SERVICE PICKER */
+let selectedService = null;
+const svcCards = document.querySelectorAll('.svc-card');
+const svcGrid  = document.getElementById('serviceGrid');
+const svcErr   = document.getElementById('err-service');
+
+svcCards.forEach(card => {
+  function pick() {
+    svcCards.forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); });
+    card.classList.add('selected');
+    card.setAttribute('aria-pressed','true');
+    selectedService = card.dataset.value;
+    svcGrid.classList.remove('has-error');
+    svcErr.classList.remove('visible');
+  }
+  card.addEventListener('click', pick);
+  card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); pick(); } });
+});
+
+/* VALIDATION */
 function validEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function setErr(fId, eId, show) {
   document.getElementById(fId).classList.toggle('error', show);
@@ -745,19 +921,23 @@ function validate() {
   let err = false;
   if (setErr('fullName','err-fullName', !document.getElementById('fullName').value.trim())) err = true;
   if (setErr('emailAddr','err-emailAddr', !validEmail(document.getElementById('emailAddr').value.trim()))) err = true;
-  if (setErr('service','err-service', !document.getElementById('service').value)) err = true;
+  if (!selectedService) {
+    svcGrid.classList.add('has-error');
+    svcErr.classList.add('visible');
+    err = true;
+  }
   if (setErr('brief','err-brief', !document.getElementById('brief').value.trim())) err = true;
   return !err;
 }
-['fullName','emailAddr','service','brief'].forEach(id => {
+['fullName','emailAddr','brief'].forEach(id => {
   const el = document.getElementById(id);
-  el.addEventListener(el.tagName === 'SELECT' ? 'change' : 'input', () => {
+  el.addEventListener('input', () => {
     el.classList.remove('error');
     const e = document.getElementById('err-' + id); if (e) e.classList.remove('visible');
   });
 });
 
-/* ─── SUBMIT ─── */
+/* SUBMIT */
 const submitBtn   = document.getElementById('submitBtn');
 const submitLabel = document.getElementById('submitLabel');
 const formEl      = document.getElementById('contactForm');
@@ -772,16 +952,20 @@ submitBtn.addEventListener('click', async () => {
 document.getElementById('resetBtn').addEventListener('click', () => {
   formEl.classList.remove('submitted');
   ['fullName','emailAddr','company','role','brief'].forEach(id => document.getElementById(id).value = '');
-  ['service','timeline'].forEach(id => { const s = document.getElementById(id); s.value = ''; s.classList.add('placeholder-active'); });
+  const tl = document.getElementById('timeline'); tl.value = ''; tl.classList.add('placeholder-active');
   charCount.textContent = '0 / 1200'; charCount.className = 'char-count';
   document.querySelectorAll('.budget-btn').forEach(b => b.classList.remove('active'));
-  selectedBudget = null; submitBtn.disabled = false;
+  svcCards.forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed','false'); });
+  svcGrid.classList.remove('has-error');
+  svcErr.classList.remove('visible');
+  selectedBudget = null; selectedService = null;
+  submitBtn.disabled = false;
   const sp = document.getElementById('submitArrow');
   if (sp) sp.outerHTML = '<span class="arrow" id="submitArrow">→</span>';
   submitLabel.textContent = 'Send Message';
 });
 
-/* ─── MAGNETIC SUBMIT ─── */
+/* MAGNETIC SUBMIT */
 submitBtn.addEventListener('mousemove', e => {
   const r = submitBtn.getBoundingClientRect();
   submitBtn.style.transform = `translate(${(e.clientX-(r.left+r.width/2))*.28}px,${(e.clientY-(r.top+r.height/2))*.28}px)`;
