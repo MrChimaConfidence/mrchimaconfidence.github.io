@@ -179,11 +179,25 @@ nav {
   max-width: 1080px; margin: 0 auto; padding: 0 40px 48px;
   opacity: 0; transform: translateY(40px);
   transition: opacity .9s ease, transform .9s ease;
+  overflow: hidden;
 }
 .hero-image-wrap.show { opacity: 1; transform: none; }
 .hero-image-wrap img {
-  width: 100%; display: block; border-radius: 4px;
-  border: 1px solid var(--border);
+  width: 100%; max-height: 600px;
+  display: block; border-radius: 4px;
+  object-fit: contain;
+  animation: heroFloat 7s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+.hero-image-wrap:hover img {
+  animation-play-state: paused;
+}
+@keyframes heroFloat {
+  0%   { transform: scale(1.00) translateY(0px); }
+  30%  { transform: scale(1.03) translateY(-8px); }
+  60%  { transform: scale(1.05) translateY(-14px); }
+  80%  { transform: scale(1.03) translateY(-8px); }
+  100% { transform: scale(1.00) translateY(0px); }
 }
 @media (max-width: 768px) { .hero-image-wrap { padding: 0 24px 40px; } }
 
