@@ -3,193 +3,863 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paperboy Music — Confidence Chima</title>
 
-<title>Paperboy Music</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
-* {
-margin: 0;
-padding: 0;
-box-sizing: border-box;
-font-family: 'Space Grotesk', sans-serif;
+:root {
+  --bg:      #0C0B09;
+  --surface: #141310;
+  --card:    #1A1916;
+  --text:    #EDE8DF;
+  --muted:   #7A7469;
+  --accent:  #C9A96E;
+  --border:  rgba(237,232,223,0.08);
+  --serif:   'Cormorant Garamond', serif;
+  --sans:    'DM Sans', sans-serif;
 }
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
 
 body {
-background: #f7f7f7;
-color: #111;
-padding: 40px 20px;
-max-width: 900px;
-margin: auto;
-line-height: 1.7;
+  cursor: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
 }
 
-/* LINKS */
-a {
-text-decoration: none;
-color: #111;
-opacity: 0.7;
+/* ─── SCROLL PROGRESS BAR ─── */
+.scroll-progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(237,232,223,0.4) 100%);
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(201,169,110,0.5);
+  transition: width 0.05s linear;
 }
 
-a:hover {
-opacity: 1;
+/* ─── CURSOR ─── */
+.cursor {
+  width: 8px; height: 8px; background: var(--accent);
+  border-radius: 50%; position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9999;
+  transition: width .25s, height .25s;
 }
-
-/* HEADINGS */
-h1 {
-font-size: 42px;
-margin-top: 20px;
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 50%;
+  position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9998;
+  transition: width .4s, height .4s, border-color .3s;
 }
-
-h2 {
-font-size: 13px;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: #777;
-margin-top: 8px;
+.cursor.hover   { width: 4px; height: 4px; }
+.cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(201,169,110,.7); }
+.cursor-glow {
+  position: fixed; width: 380px; height: 380px; border-radius: 50%;
+  pointer-events: none; z-index: 0; transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(201,169,110,.09) 0%, rgba(201,169,110,.02) 40%, transparent 70%);
+  opacity: 0; transition: opacity .4s;
 }
+.cursor-glow.active { opacity: 1; }
 
-h3 {
-font-size: 22px;
-margin-bottom: 10px;
-}
-
-/* TEXT */
-p {
-margin-top: 10px;
-color: #555;
-max-width: 600px;
-}
-
-/* SECTIONS */
-.section {
-margin-bottom: 80px;
-}
-
-/* HERO */
-.hero {
-margin: 50px 0;
-}
-
-.hero img {
-width: 100%;
-border-radius: 20px;
-box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-}
-
-/* IMAGES */
-.grid {
-display: grid;
-gap: 20px;
-margin-top: 25px;
-}
-
-.grid img {
-width: 100%;
-border-radius: 18px;
-box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-}
-
-/* CONTACT */
-.contact {
-text-align: center;
-padding: 30px;
-border-radius: 20px;
-background: #f1f1f1;
-}
-
-/* ANIMATION */
-.fade {
-transform: translateY(40px);
-opacity: 0;
-transition: all 0.8s ease;
-}
-
-.fade.show {
-transform: translateY(0);
-opacity: 1;
-}
-
-/* MOBILE */
 @media (max-width: 768px) {
-body {
-padding: 24px;
+  body { cursor: auto; }
+  .cursor, .cursor-ring, .cursor-glow { display: none; }
 }
 
-h1 {
-font-size: 34px;
+/* ─── LAYOUT ─── */
+.container { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+@media (max-width: 768px) { .container { padding: 0 24px; } }
+
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(12,11,9,.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
 }
+.nav-logo {
+  font-family: var(--serif); font-weight: 400; font-size: 18px;
+  letter-spacing: .02em; color: var(--text); text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  text-decoration: none; color: var(--muted); font-size: 13px;
+  font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+  transition: color .3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--accent); transition: width .3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+@media (max-width: 768px) { nav { padding: 20px 24px; } }
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px; background: var(--border);
+  max-width: calc(1080px - 80px); margin: 0 auto;
+}
+
+/* ─── BACK LINK ─── */
+.back-wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding: 36px 40px 0;
+}
+.back-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--muted);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  transition: color .3s, gap .3s;
+}
+.back-link:hover { color: var(--accent); gap: 14px; }
+.back-link .arrow { display: inline-block; transition: transform .3s; }
+.back-link:hover .arrow { transform: translateX(-4px); }
+@media (max-width: 768px) { .back-wrap { padding: 28px 24px 0; } }
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 1080px; margin: 0 auto;
+  padding: 56px 40px 72px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: end;
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 48px 24px 56px; gap: 40px; }
+}
+
+.hero-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.hero-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.hero-label.show { opacity: 1; transform: none; }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(52px, 7vw, 90px);
+  font-weight: 300; line-height: .92; letter-spacing: -.01em;
+  overflow: visible;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+
+.hero-right { padding-bottom: 4px; }
+
+.hero-desc {
+  font-size: 15px; line-height: 1.75;
+  color: var(--muted); font-weight: 300; max-width: 400px;
+  margin-bottom: 36px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .2s, transform .7s ease .2s;
+}
+.hero-desc.show { opacity: 1; transform: none; }
+
+.hero-meta-list {
+  display: flex; flex-direction: column; gap: 16px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .35s, transform .7s ease .35s;
+}
+.hero-meta-list.show { opacity: 1; transform: none; }
+
+.hero-meta-item {
+  display: flex; align-items: center; gap: 14px;
+}
+.hero-meta-line { width: 24px; height: 1px; background: var(--border); flex-shrink: 0; }
+.hero-meta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.hero-meta-val { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); font-weight: 400; margin-left: auto; }
+
+/* ─── HERO IMAGE ─── */
+.hero-image-wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding: 0 40px 80px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+.hero-image-wrap.show { opacity: 1; transform: none; }
+.hero-image-wrap img {
+  width: 100%; display: block; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 768px) { .hero-image-wrap { padding: 0 24px 60px; } }
+
+/* ─── SECTION ─── */
+.section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+@media (max-width: 768px) { .section { padding: 60px 24px; } }
+
+.section-header {
+  display: flex; align-items: baseline;
+  justify-content: space-between; margin-bottom: 48px;
+}
+.section-title {
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 16px;
+}
+.section-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
+
+/* ─── OVERVIEW GRID ─── */
+.overview-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 768px) { .overview-grid { grid-template-columns: 1fr; } }
+
+.overview-cell {
+  background: var(--card); padding: 36px 32px;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.overview-cell.show { opacity: 1; transform: none; }
+.overview-cell:nth-child(1) { transition-delay: 0s; }
+.overview-cell:nth-child(2) { transition-delay: .08s; }
+.overview-cell:nth-child(3) { transition-delay: .16s; }
+.overview-cell:nth-child(4) { transition-delay: .24s; }
+
+.overview-cell-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px; font-weight: 400;
+  display: flex; align-items: center; gap: 10px;
+}
+.overview-cell-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+
+.overview-cell-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  line-height: 1.1; color: var(--text); margin-bottom: 12px;
+}
+.overview-cell-heading em { font-style: italic; color: var(--accent); }
+
+.overview-cell-text {
+  font-size: 13px; line-height: 1.75;
+  color: var(--muted); font-weight: 300;
+}
+
+/* ─── STAT ROW ─── */
+.stat-row {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  margin-top: 1px;
+}
+@media (max-width: 640px) { .stat-row { grid-template-columns: 1fr; } }
+
+.stat-cell {
+  background: var(--card); padding: 28px 32px;
+  display: flex; flex-direction: column; gap: 6px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.stat-cell.show { opacity: 1; transform: none; }
+.stat-cell:nth-child(1) { transition-delay: .05s; }
+.stat-cell:nth-child(2) { transition-delay: .13s; }
+.stat-cell:nth-child(3) { transition-delay: .21s; }
+
+.stat-num {
+  font-family: var(--serif); font-size: 42px; font-weight: 300;
+  color: var(--accent); line-height: 1;
+}
+.stat-label {
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+}
+
+/* ─── VISUAL GRID ─── */
+.visuals-stack { display: flex; flex-direction: column; gap: 1px; }
+
+.visual-row-2 {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 1px;
+  background: var(--border);
+}
+.visual-row-1 { background: var(--border); }
+
+.visual-item {
+  overflow: hidden; background: var(--card);
+  border: 1px solid var(--border);
+  position: relative;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.visual-item.show { opacity: 1; transform: none; }
+
+.visual-item img {
+  width: 100%; display: block;
+  transition: transform .7s ease;
+}
+.visual-item:hover img { transform: scale(1.03); }
+
+.visual-item-caption {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 20px 24px;
+  background: linear-gradient(to top, rgba(12,11,9,.9) 0%, transparent 100%);
+  transform: translateY(100%);
+  transition: transform .4s ease;
+}
+.visual-item:hover .visual-item-caption { transform: none; }
+
+.visual-caption-tag {
+  font-size: 10px; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 4px;
+}
+.visual-caption-text {
+  font-size: 13px; color: var(--text); font-weight: 300;
+}
+
+/* ─── PROCESS SECTION ─── */
+.process-list { display: flex; flex-direction: column; }
+
+.process-item {
+  display: grid; grid-template-columns: 80px 1fr;
+  gap: 0 40px;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.process-item.show { opacity: 1; transform: none; }
+.process-item:first-child { border-top: 1px solid var(--border); }
+.process-item:nth-child(1) { transition-delay: 0s; }
+.process-item:nth-child(2) { transition-delay: .1s; }
+.process-item:nth-child(3) { transition-delay: .2s; }
+.process-item:nth-child(4) { transition-delay: .3s; }
+
+@media (max-width: 640px) {
+  .process-item { grid-template-columns: 1fr; gap: 16px; }
+}
+
+.process-num {
+  font-family: var(--serif); font-size: 11px; color: var(--accent);
+  font-weight: 400; letter-spacing: .1em; padding-top: 4px;
+}
+.process-body {}
+.process-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--text); margin-bottom: 12px; line-height: 1.1;
+}
+.process-heading em { font-style: italic; color: var(--accent); }
+.process-text {
+  font-size: 14px; line-height: 1.75;
+  color: var(--muted); font-weight: 300; max-width: 560px;
+}
+
+/* ─── FULL-WIDTH IMAGE ─── */
+.full-img-wrap {
+  max-width: 1080px; margin: 0 auto;
+  padding: 0 40px 80px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+.full-img-wrap.show { opacity: 1; transform: none; }
+.full-img-wrap img {
+  width: 100%; display: block; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 768px) { .full-img-wrap { padding: 0 24px 60px; } }
+
+/* ─── OUTCOME SECTION ─── */
+.outcome-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .outcome-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.outcome-heading {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05;
+  color: var(--text);
+}
+.outcome-heading em { font-style: italic; color: var(--accent); }
+
+.outcome-right {}
+.outcome-text {
+  font-size: 14px; line-height: 1.8;
+  color: var(--muted); font-weight: 300;
+  margin-bottom: 24px;
+}
+
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.tag {
+  display: inline-flex; align-items: center;
+  padding: 8px 16px;
+  border: 1px solid var(--border); border-radius: 2px;
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+  transition: border-color .3s, color .3s;
+}
+.tag:hover { border-color: rgba(201,169,110,.4); color: var(--text); }
+
+/* ─── WORK WITH ME ─── */
+.work-with-me {
+  max-width: 1080px; margin: 0 auto;
+  padding: 80px 40px 120px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) { .work-with-me { padding: 60px 24px 80px; } }
+
+.wwm-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .wwm-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+.wwm-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.wwm-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+
+.wwm-heading {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05; color: var(--text);
+}
+.wwm-heading em { font-style: italic; color: var(--accent); }
+
+.wwm-right { padding-top: 4px; }
+
+.wwm-desc {
+  font-size: 14px; line-height: 1.75;
+  color: var(--muted); font-weight: 300;
+  margin-bottom: 28px; max-width: 400px;
+}
+
+.wwm-email-label {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.wwm-email-link {
+  font-family: var(--serif); font-size: 18px; font-weight: 300;
+  color: var(--text); text-decoration: none;
+  transition: color .3s; display: inline-block; margin-bottom: 32px;
+}
+.wwm-email-link:hover { color: var(--accent); }
+
+.wwm-cta-wrap { padding-top: 4px; border-top: 1px solid var(--border); padding-top: 24px; }
+
+.wwm-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  text-decoration: none; color: var(--text);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 2px;
+  padding: 16px 28px;
+  transition: border-color .3s, color .3s, gap .3s;
+  position: relative; overflow: hidden;
+}
+.wwm-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(201,169,110,.06); transform: translateX(-100%);
+  transition: transform .4s ease;
+}
+.wwm-cta:hover::before { transform: translateX(0); }
+.wwm-cta:hover { border-color: var(--accent); color: var(--accent); gap: 18px; }
+.wwm-cta .arrow { transition: transform .3s; }
+.wwm-cta:hover .arrow { transform: translateX(4px); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border); padding: 24px 40px;
+  max-width: 1080px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+@media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+/* ─── CHAR ANIMATION ─── */
+.char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.15; }
+.char {
+  display: inline-block; transform: translateY(110%); opacity: 0;
+  transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+.char.in { transform: translateY(0); opacity: 1; }
+.word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
+
+/* ─── NOISE OVERLAY ─── */
+body::before {
+  content: ''; position: fixed; inset: 0;
+  pointer-events: none; z-index: 1; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 </style>
 </head>
-
 <body>
 
-<a href="index.html" class="fade">← Back to Home</a>
+<div class="scroll-progress-bar" id="scrollProgressBar"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
 
-<h1 class="fade">Paperboy Music</h1>
-<h2 class="fade">Visual Design • Music Branding</h2>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Confidence Chima</a>
+  <div class="nav-links">
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-<p class="fade">
-Designing bold and expressive visuals to promote music and capture attention instantly.
-</p>
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-link">
+    <span class="arrow">←</span> All Work
+  </a>
+</div>
 
 <!-- HERO -->
-<div class="hero fade">
-<img src="images/paperboymusic-mockup.jpg" alt="Paperboy Music visual design">
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label" id="heroLabel">Visual Design · Branding</p>
+    <h1 class="hero-title" data-headline>Paperboy<br><em>Music</em></h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-desc" id="heroDesc">
+      Designing bold, expressive visuals that capture attention instantly — giving a music brand the visual identity it deserves across every platform.
+    </p>
+    <div class="hero-meta-list" id="heroMeta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Discipline</span>
+        <span class="hero-meta-val">Visual Design · Branding</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Deliverable</span>
+        <span class="hero-meta-val">Promotional Assets</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Platform</span>
+        <span class="hero-meta-val">Multi-Platform</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Year</span>
+        <span class="hero-meta-val">2021</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERO IMAGE -->
+<div class="hero-image-wrap" id="heroImg">
+  <img src="images/paperboymusic-mockup.jpg" alt="Paperboy Music — Hero Visual">
 </div>
+
+<div class="divider"></div>
 
 <!-- OVERVIEW -->
-<section class="section fade">
-<h3>Overview</h3>
-<p>
-Paperboy Music focuses on creating strong visual identity for music promotion.
-The goal was to design visuals that stand out, communicate energy, and attract attention across platforms.
-</p>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">
+      <span class="section-num">01</span>
+      Overview
+    </div>
+  </div>
+
+  <div class="overview-grid">
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Challenge</p>
+      <h3 class="overview-cell-heading">Standing out in a <em>noisy</em> space</h3>
+      <p class="overview-cell-text">Music promotion is saturated. Every artist is fighting for the same eyeballs across Instagram, YouTube, and streaming platforms. Paperboy Music needed visuals that could stop the scroll — not blend into it.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Approach</p>
+      <h3 class="overview-cell-heading">Bold type, <em>strong</em> contrast</h3>
+      <p class="overview-cell-text">Rather than following trends, the design system leans into raw typographic power and intentional contrast — creating a visual language that feels immediate, confident, and authentically the artist's own.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Scope</p>
+      <h3 class="overview-cell-heading">Identity across <em>every</em> surface</h3>
+      <p class="overview-cell-text">From social media graphics and cover art to promotional banners, the work spans every touch-point where the music meets its audience — maintaining consistency without sacrificing energy.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Outcome</p>
+      <h3 class="overview-cell-heading">A visual voice that <em>resonates</em></h3>
+      <p class="overview-cell-text">The final system gives Paperboy Music a strong, memorable presence. Every asset communicates the same energy — so the brand is instantly recognisable whether someone sees it on a phone screen or a billboard.</p>
+    </div>
+  </div>
+
+  <div class="stat-row">
+    <div class="stat-cell">
+      <span class="stat-num">3+</span>
+      <span class="stat-label">Asset Types</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">∞</span>
+      <span class="stat-label">Scalable System</span>
+    </div>
+    <div class="stat-cell">
+      <span class="stat-num">100%</span>
+      <span class="stat-label">Brand Consistent</span>
+    </div>
+  </div>
 </section>
+
+<div class="divider"></div>
 
 <!-- VISUAL WORK -->
-<section class="section fade">
-<h3>Visual Exploration</h3>
-<p>
-The designs emphasize bold typography, strong contrast, and expressive composition to reflect the energy of the music.
-</p>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">
+      <span class="section-num">02</span>
+      Visual Exploration
+    </div>
+  </div>
 
-<div class="grid">
-<img src="images/paperboy-1.jpg" alt="Paperboy design 1">
-<img src="images/paperboy-2.jpg" alt="Paperboy design 2">
-<img src="images/paperboy-3.jpg" alt="Paperboy design 3">
-</div>
+  <div class="visuals-stack">
+    <div class="visual-row-2" style="border: 1px solid var(--border); border-bottom: none; border-radius: 4px 4px 0 0; overflow: hidden;">
+      <div class="visual-item" style="border: none; border-right: 1px solid var(--border);">
+        <img src="images/paperboy-1.jpg" alt="Paperboy — Visual 1">
+        <div class="visual-item-caption">
+          <p class="visual-caption-tag">Cover Art</p>
+          <p class="visual-caption-text">Bold typographic composition for single release</p>
+        </div>
+      </div>
+      <div class="visual-item" style="border: none;">
+        <img src="images/paperboy-2.jpg" alt="Paperboy — Visual 2">
+        <div class="visual-item-caption">
+          <p class="visual-caption-tag">Social Graphic</p>
+          <p class="visual-caption-text">High-contrast promotional asset for Instagram</p>
+        </div>
+      </div>
+    </div>
+    <div class="visual-row-1" style="border: 1px solid var(--border); border-top: none; border-radius: 0 0 4px 4px; overflow: hidden;">
+      <div class="visual-item" style="border: none;">
+        <img src="images/paperboy-3.jpg" alt="Paperboy — Visual 3">
+        <div class="visual-item-caption">
+          <p class="visual-caption-tag">Promotional Banner</p>
+          <p class="visual-caption-text">Event and campaign asset built for maximum impact</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
+
+<div class="divider"></div>
+
+<!-- PROCESS -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">
+      <span class="section-num">03</span>
+      Design Process
+    </div>
+  </div>
+
+  <div class="process-list">
+    <div class="process-item">
+      <div class="process-num">01</div>
+      <div class="process-body">
+        <h3 class="process-heading"><em>Discovery</em> & Brand Direction</h3>
+        <p class="process-text">Before opening Figma, I spent time understanding the music itself, its genre, energy, and the audience it speaks to. The visual direction had to feel native to the sound, not just aesthetically pleasing in isolation. Reference boards were built around rawness, confidence, and contrast.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-num">02</div>
+      <div class="process-body">
+        <h3 class="process-heading">Typography as <em>Personality</em></h3>
+        <p class="process-text">Type is the backbone of the identity. The selections prioritise weight and hierarchy, pairing an expressive display face with a clean secondary typeface. The combination reads as bold without feeling loud, and gives every asset an immediate sense of authorship.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-num">03</div>
+      <div class="process-body">
+        <h3 class="process-heading">Colour & <em>Contrast</em> System</h3>
+        <p class="process-text">A deliberately restricted palette ensures consistency and punch. High contrast is the primary tool, using light and dark to direct the eye and create compositions that hold up at any size, from a tiny phone notification to a large-format print.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-num">04</div>
+      <div class="process-body">
+        <h3 class="process-heading">Scalable <em>Asset</em> System</h3>
+        <p class="process-text">Each design was built as a template, not a one-off. This means every future release, event, or campaign can be turned around quickly while staying on-brand. The system scales without needing to reinvent the wheel each time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
 
 <!-- OUTCOME -->
-<section class="section fade">
-<h3>Outcome</h3>
-<p>
-The final visuals create a strong and memorable presence, helping the music stand out and connect with its audience.
-</p>
+<section class="section">
+  <div class="section-header">
+    <div class="section-title">
+      <span class="section-num">04</span>
+      Outcome
+    </div>
+  </div>
+
+  <div class="outcome-grid">
+    <div class="outcome-left">
+      <h2 class="outcome-heading" data-headline>Visuals that<br>make you<br><em>stop scrolling</em></h2>
+    </div>
+    <div class="outcome-right">
+      <p class="outcome-text">
+        The final set of assets gives Paperboy Music a strong, cohesive visual presence that translates across platforms without losing energy or identity. The work demonstrates that visual design for music isn't decoration — it's an extension of the sound itself.
+      </p>
+      <p class="outcome-text">
+        Consistency across every touch-point means audiences immediately recognise the brand, building familiarity and trust over time. The scalable system ensures future releases can match this quality without starting from scratch.
+      </p>
+      <div class="tags-wrap">
+        <span class="tag">Visual Design</span>
+        <span class="tag">Brand Identity</span>
+        <span class="tag">Figma</span>
+        <span class="tag">Typography</span>
+        <span class="tag">Music Promotion</span>
+        <span class="tag">Social Graphics</span>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- CONTACT -->
-<div class="contact fade">
-<p><strong>Available for collaboration</strong></p>
-<p>Chimaconfidence086@gmail.com</p>
-</div>
+<!-- WORK WITH ME -->
+<section class="work-with-me">
+  <div class="wwm-inner">
+    <div class="wwm-left">
+      <p class="wwm-label">Available for new work</p>
+      <h2 class="wwm-heading" data-headline>Start a project<br>with <em>me</em></h2>
+    </div>
+    <div class="wwm-right">
+      <p class="wwm-desc">Open to freelance projects, collaborations, and contracts. Get in touch and I'll get back within 48 hours.</p>
+      <p class="wwm-email-label">Or reach out directly</p>
+      <a href="mailto:chimaconfidence086@gmail.com" class="wwm-email-link">chimaconfidence086@gmail.com</a>
+      <div class="wwm-cta-wrap">
+        <a href="contact.html" class="wwm-cta">
+          Let's Talk <span class="arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2021 Confidence Chima</span>
+  <span class="footer-copy">Product Designer</span>
+</footer>
 
 <script>
-const faders = document.querySelectorAll('.fade');
+/* ─── SCROLL PROGRESS BAR ─── */
+const progressBar = document.getElementById('scrollProgressBar');
+window.addEventListener('scroll', () => {
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (dh > 0 ? (window.scrollY / dh) * 100 : 0) + '%';
+}, { passive: true });
 
-const observer = new IntersectionObserver(entries => {
-entries.forEach(entry => {
-if (entry.isIntersecting) {
-entry.target.classList.add('show');
+/* ─── CURSOR ─── */
+const cursor = document.querySelector('.cursor');
+const ring   = document.querySelector('.cursor-ring');
+let rx = 0, ry = 0, mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+function onEnter() { cursor.classList.add('hover'); ring.classList.add('hover'); }
+function onLeave() { cursor.classList.remove('hover'); ring.classList.remove('hover'); }
+document.querySelectorAll('a, .visual-item, .tag, .wwm-cta').forEach(el => {
+  el.addEventListener('mouseenter', onEnter);
+  el.addEventListener('mouseleave', onLeave);
+});
+
+/* ─── CURSOR GLOW ─── */
+const glow = document.getElementById('cursorGlow');
+let gx = 0, gy = 0, tgx = 0, tgy = 0, glowOn = false;
+document.addEventListener('mousemove', e => {
+  tgx = e.clientX; tgy = e.clientY;
+  if (!glowOn) { glowOn = true; glow.classList.add('active'); animGlow(); }
+});
+document.addEventListener('mouseleave', () => { glowOn = false; glow.classList.remove('active'); });
+function animGlow() {
+  gx += (tgx - gx) * .1; gy += (tgy - gy) * .1;
+  glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
+  if (glowOn) requestAnimationFrame(animGlow);
 }
-});
-});
 
-faders.forEach(el => observer.observe(el));
+/* ─── SCROLL REVEAL ─── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.08 });
+
+document.querySelectorAll(
+  '.hero-image-wrap, .overview-cell, .stat-cell, .visual-item, .process-item, .full-img-wrap'
+).forEach(el => revealObs.observe(el));
+
+/* Hero elements */
+setTimeout(() => { document.getElementById('heroLabel').classList.add('show'); }, 200);
+setTimeout(() => { document.getElementById('heroDesc').classList.add('show'); }, 400);
+setTimeout(() => { document.getElementById('heroMeta').classList.add('show'); }, 600);
+setTimeout(() => { document.getElementById('heroImg').classList.add('show'); }, 700);
+
+/* ─── CHAR ANIMATION ─── */
+function splitChars(el) {
+  const tmp = document.createElement('div'); tmp.innerHTML = el.innerHTML;
+  let idx = 0;
+  function walk(node, out) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split(/(\s+)/).forEach(tok => {
+        if (/^\s+$/.test(tok)) { out.push(tok); }
+        else if (tok.length) {
+          const chars = [...tok].map(ch => {
+            const safe = ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch;
+            return `<span class="char-wrap"><span class="char" style="transition-delay:${idx++ * 26}ms">${safe}</span></span>`;
+          });
+          out.push(`<span class="word-group">${chars.join('')}</span>`);
+        }
+      });
+    } else if (node.nodeName === 'BR') {
+      out.push('<br>');
+    } else if (['EM','STRONG','SPAN'].includes(node.nodeName)) {
+      const inner = []; node.childNodes.forEach(c => walk(c, inner));
+      out.push(`<${node.nodeName.toLowerCase()}>${inner.join('')}</${node.nodeName.toLowerCase()}>`);
+    } else { node.childNodes.forEach(c => walk(c, out)); }
+  }
+  const out = []; tmp.childNodes.forEach(n => walk(n, out)); el.innerHTML = out.join('');
+}
+function revealChars(el) {
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    el.querySelectorAll('.char').forEach(c => c.classList.add('in'))
+  ));
+}
+const headlines = document.querySelectorAll('[data-headline]');
+headlines.forEach(el => splitChars(el));
+const hObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { revealChars(e.target); hObs.unobserve(e.target); } });
+}, { threshold: .1 });
+headlines.forEach(el => hObs.observe(el));
+
+/* ─── MAGNETIC CTA ─── */
+const wwmCta = document.querySelector('.wwm-cta');
+if (wwmCta) {
+  wwmCta.addEventListener('mousemove', e => {
+    const r = wwmCta.getBoundingClientRect();
+    wwmCta.style.transform = `translate(${(e.clientX-(r.left+r.width/2))*.28}px,${(e.clientY-(r.top+r.height/2))*.28}px)`;
+  });
+  wwmCta.addEventListener('mouseleave', () => {
+    wwmCta.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1), border-color .3s, color .3s, gap .3s';
+    wwmCta.style.transform = 'translate(0,0)';
+    setTimeout(() => { wwmCta.style.transition = ''; }, 500);
+  });
+  wwmCta.addEventListener('mouseenter', () => {
+    wwmCta.style.transition = 'transform .1s ease, border-color .3s, color .3s, gap .3s';
+  });
+}
 </script>
-
 </body>
 </html>
