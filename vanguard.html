@@ -2,445 +2,1013 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Vanguard Gallery</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanguard Gallery — Confidence Chima</title>
 
-<link href="https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=plus-jakarta-sans@300,400,500,600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 
 <style>
+:root {
+  --bg:      #0C0B09;
+  --surface: #141310;
+  --card:    #1A1916;
+  --text:    #EDE8DF;
+  --muted:   #7A7469;
+  --accent:  #C9A96E;
+  --border:  rgba(237,232,223,0.08);
+  --serif:   'Cormorant Garamond', serif;
+  --sans:    'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
 body {
-font-family: 'Plus Jakarta Sans', sans-serif;
-padding: 40px;
-max-width: 900px;
-margin: auto;
-line-height: 1.75;
-color: #1f2937;
+  cursor: none;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  font-weight: 300;
+  overflow-x: hidden;
 }
 
-h1 {
-font-family: 'Clash Display', sans-serif;
-font-size: 46px;
+body::before {
+  content: ''; position: fixed; inset: 0;
+  pointer-events: none; z-index: 1; opacity: .025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 180px;
 }
 
-h2 {
-font-family: 'Clash Display', sans-serif;
-font-size: 14px;
-letter-spacing: 2px;
-text-transform: uppercase;
-color: #6b7280;
+/* ─── SCROLL PROGRESS ─── */
+.scroll-progress-bar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; width: 0%; z-index: 9999;
+  background: linear-gradient(90deg, var(--accent) 0%, rgba(237,232,223,0.4) 100%);
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(201,169,110,0.5);
+  transition: width 0.05s linear;
 }
 
-h3 {
-font-family: 'Clash Display', sans-serif;
-font-size: 24px;
-margin-top: 60px;
+/* ─── CURSOR ─── */
+.cursor {
+  width: 8px; height: 8px; background: var(--accent);
+  border-radius: 50%; position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9999;
+  transition: width .25s, height .25s;
 }
-
-p {
-font-size: 16px;
-color: #374151;
+.cursor-ring {
+  width: 32px; height: 32px;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 50%;
+  position: fixed; pointer-events: none;
+  transform: translate(-50%,-50%); z-index: 9998;
+  transition: width .4s, height .4s, border-color .3s;
 }
-
-hr {
-margin: 50px 0;
-border: none;
-border-top: 1px solid #eee;
+.cursor.hover   { width: 4px; height: 4px; }
+.cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(201,169,110,.7); }
+.cursor-glow {
+  position: fixed; width: 380px; height: 380px; border-radius: 50%;
+  pointer-events: none; z-index: 0; transform: translate(-50%,-50%);
+  background: radial-gradient(circle, rgba(201,169,110,.09) 0%, rgba(201,169,110,.02) 40%, transparent 70%);
+  opacity: 0; transition: opacity .4s;
 }
-
-/* HERO */
-.hero-main {
-display: flex;
-justify-content: center;
-margin: 80px 0;
-}
-
-.hero-main img {
-width: 300px;
-animation: float 6s ease-in-out infinite;
-}
-
-@keyframes float {
-50% { transform: translateY(-25px); }
-}
-
-/* CARDS */
-.cards {
-display: grid;
-grid-template-columns: repeat(4, 1fr);
-gap: 20px;
-margin: 50px 0;
-}
-
-.card {
-padding: 25px;
-border-radius: 16px;
-background: #f9fafb;
-text-align: center;
-}
-
-.card h4 {
-font-size: 12px;
-color: #9ca3af;
-margin-bottom: 10px;
-letter-spacing: 2px;
-}
-
-.card p {
-font-size: 18px;
-}
-
-/* INSIGHT */
-.insight {
-margin: 100px 0;
-padding: 50px 60px;
-border-radius: 20px;
-background: #111;
-}
-
-.insight-label {
-font-size: 12px;
-letter-spacing: 2px;
-color: #9ca3af;
-margin-bottom: 18px;
-}
-
-.insight-text {
-font-family: 'Clash Display', sans-serif;
-font-size: 26px;
-line-height: 1.6;
-color: #fff;
-max-width: 520px;
-}
-
-/* FLOW SECTION */
-.flow-section {
-margin-top: 80px;
-}
-
-.flow-row {
-display: flex;
-align-items: center;
-gap: 60px;
-margin-bottom: 80px;
-}
-
-.flow-row.reverse {
-flex-direction: row-reverse;
-}
-
-.flow-text h4 {
-font-family: 'Clash Display', sans-serif;
-font-size: 22px;
-margin-bottom: 10px;
-}
-
-.flow-video video {
-width: 100%;
-border-radius: 20px;
-box-shadow: 0 25px 50px rgba(0,0,0,0.12);
-}
-
-/* PAIN */
-.pain-grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 20px;
-}
-
-.pain {
-padding: 28px;
-border-radius: 18px;
-background: #f9fafb;
-}
-
-.line {
-width: 30px;
-height: 3px;
-background: #111;
-margin-bottom: 10px;
-}
-
-/* SCREENS */
-.screens {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-gap: 30px;
-}
-
-.screens img {
-width: 100%;
-border-radius: 20px;
-}
-
-/* REVEAL */
-.reveal {
-opacity: 0;
-transform: translateY(40px);
-transition: 0.8s ease;
-}
-
-.reveal.active {
-opacity: 1;
-transform: translateY(0);
-}
-
-/* MOBILE */
+.cursor-glow.active { opacity: 1; }
 @media (max-width: 768px) {
-.screens, .cards, .pain-grid, .flow-row {
-grid-template-columns: 1fr;
-flex-direction: column;
-}
-}/* CONTACT CTA */
-.contact-cta {
-  margin-top: 40px;
-  text-align: center;
-  padding: 24px;
-  border-radius: 20px;
-  background: #f9fafb;
-  max-width: 420px;
-  margin-left: auto;
-  margin-right: auto;
+  body { cursor: auto; }
+  .cursor, .cursor-ring, .cursor-glow { display: none; }
 }
 
-.contact-text {
-  font-size: 13px;
-  letter-spacing: 1px;
-  color: #9ca3af;
-  margin-bottom: 8px;
+/* ─── NAV ─── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  padding: 28px 40px;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(12,11,9,.85); backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--serif); font-weight: 400; font-size: 18px;
+  letter-spacing: .02em; color: var(--text); text-decoration: none;
+}
+.nav-links { display: flex; gap: 32px; }
+.nav-links a {
+  text-decoration: none; color: var(--muted); font-size: 13px;
+  font-weight: 400; letter-spacing: .08em; text-transform: uppercase;
+  transition: color .3s; position: relative;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: -3px; left: 0;
+  width: 0; height: 1px; background: var(--accent); transition: width .3s;
+}
+.nav-links a:hover { color: var(--text); }
+.nav-links a:hover::after { width: 100%; }
+@media (max-width: 768px) { nav { padding: 20px 24px; } }
+
+/* ─── DIVIDER ─── */
+.divider {
+  height: 1px; background: var(--border);
+  max-width: calc(1080px - 80px); margin: 0 auto;
 }
 
-.contact-email {
-  font-size: 16px;
-  color: #111;
-  text-decoration: none;
-  font-weight: 500;
+/* ─── BACK LINK ─── */
+.back-wrap { max-width: 1080px; margin: 0 auto; padding: 36px 40px 0; }
+.back-link {
+  display: inline-flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--muted);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  transition: color .3s, gap .3s;
+}
+.back-link:hover { color: var(--accent); gap: 6px; }
+.back-link .arrow { transition: transform .3s; }
+.back-link:hover .arrow { transform: translateX(-4px); }
+@media (max-width: 768px) { .back-wrap { padding: 28px 24px 0; } }
+
+/* ─── HERO ─── */
+.hero {
+  max-width: 1080px; margin: 0 auto;
+  padding: 56px 40px 72px;
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: end;
+}
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; padding: 48px 24px 56px; gap: 40px; }
 }
 
-.contact-email:hover {
-  text-decoration: underline;
+.hero-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 24px;
+  display: flex; align-items: center; gap: 12px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease, transform .7s ease;
 }
-  .btn {
-  display: inline-block;
-  margin-top: 20px;
-  margin-bottom: 40px;
-  padding: 12px 18px;
-  border-radius: 10px;
-  background: #111;
-  color: white;
-  font-weight: 600;
-  transition: 0.2s ease;
+.hero-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.hero-label.show { opacity: 1; transform: none; }
+
+.hero-title {
+  font-family: var(--serif);
+  font-size: clamp(52px, 7vw, 90px);
+  font-weight: 300; line-height: .92; letter-spacing: -.01em;
+  overflow: visible;
+}
+.hero-title em { font-style: italic; color: var(--accent); }
+
+.hero-right { padding-bottom: 4px; }
+.hero-desc {
+  font-size: 15px; line-height: 1.75; color: var(--muted);
+  font-weight: 300; max-width: 400px; margin-bottom: 36px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .2s, transform .7s ease .2s;
+}
+.hero-desc.show { opacity: 1; transform: none; }
+
+.hero-meta-list {
+  display: flex; flex-direction: column; gap: 16px;
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .35s, transform .7s ease .35s;
+}
+.hero-meta-list.show { opacity: 1; transform: none; }
+.hero-meta-item { display: flex; align-items: center; gap: 14px; }
+.hero-meta-line { width: 24px; height: 1px; background: var(--border); flex-shrink: 0; }
+.hero-meta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
+.hero-meta-val { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); font-weight: 400; margin-left: auto; }
+
+/* ─── HERO IMAGE ─── */
+.hero-image-wrap {
+  max-width: 1080px; margin: 0 auto; padding: 0 40px 48px;
+  opacity: 0; transform: translateY(40px);
+  transition: opacity .9s ease, transform .9s ease;
+}
+.hero-image-wrap.show { opacity: 1; transform: none; }
+.hero-image-wrap img {
+  width: 100%; display: block; border-radius: 4px;
+  border: 1px solid var(--border);
+}
+@media (max-width: 768px) { .hero-image-wrap { padding: 0 24px 40px; } }
+
+/* ─── PROTOTYPE CTA ─── */
+.proto-cta-wrap {
+  max-width: 1080px; margin: 0 auto; padding: 0 40px 80px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s ease .5s, transform .7s ease .5s;
+}
+.proto-cta-wrap.show { opacity: 1; transform: none; }
+.proto-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  padding: 16px 28px;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 2px;
+  background: transparent; font-family: var(--sans);
+  font-size: 12px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--text); text-decoration: none; font-weight: 400;
+  transition: border-color .3s, color .3s, gap .3s;
+  position: relative; overflow: hidden;
+}
+.proto-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(201,169,110,.06); transform: translateX(-100%);
+  transition: transform .4s ease;
+}
+.proto-cta:hover::before { transform: translateX(0); }
+.proto-cta:hover { border-color: var(--accent); color: var(--accent); gap: 18px; }
+.proto-cta .arrow { transition: transform .3s; }
+.proto-cta:hover .arrow { transform: translateX(4px); }
+@media (max-width: 768px) { .proto-cta-wrap { padding: 0 24px 60px; } }
+
+/* ─── SECTION ─── */
+.section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+@media (max-width: 768px) { .section { padding: 60px 24px; } }
+
+.section-header {
+  display: flex; align-items: baseline;
+  justify-content: space-between; margin-bottom: 48px;
+}
+.section-title {
+  font-family: var(--serif); font-size: 13px; font-weight: 400;
+  letter-spacing: .14em; text-transform: uppercase; color: var(--muted);
+  display: flex; align-items: center; gap: 16px;
+}
+.section-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
+
+/* ─── OVERVIEW TRIO ─── */
+.overview-trio {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 768px) { .overview-trio { grid-template-columns: 1fr; } }
+
+.overview-cell {
+  background: var(--card); padding: 36px 32px;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.overview-cell.show { opacity: 1; transform: none; }
+.overview-cell:nth-child(1) { transition-delay: 0s; }
+.overview-cell:nth-child(2) { transition-delay: .1s; }
+.overview-cell:nth-child(3) { transition-delay: .2s; }
+
+.overview-cell-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 14px; font-weight: 400;
+  display: flex; align-items: center; gap: 10px;
+}
+.overview-cell-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.overview-cell-heading {
+  font-family: var(--serif); font-size: 26px; font-weight: 300;
+  line-height: 1.1; color: var(--text); margin-bottom: 12px;
+}
+.overview-cell-heading em { font-style: italic; color: var(--accent); }
+.overview-cell-text { font-size: 13px; line-height: 1.75; color: var(--muted); font-weight: 300; }
+
+/* ─── META STRIP ─── */
+.meta-strip {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.meta-strip.show { opacity: 1; transform: none; }
+@media (max-width: 768px) { .meta-strip { grid-template-columns: repeat(2, 1fr); } }
+
+.meta-cell {
+  background: var(--card); padding: 28px 24px;
+}
+.meta-cell-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 10px; font-weight: 400;
+}
+.meta-cell-val {
+  font-family: var(--serif); font-size: 18px;
+  font-weight: 300; color: var(--text); line-height: 1.2;
 }
 
-.btn:hover {
-  transform: scale(0.97);
+/* ─── KEY INSIGHT ─── */
+.insight-block {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: 4px; padding: 56px 48px;
+  display: grid; grid-template-columns: 1fr 2fr;
+  gap: 0 60px; align-items: center;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
 }
+.insight-block.show { opacity: 1; transform: none; }
+@media (max-width: 768px) {
+  .insight-block { grid-template-columns: 1fr; gap: 24px; padding: 36px 28px; }
+}
+.insight-label {
+  font-size: 10px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400;
+  display: flex; align-items: center; gap: 10px;
+}
+.insight-label::before { content: ''; width: 16px; height: 1px; background: var(--accent); }
+.insight-text {
+  font-family: var(--serif);
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 300; line-height: 1.4; color: var(--text);
+}
+.insight-text em { font-style: italic; color: var(--accent); }
+
+/* ─── PROCESS STEPS ─── */
+.process-list { display: flex; flex-direction: column; }
+.process-item {
+  display: grid; grid-template-columns: 60px 1fr;
+  gap: 0 40px; padding: 40px 0;
+  border-bottom: 1px solid var(--border);
+  opacity: 0; transform: translateY(28px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.process-item.show { opacity: 1; transform: none; }
+.process-item:first-child { border-top: 1px solid var(--border); }
+.process-item:nth-child(1) { transition-delay: 0s; }
+.process-item:nth-child(2) { transition-delay: .1s; }
+.process-item:nth-child(3) { transition-delay: .2s; }
+.process-item:nth-child(4) { transition-delay: .3s; }
+@media (max-width: 640px) { .process-item { grid-template-columns: 1fr; gap: 16px; } }
+
+.process-num {
+  font-family: var(--serif); font-size: 11px; color: var(--accent);
+  font-weight: 400; letter-spacing: .1em; padding-top: 4px;
+}
+.process-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--text); margin-bottom: 12px; line-height: 1.1;
+}
+.process-heading em { font-style: italic; color: var(--accent); }
+.process-text { font-size: 14px; line-height: 1.75; color: var(--muted); font-weight: 300; max-width: 560px; }
+
+/* ─── PAIN POINTS ─── */
+.pain-grid {
+  display: grid; grid-template-columns: repeat(2, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 640px) { .pain-grid { grid-template-columns: 1fr; } }
+
+.pain-cell {
+  background: var(--card); padding: 32px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.pain-cell.show { opacity: 1; transform: none; }
+.pain-cell:nth-child(1) { transition-delay: 0s; }
+.pain-cell:nth-child(2) { transition-delay: .08s; }
+.pain-cell:nth-child(3) { transition-delay: .16s; }
+.pain-cell:nth-child(4) { transition-delay: .24s; }
+
+.pain-accent { width: 24px; height: 1px; background: var(--accent); margin-bottom: 16px; }
+.pain-heading {
+  font-family: var(--serif); font-size: 20px;
+  font-weight: 300; color: var(--text); margin-bottom: 8px;
+}
+.pain-heading em { font-style: italic; color: var(--accent); }
+.pain-text { font-size: 13px; line-height: 1.7; color: var(--muted); font-weight: 300; }
+
+/* ─── WIREFRAMES ─── */
+.wf-intro {
+  margin-bottom: 48px;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.wf-intro.show { opacity: 1; transform: none; }
+.wf-intro-text { font-size: 14px; line-height: 1.8; color: var(--muted); font-weight: 300; max-width: 560px; }
+
+.wf-block {
+  margin-bottom: 2px;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+}
+.wf-block.show { opacity: 1; transform: none; }
+.wf-block:nth-child(2) { transition-delay: .12s; }
+.wf-block:nth-child(3) { transition-delay: .24s; }
+
+.wf-grid-3 {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 768px) { .wf-grid-3 { grid-template-columns: 1fr; } }
+
+.wf-grid-item { background: var(--card); overflow: hidden; }
+.wf-grid-item img { width: 100%; display: block; transition: transform .7s ease; }
+.wf-grid-item:hover img { transform: scale(1.03); }
+
+/* ─── FLOW ROWS ─── */
+.flow-list { display: flex; flex-direction: column; gap: 1px; }
+
+.flow-row-item {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+  opacity: 0; transform: translateY(32px);
+  transition: opacity .8s ease, transform .8s ease;
+  margin-bottom: 2px;
+}
+.flow-row-item.show { opacity: 1; transform: none; }
+.flow-row-item:nth-child(2) { transition-delay: .1s; }
+@media (max-width: 768px) { .flow-row-item { grid-template-columns: 1fr; } }
+
+.flow-row-item.reverse { direction: rtl; }
+.flow-row-item.reverse > * { direction: ltr; }
+
+.flow-body {
+  background: var(--card); padding: 48px 40px;
+  display: flex; flex-direction: column; justify-content: center;
+}
+.flow-tag {
+  font-size: 10px; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--accent); margin-bottom: 16px; font-weight: 400;
+}
+.flow-heading {
+  font-family: var(--serif); font-size: 28px;
+  font-weight: 300; color: var(--text); margin-bottom: 12px; line-height: 1.1;
+}
+.flow-heading em { font-style: italic; color: var(--accent); }
+.flow-text { font-size: 14px; line-height: 1.75; color: var(--muted); font-weight: 300; }
+
+.flow-media {
+  background: #0E0D0B; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.flow-media video {
+  width: 100%; height: 100%; object-fit: cover;
+  display: block;
+}
+
+/* ─── SCREEN GRIDS ─── */
+.screen-section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+@media (max-width: 768px) { .screen-section { padding: 60px 24px; } }
+
+.screen-heading {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--text); margin-bottom: 8px;
+}
+.screen-heading em { font-style: italic; color: var(--accent); }
+.screen-desc {
+  font-size: 14px; color: var(--muted); font-weight: 300;
+  line-height: 1.7; max-width: 480px; margin-bottom: 32px;
+}
+
+.screen-grid-4 {
+  display: grid; grid-template-columns: repeat(4, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
+}
+@media (max-width: 900px) { .screen-grid-4 { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 480px) { .screen-grid-4 { grid-template-columns: 1fr; } }
+
+.screen-item {
+  background: var(--card); overflow: hidden;
+  opacity: 0; transform: translateY(24px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+.screen-item.show { opacity: 1; transform: none; }
+.screen-item:nth-child(1) { transition-delay: 0s; }
+.screen-item:nth-child(2) { transition-delay: .1s; }
+.screen-item:nth-child(3) { transition-delay: .2s; }
+.screen-item:nth-child(4) { transition-delay: .3s; }
+.screen-item img { width: 100%; display: block; transition: transform .7s ease; }
+.screen-item:hover img { transform: scale(1.03); }
+
+/* ─── OUTCOME ─── */
+.outcome-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .outcome-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+.outcome-heading {
+  font-family: var(--serif);
+  font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05; color: var(--text);
+}
+.outcome-heading em { font-style: italic; color: var(--accent); }
+.outcome-text { font-size: 14px; line-height: 1.8; color: var(--muted); font-weight: 300; margin-bottom: 24px; }
+
+.tags-wrap { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 32px; }
+.tag {
+  display: inline-flex; align-items: center; padding: 8px 16px;
+  border: 1px solid var(--border); border-radius: 2px;
+  font-size: 11px; letter-spacing: .1em; text-transform: uppercase;
+  color: var(--muted); font-weight: 400;
+  transition: border-color .3s, color .3s;
+}
+.tag:hover { border-color: rgba(201,169,110,.4); color: var(--text); }
+
+/* ─── WORK WITH ME ─── */
+.work-with-me {
+  max-width: 1080px; margin: 0 auto;
+  padding: 80px 40px 120px;
+  border-top: 1px solid var(--border);
+}
+@media (max-width: 768px) { .work-with-me { padding: 60px 24px 80px; } }
+
+.wwm-inner {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 0 80px; align-items: start;
+}
+@media (max-width: 900px) { .wwm-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+.wwm-label {
+  font-size: 11px; letter-spacing: .18em; text-transform: uppercase;
+  color: var(--accent); font-weight: 400; margin-bottom: 20px;
+  display: flex; align-items: center; gap: 12px;
+}
+.wwm-label::before { content: ''; width: 24px; height: 1px; background: var(--accent); }
+.wwm-heading {
+  font-family: var(--serif); font-size: clamp(36px, 5vw, 58px);
+  font-weight: 300; line-height: 1.05; color: var(--text);
+}
+.wwm-heading em { font-style: italic; color: var(--accent); }
+.wwm-right { padding-top: 4px; }
+.wwm-desc {
+  font-size: 14px; line-height: 1.75; color: var(--muted);
+  font-weight: 300; margin-bottom: 28px; max-width: 400px;
+}
+.wwm-email-label {
+  font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 6px;
+}
+.wwm-email-link {
+  font-family: var(--serif); font-size: 18px; font-weight: 300;
+  color: var(--text); text-decoration: none;
+  transition: color .3s; display: inline-block; margin-bottom: 32px;
+}
+.wwm-email-link:hover { color: var(--accent); }
+.wwm-cta-wrap { padding-top: 24px; border-top: 1px solid var(--border); }
+.wwm-cta {
+  display: inline-flex; align-items: center; gap: 12px;
+  text-decoration: none; color: var(--text);
+  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
+  border: 1px solid rgba(201,169,110,.4); border-radius: 2px;
+  padding: 16px 28px;
+  transition: border-color .3s, color .3s, gap .3s;
+  position: relative; overflow: hidden;
+}
+.wwm-cta::before {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(201,169,110,.06); transform: translateX(-100%);
+  transition: transform .4s ease;
+}
+.wwm-cta:hover::before { transform: translateX(0); }
+.wwm-cta:hover { border-color: var(--accent); color: var(--accent); gap: 18px; }
+.wwm-cta .arrow { transition: transform .3s; }
+.wwm-cta:hover .arrow { transform: translateX(4px); }
+
+/* ─── FOOTER ─── */
+footer {
+  border-top: 1px solid var(--border); padding: 24px 40px;
+  max-width: 1080px; margin: 0 auto;
+  display: flex; justify-content: space-between; align-items: center;
+}
+@media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
+.footer-copy { font-size: 12px; color: var(--muted); }
+
+/* ─── CHAR ANIMATION ─── */
+.char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.15; }
+.char {
+  display: inline-block; transform: translateY(110%); opacity: 0;
+  transition: transform .5s cubic-bezier(.16,1,.3,1), opacity .3s ease;
+}
+.char.in { transform: translateY(0); opacity: 1; }
+.word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
 </style>
 </head>
-
 <body>
 
-<a href="index.html">← Back to Home</a>
+<div class="scroll-progress-bar" id="scrollProgressBar"></div>
+<div class="cursor-glow" id="cursorGlow"></div>
+<div class="cursor"></div>
+<div class="cursor-ring"></div>
 
-<h1>Vanguard Gallery</h1>
-<h2>Mobile UX Case Study</h2>
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Confidence Chima</a>
+  <div class="nav-links">
+    <a href="about.html">About</a>
+    <a href="contact.html">Contact</a>
+  </div>
+</nav>
 
-<p style="font-size:18px; max-width:500px;">
-A seamless mobile experience for discovering artworks and connecting with artists.
-</p>
-<a class="btn" href="https://www.figma.com/proto/7zN4bjTN2OlRVdXLX2d9w4/VANGUARD-GALLERY-APP?node-id=324-203&starting-point-node-id=138%3A69&t=sE1b9F8Z3qjLKgwd-1" target="_blank">
-  View Prototype →
-</a>
-<div class="hero-main">
-<img src="images/vanguard-mockup-removebg-preview.png">
-</div>
-<p style="font-size:13px; color:#888; text-align:center; margin-top:20px;">
-  Scroll ↓
-</p>
-<!-- CARDS -->
-<div class="cards reveal">
-<div class="card"><h4>ROLE</h4><p>UX Designer</p></div>
-<div class="card"><h4>DURATION</h4><p>4 Weeks</p></div>
-<div class="card"><h4>TOOLS</h4><p>Figma · Google Forms · Slides</p></div>
-<div class="card"><h4>FOCUS</h4><p>Interaction · Flow · Clarity</p></div>
-</div>
-
-<hr>
-
-<div class="reveal">
-<h3>Overview</h3>
-<p>Vanguard Gallery is a mobile app concept designed to create a calm, immersive experience while making interactions feel intentional and responsive.</p>
-</div>
-
-<div class="reveal">
-<h3>Problem</h3>
-<p>Browsing artworks often feels passive. Users can scroll endlessly, but there’s little guidance, feedback, or connection to what they’re seeing.</p>
-</div>
-
-<div class="insight reveal">
-<p class="insight-label">Key Insight</p>
-<p class="insight-text">
-Users weren’t struggling to use the app,<br>
-they were struggling to feel guided.
-</p>
-</div>
-
-<div class="flow-section reveal">
-<h3>Experience Flow</h3>
-
-<div class="flow-row">
-<div class="flow-text">
-<h4>Discovery</h4>
-<p>Users explore artworks but lack clear direction forward.</p>
-</div>
-<div class="flow-video">
-<video autoplay muted loop playsinline>
-<source src="images/flow-1.mp4" type="video/mp4">
-</video>
-</div>
-</div>
-
-<div class="flow-row reverse">
-<div class="flow-text">
-<h4>Deep Exploration</h4>
-<p>Users want to move from artwork to artist and continue exploring seamlessly.</p>
-</div>
-<div class="flow-video">
-<video autoplay muted loop playsinline>
-<source src="images/flow-2.mp4" type="video/mp4">
-</video>
-</div>
-</div>
-</div>
-
-  <!-- 🔥 WIREFRAMES -->
-<div class="reveal">
-<h3>Wireframing & Exploration</h3>
-<p>
-To translate insights into structure, I created low-fidelity wireframes focused on clarity, hierarchy, and navigation flow.
-</p>
-<p>
-The goal was to reduce cognitive load and ensure users could seamlessly move between artworks and artist profiles without losing context.
-</p>
-<p>
-These explorations helped define layout patterns and validate interaction decisions before moving into visual design.
-</p>
-</div>
-
-<div class="reveal">
-<div class="screens">
-<img src="images/wireframe-overview.png">
-<img src="images/wireframe-gallery.png">
-<img src="images/wireframe-detail.png">
-</div>
-</div>
-  
-<div class="reveal">
-<h3>Goal</h3>
-<p>Design a guided, responsive experience that transforms passive browsing into active exploration.</p>
-</div>
-
-<div class="reveal">
-<h3>Pain Points</h3>
-<div class="pain-grid">
-<div class="pain"><div class="line"></div><strong>Information Overload</strong><p>Too many artworks without structure.</p></div>
-<div class="pain"><div class="line"></div><strong>Dead-Ends</strong><p>No clear way forward.</p></div>
-<div class="pain"><div class="line"></div><strong>Hesitation</strong><p>Users unsure of next steps.</p></div>
-<div class="pain"><div class="line"></div><strong>Unclear UI</strong><p>Interactions not obvious.</p></div>
-</div>
-</div>
-
-  <div class="reveal">
-<h3>Iteration</h3>
-<p>
-Early layouts revealed that too many elements competing for attention reduced clarity.
-</p>
-<p>
-I refined the structure by simplifying content hierarchy, improving spacing, and making key actions more prominent.
-</p>
-<p>
-This ensured users always had a clear sense of direction while exploring.
-</p>
-</div>
-  
-<div class="reveal">
-<h3>Design Decisions</h3>
-<p>Continuous exploration flow, clear next steps, and improved interaction clarity.</p>
-</div>
-
-<!-- 🔥 INTERACTION SECTION -->
-<div class="reveal">
-<h3>Interaction Design</h3>
-<p>
-Subtle interactions were introduced to make the interface feel responsive and alive.
-Artwork cards scale on hover, buttons provide feedback, and transitions connect screens smoothly.
-</p>
-</div>
-
-<div class="flow-section reveal">
-
-<div class="flow-row">
-<div class="flow-text">
-<h4>Interaction Feedback</h4>
-<p>Artwork cards respond to user interaction with subtle scaling, creating immediate visual feedback and a more responsive feel.</p>
-</div>
-<div class="flow-video">
-<video autoplay muted loop playsinline>
-<source src="images/hover.mp4" type="video/mp4">
-</video>
-</div>
-</div>
-
-<div class="flow-row reverse">
-<div class="flow-text">
-<h4>Smooth Transitions</h4>
-<p>Screen transitions were designed to feel continuous and fluid.</p>
-</div>
-<div class="flow-video">
-<video autoplay muted loop playsinline>
-<source src="images/transition.mp4" type="video/mp4">
-</video>
-</div>
-</div>
-
-</div>
-
-<div class="reveal">
-<h3>Final Screens</h3>
-
-<div class="screens">
-<img src="images/vanguard-hero-1.png">
-<img src="images/vanguard-hero-2.png">
-<img src="images/vanguard-hero-3.png">
-<img src="images/vanguard-hero-4.png">
-</div>
-</div>
-
-<div class="reveal">
-<h3>Outcome</h3>
-<p>
-The final experience feels more guided, responsive, and intentional.
-Users are no longer just browsing, they are actively exploring.
-</p>
-</div>
-  
-<div class="contact-cta reveal">
-  <p class="contact-text">Available for collaboration</p>
-  <a href="mailto:Chimaconfidence086@gmail.com" class="contact-email">
-    Chimaconfidence086@gmail.com
+<!-- BACK -->
+<div class="back-wrap">
+  <a href="index.html" class="back-link">
+    <span class="arrow">←</span> All Work
   </a>
 </div>
-  
-<script>
-function revealOnScroll() {
-document.querySelectorAll(".reveal").forEach(el => {
-if (el.getBoundingClientRect().top < window.innerHeight - 80) {
-el.classList.add("active");
-}
-});
-}
-window.addEventListener("scroll", revealOnScroll);
-window.addEventListener("load", revealOnScroll);
-</script>
 
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-left">
+    <p class="hero-label" id="heroLabel">Mobile UX · Art Discovery</p>
+    <h1 class="hero-title" data-headline>Vanguard<br><em>Gallery</em></h1>
+  </div>
+  <div class="hero-right">
+    <p class="hero-desc" id="heroDesc">
+      Designing a guided, immersive gallery experience that transforms passive browsing into active exploration: connecting users to artworks and artists with intention.
+    </p>
+    <div class="hero-meta-list" id="heroMeta">
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Role</span>
+        <span class="hero-meta-val">UX Designer</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Duration</span>
+        <span class="hero-meta-val">4 Weeks</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Platform</span>
+        <span class="hero-meta-val">Mobile</span>
+      </div>
+      <div class="hero-meta-item">
+        <div class="hero-meta-line"></div>
+        <span class="hero-meta-label">Focus</span>
+        <span class="hero-meta-val">Interaction · Flow · Clarity</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HERO IMAGE -->
+<div class="hero-image-wrap" id="heroImg">
+  <img src="images/vanguard-mockup-removebg-preview.png" alt="Vanguard Gallery">
+</div>
+
+<!-- PROTOTYPE CTA -->
+<div class="proto-cta-wrap" id="protoCta">
+  <a class="proto-cta" href="https://www.figma.com/proto/7zN4bjTN2OlRVdXLX2d9w4/VANGUARD-GALLERY-APP?node-id=324-203&starting-point-node-id=138%3A69&t=sE1b9F8Z3qjLKgwd-1" target="_blank">
+    View Prototype <span class="arrow">→</span>
+  </a>
+</div>
+
+<div class="divider"></div>
+
+<!-- OVERVIEW -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">01</span> Overview</div>
+  </div>
+  <div class="overview-trio">
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Problem</p>
+      <h3 class="overview-cell-heading">Browsing that feels <em>passive</em></h3>
+      <p class="overview-cell-text">Users can scroll endlessly through artworks but find little guidance, feedback, or sense of connection to what they're seeing. The experience offers no clear path forward, leaving users adrift in a sea of content without direction.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Insight</p>
+      <h3 class="overview-cell-heading">They weren't lost: they were <em>unguided</em></h3>
+      <p class="overview-cell-text">Users weren't struggling to use the app. They were struggling to feel guided. The interface worked, but it lacked the intentional cues that transform passive scrolling into meaningful exploration.</p>
+    </div>
+    <div class="overview-cell">
+      <p class="overview-cell-label">The Goal</p>
+      <h3 class="overview-cell-heading">Active exploration, not passive <em>scrolling</em></h3>
+      <p class="overview-cell-text">Design a guided, responsive experience that transforms passive browsing into active exploration, giving users a clear sense of direction, continuity, and connection between artworks and artists.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- PAIN POINTS -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">02</span> Pain Points</div>
+  </div>
+  <div class="pain-grid">
+    <div class="pain-cell">
+      <div class="pain-accent"></div>
+      <h4 class="pain-heading">Information <em>overload</em></h4>
+      <p class="pain-text">Too many artworks presented without structure or hierarchy. No curation, no sense of priority. Users had no way to know where to begin or what to focus on.</p>
+    </div>
+    <div class="pain-cell">
+      <div class="pain-accent"></div>
+      <h4 class="pain-heading">Dead <em>ends</em></h4>
+      <p class="pain-text">Screens offered no clear path forward. After viewing an artwork, users had no obvious next step. The experience stopped rather than continued.</p>
+    </div>
+    <div class="pain-cell">
+      <div class="pain-accent"></div>
+      <h4 class="pain-heading">User <em>hesitation</em></h4>
+      <p class="pain-text">Without guidance or recommendations, users paused frequently and felt uncertain about their choices, a friction point that interrupted the exploration flow.</p>
+    </div>
+    <div class="pain-cell">
+      <div class="pain-accent"></div>
+      <h4 class="pain-heading">Unclear <em>interactions</em></h4>
+      <p class="pain-text">Key actions weren't obviously interactive. Users couldn't tell what was tappable, what would happen next, or how to move between related content.</p>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- KEY INSIGHT -->
+<section class="section" style="padding-top: 0; padding-bottom: 0;">
+  <div class="insight-block" id="insightBlock">
+    <p class="insight-label">Key Insight</p>
+    <p class="insight-text">Users weren't struggling to <em>use</em> the app. They were struggling to feel <em>guided</em> by it.</p>
+  </div>
+</section>
+
+<div class="divider" style="margin-top: 80px;"></div>
+
+<!-- WIREFRAMES -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">03</span> Wireframes</div>
+  </div>
+  <div class="wf-intro">
+    <p class="wf-intro-text">Low-fidelity wireframes translated research insights into structure. The focus was on reducing cognitive load, establishing clear content hierarchy, and ensuring users could move seamlessly between artworks and artist profiles without losing context.</p>
+  </div>
+  <div class="wf-block">
+    <div class="wf-grid-3">
+      <div class="wf-grid-item"><img src="images/wireframe-overview.png" alt="Wireframe Overview"></div>
+      <div class="wf-grid-item"><img src="images/wireframe-gallery.png" alt="Wireframe Gallery"></div>
+      <div class="wf-grid-item"><img src="images/wireframe-detail.png" alt="Wireframe Detail"></div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- EXPERIENCE FLOW -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">04</span> Experience Flow</div>
+  </div>
+  <div class="flow-list">
+    <div class="flow-row-item">
+      <div class="flow-body">
+        <p class="flow-tag">Discovery</p>
+        <h3 class="flow-heading">Guided from the <em>first tap</em></h3>
+        <p class="flow-text">Users enter the gallery with a clear sense of direction. Instead of confronting a wall of content, the experience surfaces a curated path, making exploration feel intentional from the very first interaction.</p>
+      </div>
+      <div class="flow-media">
+        <video autoplay muted loop playsinline>
+          <source src="images/flow-1.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="flow-row-item reverse">
+      <div class="flow-body">
+        <p class="flow-tag">Deep Exploration</p>
+        <h3 class="flow-heading">From artwork to <em>artist, seamlessly</em></h3>
+        <p class="flow-text">Users can move fluidly between artworks and the artists behind them, with no dead ends and no backtracking. The connection is surfaced naturally, encouraging deeper engagement with every piece.</p>
+      </div>
+      <div class="flow-media">
+        <video autoplay muted loop playsinline>
+          <source src="images/flow-2.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INTERACTION DESIGN -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">05</span> Interaction Design</div>
+  </div>
+  <div class="process-list">
+    <div class="process-item">
+      <div class="process-num">01</div>
+      <div>
+        <h3 class="process-heading">Cards that <em>respond</em></h3>
+        <p class="process-text">Artwork cards scale subtly on interaction, providing immediate visual feedback. This small detail makes the interface feel alive and responsive, closing the gap between action and reaction and giving users confidence that the system is listening.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-num">02</div>
+      <div>
+        <h3 class="process-heading">Transitions that <em>connect</em></h3>
+        <p class="process-text">Screen transitions were designed to feel continuous rather than abrupt. Motion carries context between states, preserving the user's sense of place within the experience and reinforcing the flow from discovery to detail to artist.</p>
+      </div>
+    </div>
+    <div class="process-item">
+      <div class="process-num">03</div>
+      <div>
+        <h3 class="process-heading">Iteration toward <em>clarity</em></h3>
+        <p class="process-text">Early layouts revealed competing elements that reduced clarity. Through iteration, content hierarchy was simplified, spacing was refined, and key actions were made more prominent, ensuring users always had a clear sense of direction.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- INTERACTION FLOWS -->
+<section class="section" style="padding-bottom: 0;">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">06</span> Interaction Details</div>
+  </div>
+  <div class="flow-list">
+    <div class="flow-row-item">
+      <div class="flow-body">
+        <p class="flow-tag">Feedback</p>
+        <h3 class="flow-heading">Interaction that <em>confirms</em></h3>
+        <p class="flow-text">Artwork cards respond to user interaction with subtle scaling, creating immediate visual feedback and a more responsive, tactile feel that rewards exploration.</p>
+      </div>
+      <div class="flow-media">
+        <video autoplay muted loop playsinline>
+          <source src="images/hover.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+    <div class="flow-row-item reverse">
+      <div class="flow-body">
+        <p class="flow-tag">Transitions</p>
+        <h3 class="flow-heading">Motion that <em>maintains context</em></h3>
+        <p class="flow-text">Screen transitions are fluid and continuous, preserving the user's sense of place and making every navigation feel like a natural extension of the previous state.</p>
+      </div>
+      <div class="flow-media">
+        <video autoplay muted loop playsinline>
+          <source src="images/transition.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider" style="margin-top: 80px;"></div>
+
+<!-- FINAL SCREENS -->
+<section class="screen-section">
+  <div class="section-header" style="margin-bottom: 32px;">
+    <div class="section-title"><span class="section-num">07</span> Final Screens</div>
+  </div>
+  <h2 class="screen-heading">The experience, <em>fully realised</em></h2>
+  <p class="screen-desc">Four key screens showing the complete journey from discovery through deep exploration: guided, intentional, and alive.</p>
+  <div class="screen-grid-4">
+    <div class="screen-item"><img src="images/vanguard-hero-1.png" alt="Vanguard Screen 1"></div>
+    <div class="screen-item"><img src="images/vanguard-hero-2.png" alt="Vanguard Screen 2"></div>
+    <div class="screen-item"><img src="images/vanguard-hero-3.png" alt="Vanguard Screen 3"></div>
+    <div class="screen-item"><img src="images/vanguard-hero-4.png" alt="Vanguard Screen 4"></div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- OUTCOME -->
+<section class="section">
+  <div class="section-header">
+    <div class="section-title"><span class="section-num">08</span> Outcome</div>
+  </div>
+  <div class="outcome-grid">
+    <div>
+      <h2 class="outcome-heading" data-headline>Browsing that<br>becomes<br><em>exploring</em></h2>
+    </div>
+    <div>
+      <p class="outcome-text">The final experience feels guided, responsive, and intentional. Users are no longer passive scrollers. They move with purpose, follow natural connections between artworks and artists, and feel supported at every step. The design turns a content-heavy interface into a calm, directed journey.</p>
+      <div class="tags-wrap">
+        <span class="tag">UX Research</span>
+        <span class="tag">Wireframing</span>
+        <span class="tag">Interaction Design</span>
+        <span class="tag">Mobile UX</span>
+        <span class="tag">Figma</span>
+        <span class="tag">User Flows</span>
+        <span class="tag">Art Discovery</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORK WITH ME -->
+<section class="work-with-me">
+  <div class="wwm-inner">
+    <div>
+      <p class="wwm-label">Available for new work</p>
+      <h2 class="wwm-heading" data-headline>Start a project<br>with <em>me</em></h2>
+    </div>
+    <div class="wwm-right">
+      <p class="wwm-desc">Open to freelance projects, collaborations, and contracts. Get in touch and I'll get back within 48 hours.</p>
+      <p class="wwm-email-label">Or reach out directly</p>
+      <a href="mailto:chimaconfidence086@gmail.com" class="wwm-email-link">chimaconfidence086@gmail.com</a>
+      <div class="wwm-cta-wrap">
+        <a href="contact.html" class="wwm-cta">Let's Talk <span class="arrow">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-copy">© 2025 Confidence Chima</span>
+  <span class="footer-copy">Product Designer</span>
+</footer>
+
+<script>
+/* ─── SCROLL PROGRESS ─── */
+const progressBar = document.getElementById('scrollProgressBar');
+window.addEventListener('scroll', () => {
+  const dh = document.documentElement.scrollHeight - window.innerHeight;
+  progressBar.style.width = (dh > 0 ? (window.scrollY / dh) * 100 : 0) + '%';
+}, { passive: true });
+
+/* ─── CURSOR ─── */
+const cursor = document.querySelector('.cursor');
+const ring   = document.querySelector('.cursor-ring');
+let rx = 0, ry = 0, mx = 0, my = 0;
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+});
+(function animRing() {
+  rx += (mx - rx) * .12; ry += (my - ry) * .12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animRing);
+})();
+function onEnter() { cursor.classList.add('hover'); ring.classList.add('hover'); }
+function onLeave() { cursor.classList.remove('hover'); ring.classList.remove('hover'); }
+document.querySelectorAll('a, .screen-item, .tag, .wwm-cta, .proto-cta, .pain-cell, .wf-grid-item').forEach(el => {
+  el.addEventListener('mouseenter', onEnter);
+  el.addEventListener('mouseleave', onLeave);
+});
+
+/* ─── CURSOR GLOW ─── */
+const glow = document.getElementById('cursorGlow');
+let gx = 0, gy = 0, tgx = 0, tgy = 0, glowOn = false;
+document.addEventListener('mousemove', e => {
+  tgx = e.clientX; tgy = e.clientY;
+  if (!glowOn) { glowOn = true; glow.classList.add('active'); animGlow(); }
+});
+document.addEventListener('mouseleave', () => { glowOn = false; glow.classList.remove('active'); });
+function animGlow() {
+  gx += (tgx - gx) * .1; gy += (tgy - gy) * .1;
+  glow.style.left = gx + 'px'; glow.style.top = gy + 'px';
+  if (glowOn) requestAnimationFrame(animGlow);
+}
+
+/* ─── SCROLL REVEAL ─── */
+const revealObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('show'); });
+}, { threshold: 0.08 });
+
+document.querySelectorAll(
+  '.overview-cell, .pain-cell, .insight-block, .process-item, .wf-intro, .wf-block, .flow-row-item, .screen-item, .meta-strip, .proto-cta-wrap'
+).forEach(el => revealObs.observe(el));
+
+/* ─── HERO ENTRANCE ─── */
+setTimeout(() => document.getElementById('heroLabel').classList.add('show'), 200);
+setTimeout(() => document.getElementById('heroDesc').classList.add('show'), 380);
+setTimeout(() => document.getElementById('heroMeta').classList.add('show'), 560);
+setTimeout(() => document.getElementById('heroImg').classList.add('show'), 700);
+
+/* ─── CHAR ANIMATION ─── */
+function splitChars(el) {
+  const tmp = document.createElement('div'); tmp.innerHTML = el.innerHTML;
+  let idx = 0;
+  function walk(node, out) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      node.textContent.split(/(\s+)/).forEach(tok => {
+        if (/^\s+$/.test(tok)) { out.push(tok); }
+        else if (tok.length) {
+          const chars = [...tok].map(ch => {
+            const safe = ch === '&' ? '&amp;' : ch === '<' ? '&lt;' : ch === '>' ? '&gt;' : ch;
+            return `<span class="char-wrap"><span class="char" style="transition-delay:${idx++ * 26}ms">${safe}</span></span>`;
+          });
+          out.push(`<span class="word-group">${chars.join('')}</span>`);
+        }
+      });
+    } else if (node.nodeName === 'BR') {
+      out.push('<br>');
+    } else if (['EM','STRONG','SPAN'].includes(node.nodeName)) {
+      const inner = []; node.childNodes.forEach(c => walk(c, inner));
+      out.push(`<${node.nodeName.toLowerCase()}>${inner.join('')}</${node.nodeName.toLowerCase()}>`);
+    } else { node.childNodes.forEach(c => walk(c, out)); }
+  }
+  const out = []; tmp.childNodes.forEach(n => walk(n, out)); el.innerHTML = out.join('');
+}
+function revealChars(el) {
+  requestAnimationFrame(() => requestAnimationFrame(() =>
+    el.querySelectorAll('.char').forEach(c => c.classList.add('in'))
+  ));
+}
+const headlines = document.querySelectorAll('[data-headline]');
+headlines.forEach(el => splitChars(el));
+const hObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { revealChars(e.target); hObs.unobserve(e.target); } });
+}, { threshold: .1 });
+headlines.forEach(el => hObs.observe(el));
+
+/* ─── MAGNETIC CTA ─── */
+const wwmCta = document.querySelector('.wwm-cta');
+if (wwmCta) {
+  wwmCta.addEventListener('mousemove', e => {
+    const r = wwmCta.getBoundingClientRect();
+    wwmCta.style.transform = `translate(${(e.clientX-(r.left+r.width/2))*.28}px,${(e.clientY-(r.top+r.height/2))*.28}px)`;
+  });
+  wwmCta.addEventListener('mouseleave', () => {
+    wwmCta.style.transition = 'transform .5s cubic-bezier(.16,1,.3,1), border-color .3s, color .3s, gap .3s';
+    wwmCta.style.transform = 'translate(0,0)';
+    setTimeout(() => { wwmCta.style.transition = ''; }, 500);
+  });
+  wwmCta.addEventListener('mouseenter', () => {
+    wwmCta.style.transition = 'transform .1s ease, border-color .3s, color .3s, gap .3s';
+  });
+}
+</script>
 </body>
 </html>
