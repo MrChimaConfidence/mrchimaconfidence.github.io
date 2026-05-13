@@ -34,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── SCROLL PROGRESS BAR ─── */
+/* SCROLL PROGRESS BAR */
 .scroll-progress-bar {
   position: fixed;
   top: 0; left: 0;
@@ -48,7 +48,7 @@ body {
   box-shadow: 0 0 8px rgba(201,169,110,0.5);
 }
 
-/* ─── CURSOR ─── */
+/* CURSOR */
 .cursor {
   width: 8px; height: 8px;
   background: var(--accent);
@@ -72,7 +72,7 @@ body {
 .cursor.hover { width: 4px; height: 4px; }
 .cursor-ring.hover { width: 48px; height: 48px; border-color: rgba(201,169,110,0.7); }
 
-/* ─── CURSOR GLOW ─── */
+/* CURSOR GLOW */
 .cursor-glow {
   position: fixed;
   width: 380px; height: 380px;
@@ -92,11 +92,11 @@ body {
   .cursor, .cursor-ring { display: none; }
 }
 
-/* ─── LAYOUT ─── */
+/* LAYOUT */
 .container { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
 @media (max-width: 768px) { .container { padding: 0 24px; } }
 
-/* ─── NAV ─── */
+/* NAV */
 nav {
   position: sticky; top: 0; z-index: 100;
   padding: 28px 40px;
@@ -134,7 +134,7 @@ nav {
 .nav-links a:hover { color: var(--text); }
 .nav-links a:hover::after { width: 100%; }
 
-/* ─── HERO ─── */
+/* HERO */
 .hero {
   padding: 120px 40px 80px;
   max-width: 1080px;
@@ -206,7 +206,7 @@ nav {
   margin-bottom: 40px;
 }
 
-/* ─── HERO META ─── */
+/* HERO META */
 .hero-meta {
   display: flex;
   flex-direction: column;
@@ -233,7 +233,7 @@ nav {
   font-weight: 400;
 }
 
-/* ─── ORBITAL MAP SECTION ─── */
+/* ORBITAL MAP SECTION */
 .orbital-section {
   max-width: 1080px;
   margin: 0 auto;
@@ -286,7 +286,7 @@ nav {
   max-width: 360px;
 }
 
-/* ─── CANVAS CONTAINER ─── */
+/* CANVAS CONTAINER */
 .orbital-canvas-wrap {
   position: relative;
   width: 100%;
@@ -300,14 +300,14 @@ nav {
   display: block;
 }
 
-/* ─── DIVIDER ─── */
+/* DIVIDER */
 .divider {
   height: 1px; background: var(--border);
   max-width: calc(1080px - 80px);
   margin: 0 auto;
 }
 
-/* ─── SECTION ─── */
+/* SECTION */
 .section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
 @media (max-width: 768px) { .section { padding: 60px 24px; } }
 
@@ -327,7 +327,7 @@ nav {
 }
 .section-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
 
-/* ─── HEADLINE ROLL-IN ─── */
+/* HEADLINE ROLL-IN */
 [data-headline] { overflow: visible; }
 .word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
 .char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.2; }
@@ -341,7 +341,7 @@ nav {
 }
 .char.in { transform: translateY(0); opacity: 1; }
 
-/* ─── FEATURED CARD ─── */
+/* FEATURED CARD */
 .card-featured {
   background: var(--card);
   border: 1px solid var(--border);
@@ -413,7 +413,7 @@ nav {
 .card-link::after { content: '→'; transition: transform 0.3s ease; }
 .card-link:hover { color: var(--accent); gap: 16px; }
 
-/* ─── GRID CARDS ─── */
+/* GRID CARDS */
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -454,7 +454,7 @@ nav {
   color: var(--muted); font-weight: 300; margin-bottom: 20px;
 }
 
-/* ─── ADDITIONAL (2-col) ─── */
+/* ADDITIONAL (2-col) */
 .cards-two {
   display: grid; grid-template-columns: repeat(2, 1fr);
   gap: 1px; background: var(--border);
@@ -463,7 +463,7 @@ nav {
 }
 @media (max-width: 768px) { .cards-two { grid-template-columns: 1fr; } }
 
-/* ─── CONTACT SECTION ─── */
+/* CONTACT SECTION */
 .contact-section {
   max-width: 1080px;
   margin: 0 auto;
@@ -522,7 +522,7 @@ nav {
   .contact-after { flex-direction: column; align-items: flex-start; gap: 6px; }
 }
 
-/* ─── FORM ─── */
+/* FORM */
 .contact-form {
   background: var(--card);
   border: 1px solid var(--border);
@@ -726,7 +726,7 @@ nav {
 .btn-reset:hover { color: var(--accent); }
 @media (max-width: 768px) { .btn-reset { cursor: pointer; } }
 
-/* ─── FOOTER ─── */
+/* FOOTER */
 footer {
   border-top: 1px solid var(--border);
   padding: 24px 40px;
@@ -764,14 +764,14 @@ footer {
   </div>
 </nav>
 
-<!-- HERO — two column: text left, orbital right -->
+<!-- HERO -->
 <section class="hero">
   <div class="hero-left">
     <p class="hero-label">Product Designer</p>
     <h1 class="hero-name">Confidence<br><em>Chima</em></h1>
     <p class="hero-role" data-headline>Product Designer</p>
     <p class="hero-tagline">
-      I design digital experiences that remove confusion, simplify decisions, and help users move forward with clarity.
+      I design digital experiences that remove confusion, simplify decisions and help users move forward with clarity.
     </p>
     <div class="hero-meta">
       <div class="hero-meta-item">
@@ -809,7 +809,7 @@ footer {
         <p class="card-tag">Mobile UX · Art Discovery</p>
         <h2 class="card-title" data-headline>Vanguard Gallery</h2>
         <p class="card-desc">
-          Designing a guided, immersive gallery experience that transforms passive browsing into active exploration — connecting users to artworks and artists with intention.
+          Designing a guided, immersive gallery experience that transforms passive browsing into active exploration, connecting users to artworks and artists with intention.
         </p>
       </div>
       <a href="vanguard.html" class="card-link">View Case Study</a>
@@ -831,6 +831,18 @@ footer {
   <div class="cards-grid">
     <div class="card-grid-item">
       <div class="card-grid-img">
+        <img src="images/chimreff-hero.png" alt="Chimreff">
+      </div>
+      <div class="card-grid-body">
+        <p class="card-grid-tag">Mobile UX · Service Platform</p>
+        <h3 class="card-grid-title">Chimreff</h3>
+        <p class="card-grid-desc">Making service booking feel fast, trusted and accessible.</p>
+        <a href="chimreff.html" class="card-link">View Case Study</a>
+      </div>
+    </div>
+
+    <div class="card-grid-item">
+      <div class="card-grid-img">
         <img src="images/mindcare-mockup.jpg" alt="MindCare">
       </div>
       <div class="card-grid-body">
@@ -850,18 +862,6 @@ footer {
         <h3 class="card-grid-title">Profile Studio</h3>
         <p class="card-grid-desc">Turning personal branding into a clear, structured experience.</p>
         <a href="profilestudio.html" class="card-link">View Case Study</a>
-      </div>
-    </div>
-
-    <div class="card-grid-item">
-      <div class="card-grid-img">
-        <img src="images/chimreff-hero.png" alt="Chimreff">
-      </div>
-      <div class="card-grid-body">
-        <p class="card-grid-tag">Mobile UX · Service Platform</p>
-        <h3 class="card-grid-title">Chimreff</h3>
-        <p class="card-grid-desc">Making service booking feel fast, trusted, and accessible.</p>
-        <a href="chimreff.html" class="card-link">View Case Study</a>
       </div>
     </div>
   </div>
@@ -980,7 +980,7 @@ footer {
       <div class="form-row">
         <div class="form-group full">
           <label class="form-label" for="brief">Project Brief <span class="req">*</span></label>
-          <textarea class="form-textarea" id="brief" maxlength="1200" placeholder="Describe your project — what problem are you solving, who are the users, and what outcome matters most to you?"></textarea>
+          <textarea class="form-textarea" id="brief" maxlength="1200" placeholder="Describe your project — what problem are you solving, who are the users and what outcome matters most to you?"></textarea>
           <div class="textarea-footer">
             <span class="field-error" id="err-brief" style="margin-top:0;">Please describe your project.</span>
             <span class="char-count" id="charCount">0 / 1200</span>
@@ -1019,7 +1019,7 @@ footer {
 </footer>
 
 <script>
-/* ─── ORBITAL SKILL MAP ─── */
+/* ORBITAL SKILL MAP */
 (function() {
   const canvas = document.getElementById('orbitalCanvas');
   const ctx = canvas.getContext('2d');
@@ -1044,7 +1044,6 @@ footer {
     { label: 'Visual Design',       orbit: 3, angle: Math.PI * 1.65,     speed: 0.00011, circled: true },
   ];
 
-  // Stagger dots around canvas edges
   const decorDots = [
     { nx: 0.5, ny: 0.02 },
     { nx: 0.04, ny: 0.34 },
@@ -1053,12 +1052,10 @@ footer {
     { nx: 0.79, ny: 0.94 },
   ];
 
-  // Corner labels matching the original
   const cornerLabels = [
     { text: 'PRODUCT DESIGN · UI/UX · CLARITY', nx: 0.5, ny: 0.025, anchor: 'center' },
     { text: 'CC — 2025', nx: 0.03, ny: 0.075, anchor: 'left' },
     { text: 'v.01', nx: 0.97, ny: 0.075, anchor: 'right' },
-
   ];
 
   let hoveredIdx = -1;
@@ -1073,7 +1070,7 @@ footer {
     dpr = window.devicePixelRatio || 1;
     const rect = canvas.parentElement.getBoundingClientRect();
     W = rect.width;
-    H = rect.width; // square
+    H = rect.width;
     canvas.width = W * dpr;
     canvas.height = H * dpr;
     canvas.style.width = W + 'px';
@@ -1093,7 +1090,6 @@ footer {
     const dt = timestamp - lastTime;
     lastTime = timestamp;
 
-    // Intro animation
     if (!introComplete) {
       introProgress = Math.min(1, introProgress + dt / 1400);
       if (introProgress >= 1) introComplete = true;
@@ -1105,10 +1101,8 @@ footer {
     const cy = H / 2;
     const prog = easeOutCubic(introProgress);
 
-    // ── Starfield background dots ──
     ctx.save();
     for (let i = 0; i < 60; i++) {
-      // deterministic pseudo-random
       const px = ((i * 137.508 + 41) % W);
       const py = ((i * 97.3 + 19) % H);
       const alpha = 0.06 + (i % 5) * 0.025;
@@ -1119,7 +1113,6 @@ footer {
     }
     ctx.restore();
 
-    // ── Grid crosshatch (subtle) ──
     ctx.save();
     ctx.strokeStyle = `rgba(237,232,223,${0.035 * prog})`;
     ctx.lineWidth = 0.5;
@@ -1132,7 +1125,6 @@ footer {
     }
     ctx.restore();
 
-    // ── Corner decorative dots ──
     decorDots.forEach(d => {
       ctx.save();
       ctx.fillStyle = `rgba(201,169,110,${0.6 * prog})`;
@@ -1142,7 +1134,6 @@ footer {
       ctx.restore();
     });
 
-    // ── Corner text labels ──
     ctx.save();
     ctx.font = `300 ${Math.max(8, W * 0.02)}px 'DM Sans', sans-serif`;
     ctx.fillStyle = `rgba(122,116,105,${0.7 * prog})`;
@@ -1153,10 +1144,8 @@ footer {
     });
     ctx.restore();
 
-    // ── Advance skill angles ──
     skills.forEach(s => { s.angle += s.speed * dt; });
 
-    // ── Orbit rings ──
     for (let i = 1; i <= 3; i++) {
       const r = orbitRadius(i);
       ctx.save();
@@ -1170,7 +1159,6 @@ footer {
       ctx.restore();
     }
 
-    // ── Inner ring (double) ──
     const innerR = orbitRadius(1) * 0.55;
     ctx.save();
     ctx.strokeStyle = `rgba(201,169,110,${0.18 * prog})`;
@@ -1181,7 +1169,6 @@ footer {
     ctx.beginPath(); ctx.arc(cx, cy, (innerR + 6) * prog, 0, Math.PI * 2); ctx.stroke();
     ctx.restore();
 
-    // ── Compass tick marks on outer orbit ──
     const outerR = orbitRadius(3);
     ctx.save();
     ctx.strokeStyle = `rgba(237,232,223,${0.12 * prog})`;
@@ -1196,7 +1183,6 @@ footer {
     }
     ctx.restore();
 
-    // Center N/S/E/W tick extensions
     ctx.save();
     ctx.strokeStyle = `rgba(201,169,110,${0.3 * prog})`;
     ctx.lineWidth = 0.5;
@@ -1208,19 +1194,15 @@ footer {
     });
     ctx.restore();
 
-    // ── Center node ──
     const centerR = Math.min(W, H) * 0.13;
     ctx.save();
-    // outer glow ring
     ctx.strokeStyle = `rgba(201,169,110,${0.15 * prog})`;
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.arc(cx, cy, (centerR + 4) * prog, 0, Math.PI * 2); ctx.stroke();
-    // main fill
     ctx.fillStyle = CARD;
     ctx.strokeStyle = `rgba(201,169,110,${0.35 * prog})`;
     ctx.lineWidth = 1;
     ctx.beginPath(); ctx.arc(cx, cy, centerR * prog, 0, Math.PI * 2); ctx.fill(); ctx.stroke();
-    // name text
     ctx.fillStyle = `rgba(237,232,223,${prog})`;
     ctx.font = `300 ${Math.max(12, centerR * 0.34)}px 'Cormorant Garamond', serif`;
     ctx.textAlign = 'center';
@@ -1231,7 +1213,6 @@ footer {
     ctx.fillText('Chima', cx, cy + centerR * 0.22);
     ctx.restore();
 
-    // ── Skill nodes ──
     skills.forEach((s, i) => {
       const r = orbitRadius(s.orbit);
       const x = cx + Math.cos(s.angle) * r;
@@ -1246,7 +1227,6 @@ footer {
       const alpha = prog;
 
       if (s.circled) {
-        // Circle node (like in the image)
         ctx.save();
         ctx.fillStyle = isHovered ? `rgba(28,26,22,${alpha})` : `rgba(20,19,16,${alpha})`;
         ctx.strokeStyle = isHovered ? `rgba(201,169,110,${0.7 * alpha})` : `rgba(237,232,223,${0.18 * alpha})`;
@@ -1272,7 +1252,6 @@ footer {
         }
         ctx.restore();
       } else {
-        // Plain text node (no circle)
         ctx.save();
         const fontSize = Math.max(8, Math.min(W, H) * 0.024);
         ctx.font = `${isHovered ? 400 : 300} ${fontSize}px 'DM Sans', sans-serif`;
@@ -1283,9 +1262,7 @@ footer {
           ? `rgba(201,169,110,${alpha})`
           : `rgba(122,116,105,${0.9 * alpha})`;
 
-        // Measure for hover underline
         const tw = ctx.measureText(s.label).width;
-
         ctx.fillText(s.label, x, y);
 
         if (isHovered) {
@@ -1303,7 +1280,6 @@ footer {
     requestAnimationFrame(draw);
   }
 
-  // Mouse tracking
   canvas.addEventListener('mousemove', e => {
     const rect = canvas.getBoundingClientRect();
     mouseX = e.clientX - rect.left;
@@ -1321,7 +1297,7 @@ footer {
   requestAnimationFrame(t => { lastTime = t; draw(t); });
 })();
 
-/* ─── SCROLL PROGRESS BAR ─── */
+/* SCROLL PROGRESS BAR */
 const progressBar = document.getElementById('scrollProgressBar');
 function updateProgressBar() {
   const scrollTop = window.scrollY;
@@ -1331,7 +1307,7 @@ function updateProgressBar() {
 window.addEventListener('scroll', updateProgressBar, { passive: true });
 updateProgressBar();
 
-/* ─── CURSOR ─── */
+/* CURSOR */
 const cursor = document.querySelector('.cursor');
 const ring   = document.querySelector('.cursor-ring');
 let ringX = 0, ringY = 0, mouseX = 0, mouseY = 0;
@@ -1358,7 +1334,7 @@ function onEnter() { cursor.classList.add('hover'); ring.classList.add('hover');
 function onLeave() { cursor.classList.remove('hover'); ring.classList.remove('hover'); }
 refreshInteractables();
 
-/* ─── CURSOR GLOW ─── */
+/* CURSOR GLOW */
 const cursorGlow = document.getElementById('cursorGlow');
 let glowX = 0, glowY = 0, targetGlowX = 0, targetGlowY = 0, glowActive = false;
 document.addEventListener('mousemove', e => {
@@ -1372,14 +1348,14 @@ function animateGlow() {
   if (glowActive) requestAnimationFrame(animateGlow);
 }
 
-/* ─── SCROLL REVEAL ─── */
+/* SCROLL REVEAL */
 const revealEls = document.querySelectorAll('.card-featured, .card-grid-item, .contact-form');
 const revealObs = new IntersectionObserver(entries => {
   entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
 }, { threshold: 0.1 });
 revealEls.forEach(el => revealObs.observe(el));
 
-/* ─── HEADLINE LETTER ROLL-IN ─── */
+/* HEADLINE LETTER ROLL-IN */
 function splitHeadlineIntoChars(el) {
   const tempDiv = document.createElement('div');
   tempDiv.innerHTML = el.innerHTML;
@@ -1430,7 +1406,7 @@ const headlineObs = new IntersectionObserver(entries => {
 }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 headlineEls.forEach(el => headlineObs.observe(el));
 
-/* ─── MAGNETIC BUTTONS ─── */
+/* MAGNETIC BUTTONS */
 document.querySelectorAll('.card-link, .btn-submit').forEach(btn => {
   btn.addEventListener('mousemove', e => {
     const rect = btn.getBoundingClientRect();
@@ -1446,7 +1422,7 @@ document.querySelectorAll('.card-link, .btn-submit').forEach(btn => {
   btn.addEventListener('mouseenter', () => { btn.style.transition = 'transform 0.1s ease'; });
 });
 
-/* ─── SECTION LABEL PARALLAX ─── */
+/* SECTION LABEL PARALLAX */
 const sectionLabels = document.querySelectorAll('.section-title');
 function updateLabelParallax() {
   const vhMid = window.innerHeight / 2;
@@ -1459,12 +1435,12 @@ function updateLabelParallax() {
 window.addEventListener('scroll', updateLabelParallax, { passive: true });
 updateLabelParallax();
 
-/* ─── SELECT PLACEHOLDER STYLING ─── */
+/* SELECT PLACEHOLDER STYLING */
 document.querySelectorAll('.form-select').forEach(sel => {
   sel.addEventListener('change', () => { sel.classList.toggle('placeholder-active', sel.value === ''); });
 });
 
-/* ─── BUDGET BUTTONS ─── */
+/* BUDGET BUTTONS */
 let selectedBudget = null;
 document.querySelectorAll('.budget-btn').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -1474,7 +1450,7 @@ document.querySelectorAll('.budget-btn').forEach(btn => {
   });
 });
 
-/* ─── CHAR COUNT ─── */
+/* CHAR COUNT */
 const brief = document.getElementById('brief');
 const charCount = document.getElementById('charCount');
 const MAX = 1200;
@@ -1484,7 +1460,7 @@ brief.addEventListener('input', () => {
   charCount.className = 'char-count' + (len > MAX * 0.9 ? (len >= MAX ? ' over' : ' warn') : '');
 });
 
-/* ─── VALIDATION ─── */
+/* VALIDATION */
 function validateEmail(v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }
 function setError(fieldId, errId, show) {
   const field = document.getElementById(fieldId);
@@ -1515,7 +1491,7 @@ function validateForm() {
   });
 });
 
-/* ─── SUBMIT ─── */
+/* SUBMIT */
 const submitBtn = document.getElementById('submitBtn');
 const submitLabel = document.getElementById('submitLabel');
 const submitArrow = document.getElementById('submitArrow');
