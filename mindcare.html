@@ -178,6 +178,25 @@ nav {
 .hero-meta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .hero-meta-val { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); font-weight: 400; margin-left: auto; }
 
+/* ─── HERO STATS ─── */
+.hero-stats {
+  display: flex; gap: 32px; flex-wrap: wrap;
+  margin-top: 32px; padding-top: 32px;
+  border-top: 1px solid var(--border);
+  opacity: 0; transform: translateY(16px);
+  transition: opacity .7s ease .5s, transform .7s ease .5s;
+}
+.hero-stats.show { opacity: 1; transform: none; }
+.hero-stat-item { display: flex; flex-direction: column; gap: 4px; }
+.hero-stat-num {
+  font-family: var(--serif); font-size: 28px; font-weight: 300;
+  color: var(--accent); line-height: 1;
+}
+.hero-stat-label {
+  font-size: 10px; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--muted);
+}
+
 /* ─── HERO IMAGE ─── */
 .hero-image-wrap {
   max-width: 1080px; margin: 0 auto; padding: 0 40px 80px;
@@ -363,13 +382,6 @@ nav {
   border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
 }
 @media (max-width: 640px) { .screen-grid-2 { grid-template-columns: 1fr; } }
-
-.screen-grid-3 {
-  display: grid; grid-template-columns: repeat(3,1fr);
-  gap: 1px; background: var(--border);
-  border: 1px solid var(--border); border-radius: 4px; overflow: hidden;
-}
-@media (max-width: 768px) { .screen-grid-3 { grid-template-columns: 1fr; } }
 
 .screen-item {
   background: var(--card); overflow: hidden;
@@ -568,7 +580,7 @@ footer {
   </div>
   <div class="hero-right">
     <p class="hero-desc" id="heroDesc">
-      A guided emotional check-in experience that helps users reflect on how they feel and access support: without feeling overwhelmed.
+      A guided emotional check-in experience designed to reduce cognitive overload and help users reach the right support path through a calm, structured journey.
     </p>
     <div class="hero-meta-list" id="heroMeta">
       <div class="hero-meta-item">
@@ -586,7 +598,20 @@ footer {
         <span class="hero-meta-label">Deliverable</span>
         <span class="hero-meta-val">End-to-End Flow</span>
       </div>
-
+    </div>
+    <div class="hero-stats" id="heroStats">
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">5</span>
+        <span class="hero-stat-label">Step guided flow</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">1</span>
+        <span class="hero-stat-label">Primary action per screen</span>
+      </div>
+      <div class="hero-stat-item">
+        <span class="hero-stat-num">3</span>
+        <span class="hero-stat-label">Support pathways</span>
+      </div>
     </div>
   </div>
 </section>
@@ -613,18 +638,18 @@ footer {
   <div class="overview-trio">
     <div class="overview-cell">
       <p class="overview-cell-label">The Problem</p>
-      <h3 class="overview-cell-heading">Apps that overwhelm at the <em>worst moment</em></h3>
-      <p class="overview-cell-text">Many mental health apps greet users with too many choices exactly when they're most vulnerable. The cognitive load of navigating complex menus during emotional distress creates friction that prevents people from getting help.</p>
+      <h3 class="overview-cell-heading">Too many choices at the <em>wrong moment</em></h3>
+      <p class="overview-cell-text">Many mental health platforms present too many choices during emotionally difficult moments. Complex navigation and overloaded interfaces increase cognitive strain when users need clarity most.</p>
     </div>
     <div class="overview-cell">
       <p class="overview-cell-label">The Goal</p>
-      <h3 class="overview-cell-heading">Guide first, <em>decide</em> later</h3>
-      <p class="overview-cell-text">Design a structured, step-by-step emotional check-in that removes decision fatigue, uses supportive language, and leads users naturally toward the right action based on how they actually feel.</p>
+      <h3 class="overview-cell-heading">Remove decision fatigue through <em>calm structure</em></h3>
+      <p class="overview-cell-text">Design a guided emotional check-in that removes decision fatigue through calm language, structured progression, and supportive interaction patterns.</p>
     </div>
     <div class="overview-cell">
       <p class="overview-cell-label">The Product</p>
-      <h3 class="overview-cell-heading">A calm path through <em>emotional noise</em></h3>
-      <p class="overview-cell-text">MindCare transforms emotional reflection into a simple, structured flow. Instead of options and menus, users follow a guided journey, one step at a time, toward clarity and the right kind of support.</p>
+      <h3 class="overview-cell-heading">One focused step <em>at a time</em></h3>
+      <p class="overview-cell-text">MindCare transforms emotional reflection into a simple guided journey. Instead of navigating dashboards or menus, users move through one focused step at a time toward the right support option.</p>
     </div>
   </div>
 </section>
@@ -640,29 +665,29 @@ footer {
     <div class="process-item">
       <div class="process-num">01</div>
       <div class="process-body">
-        <h3 class="process-heading">Mobile-first, <em>touch-native</em></h3>
-        <p class="process-text">Every interaction was designed around the tap gesture. Clear hit targets, visible state changes on selection, and immediate feedback ensure users feel in control without hovering or reading fine print. The experience was built for distressed users, not ideal-state users.</p>
+        <h3 class="process-heading">Designed for <em>touch</em></h3>
+        <p class="process-text">Every interaction was designed for touch with large tap targets, visible state changes, and immediate feedback. The experience prioritises clarity and reassurance for emotionally vulnerable users.</p>
       </div>
     </div>
     <div class="process-item">
       <div class="process-num">02</div>
       <div class="process-body">
         <h3 class="process-heading">Language as <em>design material</em></h3>
-        <p class="process-text">Copy was treated with the same care as layout. Every label, prompt, and support message was written to be calm, non-judgmental, and encouraging, meeting users where they are without projecting emotions onto them or adding pressure to respond in a certain way.</p>
+        <p class="process-text">The copy was intentionally written to feel calm, supportive, and non-judgmental. Each prompt helps users reflect without pressure or emotional projection.</p>
       </div>
     </div>
     <div class="process-item">
       <div class="process-num">03</div>
       <div class="process-body">
-        <h3 class="process-heading">Structured <em>guidance</em>, not open menus</h3>
-        <p class="process-text">The experience is a linear guided flow, not a dashboard or navigation tree. Each step builds on the previous one. By restricting choices at each stage, the design reduces cognitive overload and gives users a clear sense of progress and direction.</p>
+        <h3 class="process-heading">Structured <em>guidance</em></h3>
+        <p class="process-text">Users make one decision per screen, reducing cognitive strain and maintaining a clear sense of direction throughout the experience.</p>
       </div>
     </div>
     <div class="process-item">
       <div class="process-num">04</div>
       <div class="process-body">
-        <h3 class="process-heading">Recommended paths reduce <em>decision fatigue</em></h3>
-        <p class="process-text">When presenting support options, MindCare surfaces a recommended action based on the user's check-in responses. This removes the burden of choosing and makes the final step feel intuitive: a natural conclusion rather than another decision point.</p>
+        <h3 class="process-heading">Recommended <em>support paths</em></h3>
+        <p class="process-text">The final experience narrows support into 3 clear pathways, helping users act without feeling overwhelmed by excessive choice.</p>
       </div>
     </div>
   </div>
@@ -676,14 +701,14 @@ footer {
     <div class="section-title"><span class="section-num">03</span> Wireframes</div>
   </div>
   <div class="wf-intro">
-    <p class="wf-intro-text">Low-fidelity wireframes were used to establish the full check-in flow and validate the structure before adding visual treatment. The focus was on step clarity, emotional pacing, and ensuring users always knew what came next.</p>
+    <p class="wf-intro-text">Low-fidelity wireframes were used to map the complete emotional check-in journey before visual design. The focus remained on pacing, clarity, and emotional flow across every screen.</p>
   </div>
   <div class="wf-block">
     <div class="wf-image-wrap">
       <img src="images/mindcare-wireframe.png" alt="MindCare Wireframe">
       <div class="wf-caption">
         <span class="wf-caption-label">Check-in Flow</span>
-        <span class="wf-caption-text">Full wireframe mapping the emotional check-in journey: from entry to support: across each screen state.</span>
+        <span class="wf-caption-text">Full wireframe mapping the emotional check-in journey from entry to support across each screen state.</span>
       </div>
     </div>
   </div>
@@ -714,8 +739,8 @@ footer {
   <div class="section-header" style="margin-bottom: 32px;">
     <div class="section-title"><span class="section-num">05</span> Interaction Design</div>
   </div>
-  <h2 class="screen-heading">Tap, select, <em>move forward</em></h2>
-  <p class="screen-desc">Every interaction is immediate and visible. Users tap to select, see instant state changes, and always know which option is active: no ambiguity, no second-guessing.</p>
+  <h2 class="screen-heading">Immediate, <em>unambiguous</em> feedback</h2>
+  <p class="screen-desc">Every tap produces immediate visible feedback. Selected states are intentionally unambiguous, helping users feel confident in their choices without second-guessing.</p>
   <div class="screen-single" id="interactionScreen">
     <img src="images/mindcare-interaction.jpg" alt="Interaction Design">
   </div>
@@ -728,8 +753,8 @@ footer {
   <div class="section-header" style="margin-bottom: 32px;">
     <div class="section-title"><span class="section-num">06</span> Insight & Support</div>
   </div>
-  <h2 class="screen-heading">From reflection to <em>the right next step</em></h2>
-  <p class="screen-desc">The system reflects the user's input with calm, personalised language: then surfaces a recommended support path that makes the final action feel effortless.</p>
+  <h2 class="screen-heading">Calm language, <em>clear next step</em></h2>
+  <p class="screen-desc">The system reflects user input using calm, personalised language, then surfaces a recommended next step that feels natural and supportive.</p>
   <div class="screen-grid-2">
     <div class="screen-item"><img src="images/mindcare-4.jpg" alt="Emotional Insight"></div>
     <div class="screen-item"><img src="images/mindcare-5.jpg" alt="Support Options"></div>
@@ -746,33 +771,33 @@ footer {
   <div class="decisions-grid">
     <div class="decision-cell">
       <div class="decision-icon">↗</div>
-      <h4 class="decision-heading">Mobile-first, <em>no hover</em></h4>
-      <p class="decision-text">Designed entirely for touch with no reliance on hover states. Large, forgiving tap targets and clear active states ensure confidence with every interaction.</p>
+      <h4 class="decision-heading">Mobile-first <em>interaction model</em></h4>
+      <p class="decision-text">Mobile-first interaction model with no hover dependency. Built entirely for touch from the ground up.</p>
     </div>
     <div class="decision-cell">
       <div class="decision-icon">◎</div>
-      <h4 class="decision-heading">Visible <em>state changes</em></h4>
-      <p class="decision-text">Selected states are visually unambiguous. Users receive immediate feedback on every tap, reinforcing the sense of control and reducing the urge to second-guess.</p>
+      <h4 class="decision-heading">One decision <em>per screen</em></h4>
+      <p class="decision-text">One focused decision per screen to reduce cognitive overload. Users are never asked to process more than one thing at a time.</p>
     </div>
     <div class="decision-cell">
       <div class="decision-icon">≡</div>
-      <h4 class="decision-heading">Structured <em>flow</em></h4>
-      <p class="decision-text">A linear, guided flow removes the cognitive load of navigation. Users are never presented with more than one decision at a time: progress is always clear.</p>
+      <h4 class="decision-heading">Progressive <em>disclosure</em></h4>
+      <p class="decision-text">Progressive disclosure to avoid overwhelming users. Complexity surfaces only when the user is ready for it.</p>
     </div>
     <div class="decision-cell">
       <div class="decision-icon">✦</div>
-      <h4 class="decision-heading">Supportive <em>language</em></h4>
-      <p class="decision-text">Every word was chosen to feel calm and non-judgmental. The copy meets users without projecting emotions or adding pressure to respond in any particular way.</p>
+      <h4 class="decision-heading">Language that <em>reassures</em></h4>
+      <p class="decision-text">Supportive language designed to reassure rather than pressure. Every word chosen to feel calm and non-judgmental.</p>
     </div>
     <div class="decision-cell">
       <div class="decision-icon">→</div>
       <h4 class="decision-heading">Guided <em>recommendations</em></h4>
-      <p class="decision-text">Support options surface a recommended path based on user input, reducing decision fatigue at the most critical moment and making the final action feel like a natural conclusion.</p>
+      <p class="decision-text">Guided recommendations based on emotional input. The system does the deciding so the user doesn't have to.</p>
     </div>
     <div class="decision-cell">
       <div class="decision-icon">◻</div>
-      <h4 class="decision-heading">Reduced <em>cognitive load</em></h4>
-      <p class="decision-text">The interface deliberately withholds complexity until it is needed. Screens are sparse by design: every element present earns its place by serving the user's immediate need.</p>
+      <h4 class="decision-heading">3 clear <em>support pathways</em></h4>
+      <p class="decision-text">Support narrowed to 3 clear pathways so users can act without feeling overwhelmed by excessive choice at the most critical moment.</p>
     </div>
   </div>
 </section>
@@ -786,10 +811,10 @@ footer {
   </div>
   <div class="outcome-grid">
     <div>
-      <h2 class="outcome-heading" data-headline>Calm that<br>leads to<br><em>action</em></h2>
+      <h2 class="outcome-heading" data-headline>Reflection<br>that leads to<br><em>action</em></h2>
     </div>
     <div>
-      <p class="outcome-text">The final experience reduces cognitive load and helps users take meaningful action faster during moments of emotional distress. By guiding rather than presenting, the design creates a calmer, more supportive journey: one that respects the user's state and removes barriers between reflection and help.</p>
+      <p class="outcome-text">The final experience transforms emotional reflection into guided action through a structured 5-step flow, calm language, and progressive decision-making. Instead of overwhelming users with options, MindCare reduces friction and helps users reach support faster.</p>
       <div class="tags-wrap">
         <span class="tag">UX Research</span>
         <span class="tag">Wireframing</span>
@@ -881,7 +906,8 @@ document.querySelectorAll(
 setTimeout(() => document.getElementById('heroLabel').classList.add('show'), 200);
 setTimeout(() => document.getElementById('heroDesc').classList.add('show'), 380);
 setTimeout(() => document.getElementById('heroMeta').classList.add('show'), 560);
-setTimeout(() => document.getElementById('heroImg').classList.add('show'), 700);
+setTimeout(() => document.getElementById('heroStats').classList.add('show'), 700);
+setTimeout(() => document.getElementById('heroImg').classList.add('show'), 850);
 
 /* ─── CHAR ANIMATION ─── */
 function splitChars(el) {
