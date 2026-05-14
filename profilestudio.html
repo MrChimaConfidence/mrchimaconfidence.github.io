@@ -34,7 +34,7 @@ body {
   overflow-x: hidden;
 }
 
-/* ─── SCROLL PROGRESS BAR ─── */
+/* SCROLL PROGRESS BAR */
 .scroll-progress-bar {
   position: fixed; top: 0; left: 0;
   height: 2px; width: 0%; z-index: 9999;
@@ -45,7 +45,7 @@ body {
   transition: width 0.05s linear;
 }
 
-/* ─── CURSOR ─── */
+/* CURSOR */
 .cursor {
   width: 8px; height: 8px; background: var(--accent);
   border-radius: 50%; position: fixed; pointer-events: none;
@@ -73,7 +73,7 @@ body {
   .cursor, .cursor-ring, .cursor-glow { display: none; }
 }
 
-/* ─── NAV ─── */
+/* NAV */
 nav {
   position: sticky; top: 0; z-index: 100;
   padding: 28px 40px;
@@ -99,13 +99,13 @@ nav {
 .nav-links a:hover::after { width: 100%; }
 @media (max-width: 768px) { nav { padding: 20px 24px; } }
 
-/* ─── DIVIDER ─── */
+/* DIVIDER */
 .divider {
   height: 1px; background: var(--border);
   max-width: calc(1080px - 80px); margin: 0 auto;
 }
 
-/* ─── BACK LINK ─── */
+/* BACK LINK */
 .back-wrap {
   max-width: 1080px; margin: 0 auto; padding: 36px 40px 0;
 }
@@ -120,7 +120,7 @@ nav {
 .back-link:hover .arrow { transform: translateX(-4px); }
 @media (max-width: 768px) { .back-wrap { padding: 28px 24px 0; } }
 
-/* ─── HERO ─── */
+/* HERO */
 .hero {
   max-width: 1080px; margin: 0 auto;
   padding: 56px 40px 72px;
@@ -172,7 +172,7 @@ nav {
 .hero-meta-label { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
 .hero-meta-val { font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--text); font-weight: 400; margin-left: auto; }
 
-/* ─── HERO IMAGE ─── */
+/* HERO IMAGE */
 .hero-image-wrap {
   max-width: 1080px; margin: 0 auto; padding: 0 40px 80px;
   opacity: 0; transform: translateY(40px);
@@ -185,7 +185,7 @@ nav {
 }
 @media (max-width: 768px) { .hero-image-wrap { padding: 0 24px 60px; } }
 
-/* ─── SECTION ─── */
+/* SECTION */
 .section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
 @media (max-width: 768px) { .section { padding: 60px 24px; } }
 
@@ -200,7 +200,7 @@ nav {
 }
 .section-num { font-family: var(--serif); font-size: 11px; color: var(--accent); }
 
-/* ─── PROTOTYPE EMBED ─── */
+/* PROTOTYPE EMBED */
 .prototype-wrap {
   max-width: 1080px; margin: 0 auto; padding: 0 40px 80px;
   opacity: 0; transform: translateY(32px);
@@ -225,7 +225,7 @@ nav {
 }
 @media (max-width: 768px) { .prototype-frame iframe { height: 380px; } }
 
-/* ─── OVERVIEW GRID (3-col) ─── */
+/* OVERVIEW GRID (3-col) */
 .overview-trio {
   display: grid; grid-template-columns: repeat(3, 1fr);
   gap: 1px; background: var(--border);
@@ -258,7 +258,7 @@ nav {
   font-size: 13px; line-height: 1.75; color: var(--muted); font-weight: 300;
 }
 
-/* ─── PROCESS STEPS ─── */
+/* PROCESS STEPS */
 .process-list { display: flex; flex-direction: column; }
 .process-item {
   display: grid; grid-template-columns: 60px 1fr;
@@ -289,7 +289,7 @@ nav {
   color: var(--muted); font-weight: 300; max-width: 560px;
 }
 
-/* ─── WIREFRAME SECTION ─── */
+/* WIREFRAME SECTION */
 .wf-intro {
   margin-bottom: 48px;
   opacity: 0; transform: translateY(20px);
@@ -328,7 +328,7 @@ nav {
 }
 .wf-caption-text { font-size: 13px; color: var(--muted); font-weight: 300; line-height: 1.6; }
 
-/* ─── SCREEN FLOW GRID ─── */
+/* SCREEN FLOW GRID */
 .screen-section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
 @media (max-width: 768px) { .screen-section { padding: 60px 24px; } }
 
@@ -376,7 +376,7 @@ nav {
 .screen-item img { width: 100%; display: block; transition: transform .7s ease; }
 .screen-item:hover img { transform: scale(1.03); }
 
-/* ─── FULL IMAGE ─── */
+/* FULL IMAGE */
 .full-img {
   max-width: 1080px; margin: 0 auto; padding: 0 40px;
   opacity: 0; transform: translateY(32px);
@@ -389,7 +389,7 @@ nav {
 }
 @media (max-width: 768px) { .full-img { padding: 0 24px; } }
 
-/* ─── OUTCOME ─── */
+/* OUTCOME */
 .outcome-grid {
   display: grid; grid-template-columns: 1fr 1fr;
   gap: 0 80px; align-items: start;
@@ -418,7 +418,7 @@ nav {
 }
 .tag:hover { border-color: rgba(201,169,110,.4); color: var(--text); }
 
-/* ─── WORK WITH ME ─── */
+/* WORK WITH ME */
 .work-with-me {
   max-width: 1080px; margin: 0 auto;
   padding: 80px 40px 120px;
@@ -480,7 +480,7 @@ nav {
 .wwm-cta .arrow { transition: transform .3s; }
 .wwm-cta:hover .arrow { transform: translateX(4px); }
 
-/* ─── FOOTER ─── */
+/* FOOTER */
 footer {
   border-top: 1px solid var(--border); padding: 24px 40px;
   max-width: 1080px; margin: 0 auto;
@@ -489,7 +489,7 @@ footer {
 @media (max-width: 768px) { footer { padding: 24px; flex-direction: column; gap: 8px; } }
 .footer-copy { font-size: 12px; color: var(--muted); }
 
-/* ─── CHAR ANIMATION ─── */
+/* CHAR ANIMATION */
 .char-wrap { display: inline-block; overflow: hidden; vertical-align: bottom; line-height: 1.15; }
 .char {
   display: inline-block; transform: translateY(110%); opacity: 0;
@@ -498,7 +498,7 @@ footer {
 .char.in { transform: translateY(0); opacity: 1; }
 .word-group { display: inline-block; white-space: nowrap; vertical-align: bottom; }
 
-/* ─── NOISE ─── */
+/* NOISE */
 body::before {
   content: ''; position: fixed; inset: 0;
   pointer-events: none; z-index: 1; opacity: .025;
@@ -538,7 +538,7 @@ body::before {
   </div>
   <div class="hero-right">
     <p class="hero-desc" id="heroDesc">
-      Designing a guided experience that helps professionals turn their LinkedIn profiles into real opportunities.
+      A guided web experience that helps professionals improve their LinkedIn presence through structured recommendations and personalized sessions.
     </p>
     <div class="hero-meta-list" id="heroMeta">
       <div class="hero-meta-item">
@@ -581,18 +581,18 @@ body::before {
   <div class="overview-trio">
     <div class="overview-cell">
       <p class="overview-cell-label">The Problem</p>
-      <h3 class="overview-cell-heading">Professionals who can't <em>communicate</em> their value</h3>
-      <p class="overview-cell-text">Many professionals struggle to present themselves clearly on LinkedIn. Not due to lack of experience, but because they lack clarity on how to structure and communicate their value. This often leads to missed opportunities and low confidence.</p>
+      <h3 class="overview-cell-heading">Professionals who struggle to present their <em>value</em></h3>
+      <p class="overview-cell-text">Many professionals have strong experience but struggle to communicate it clearly on LinkedIn. The issue isn't always capability. It's often uncertainty around what to say, what to prioritize, and how to structure their profile in a way that feels intentional. As a result, opportunities are missed before conversations even begin.</p>
     </div>
     <div class="overview-cell">
       <p class="overview-cell-label">The Goal</p>
-      <h3 class="overview-cell-heading">Remove confusion, <em>build</em> confidence</h3>
-      <p class="overview-cell-text">Design a clear, guided experience that removes confusion, builds user confidence, and encourages users to book a session. Every decision in the product serves this single goal.</p>
+      <h3 class="overview-cell-heading">Create clarity through guided <em>progression</em></h3>
+      <p class="overview-cell-text">Design a focused experience that removes ambiguity and helps users move confidently from intention to action. Every interaction was designed to simplify decision-making and make the process feel manageable from start to finish.</p>
     </div>
     <div class="overview-cell">
       <p class="overview-cell-label">The Product</p>
-      <h3 class="overview-cell-heading">A platform built around <em>clarity</em></h3>
-      <p class="overview-cell-text">Profile Studio is a web platform that helps professionals improve their LinkedIn presence through guided feedback and structured sessions. Designed to simplify decision-making and move users efficiently from intention to action.</p>
+      <h3 class="overview-cell-heading">A platform designed around <em>direction</em></h3>
+      <p class="overview-cell-text">Profile Studio is a guided web experience that helps professionals improve their LinkedIn presence through structured recommendations and personalized sessions. The platform breaks the process into clear stages, helping users move from uncertainty to a concrete improvement plan.</p>
     </div>
   </div>
 </section>
@@ -628,22 +628,22 @@ body::before {
     <div class="process-item">
       <div class="process-num">01</div>
       <div class="process-body">
-        <h3 class="process-heading">One decision <em>at a time</em></h3>
-        <p class="process-text">The experience breaks complex decisions into simple, progressive steps. Instead of overwhelming users with options, each stage focuses on a single decision, helping users stay focused, confident, and in control.</p>
+        <h3 class="process-heading">One focused decision <em>at a time</em></h3>
+        <p class="process-text">Complex processes become easier when users are only asked to make one meaningful choice at each stage. The experience was intentionally structured to reduce cognitive load and keep users moving forward without hesitation.</p>
       </div>
     </div>
     <div class="process-item">
       <div class="process-num">02</div>
       <div class="process-body">
-        <h3 class="process-heading">End-to-end <em>flow</em></h3>
-        <p class="process-text">The product is structured as a guided journey from defining user goals to completing a booking. Each step builds on the previous one, creating a smooth and predictable experience that never loses the user.</p>
+        <h3 class="process-heading">A continuous <em>end-to-end flow</em></h3>
+        <p class="process-text">Each screen builds directly on the previous one, creating a predictable and uninterrupted journey. Instead of isolated interactions, the product behaves as a connected flow with a clear sense of progression.</p>
       </div>
     </div>
     <div class="process-item">
       <div class="process-num">03</div>
       <div class="process-body">
-        <h3 class="process-heading">Reducing <em>friction</em> at every turn</h3>
-        <p class="process-text">Every screen was evaluated for unnecessary decisions. Where a choice could be deferred or eliminated, it was. The goal was to ensure users always knew exactly what to do next and why it mattered.</p>
+        <h3 class="process-heading">Reducing friction <em>through structure</em></h3>
+        <p class="process-text">Every interaction was evaluated for unnecessary complexity. Actions that could be simplified, delayed, or removed were intentionally minimized so users could stay focused on completing their goal rather than navigating the interface itself.</p>
       </div>
     </div>
   </div>
@@ -658,7 +658,7 @@ body::before {
   </div>
 
   <div class="wf-intro">
-    <p class="wf-intro-text">Low-fidelity wireframes were created to map out the full user journey and validate the structure before moving into visual design. The focus was on clarity, guiding users step by step, and reducing decision fatigue.</p>
+    <p class="wf-intro-text">Low-fidelity wireframes were used to map the complete user journey before visual design began. The focus at this stage was structure. Understanding how users would move through the experience, where decisions occurred, and how progression could remain intuitive throughout the flow.</p>
   </div>
 
   <div class="wf-block">
@@ -666,7 +666,7 @@ body::before {
       <img src="images/Wireframe-overview1.png" alt="Wireframe Overview">
       <div class="wf-caption">
         <span class="wf-caption-label">Overview</span>
-        <span class="wf-caption-text">Full-flow wireframe mapping the end-to-end user journey across all screens.</span>
+        <span class="wf-caption-text">Early wireframe explorations focused on establishing the full journey from onboarding to booking. The priority was not visual polish but ensuring the experience felt guided, sequential, and easy to follow.</span>
       </div>
     </div>
   </div>
@@ -678,7 +678,7 @@ body::before {
       <img src="images/Wireframe-steps.png" alt="Goal to Direction Flow">
       <div class="wf-caption">
         <span class="wf-caption-label">Goal to Direction</span>
-        <span class="wf-caption-text">Breaking the process into guided steps helps users focus on one decision at a time, reducing overwhelm and improving clarity.</span>
+        <span class="wf-caption-text">Breaking the experience into smaller stages helped reduce overwhelm and gave users a clearer sense of progress. Each step introduced only the information necessary for the next decision.</span>
       </div>
     </div>
   </div>
@@ -690,7 +690,7 @@ body::before {
       <img src="images/wireframe-booking.png" alt="Session Booking Flow">
       <div class="wf-caption">
         <span class="wf-caption-label">Session Booking</span>
-        <span class="wf-caption-text">A simple, linear booking flow reduces friction and makes the final action feel clear and easy to complete.</span>
+        <span class="wf-caption-text">The booking experience was designed to feel lightweight and direct. By the time users reached scheduling, most major decisions had already been resolved earlier in the flow.</span>
       </div>
     </div>
   </div>
@@ -709,7 +709,7 @@ body::before {
     <div class="section-title"><span class="section-num">05</span> Goal Selection</div>
   </div>
   <h2 class="screen-heading">Users begin by <em>defining their intent</em></h2>
-  <p class="screen-desc">The first screen sets the tone — simple, direct, and focused on what the user actually wants to achieve.</p>
+  <p class="screen-desc">The experience starts by understanding what the user is actually trying to achieve. Whether the goal is landing a job, attracting recruiters, or improving visibility, the platform adapts recommendations based on that initial direction. This creates a more personalized experience while reducing unnecessary options later in the journey.</p>
   <div class="screen-single" id="goalScreen">
     <img src="images/goal-selection.png" alt="Goal Selection">
   </div>
@@ -722,8 +722,8 @@ body::before {
   <div class="section-header" style="margin-bottom: 32px;">
     <div class="section-title"><span class="section-num">06</span> Step Progression</div>
   </div>
-  <h2 class="screen-heading">Clear stages to <em>reduce overwhelm</em></h2>
-  <p class="screen-desc">The process is broken into clear stages so users always know where they are and what comes next.</p>
+  <h2 class="screen-heading">Clear stages that <em>maintain momentum</em></h2>
+  <p class="screen-desc">The process is divided into visible stages so users always understand where they are, what they've completed, and what comes next. This structure creates reassurance throughout the experience and prevents users from feeling lost inside the flow.</p>
   <div class="screen-grid-3">
     <div class="screen-item"><img src="images/step-1.png" alt="Step 1"></div>
     <div class="screen-item"><img src="images/step-2.png" alt="Step 2"></div>
@@ -738,8 +738,8 @@ body::before {
   <div class="section-header" style="margin-bottom: 32px;">
     <div class="section-title"><span class="section-num">07</span> Booking Flow</div>
   </div>
-  <h2 class="screen-heading">From guidance to <em>booked session</em></h2>
-  <p class="screen-desc">Users move seamlessly from guidance to booking a session — the final action feels like a natural conclusion, not an afterthought.</p>
+  <h2 class="screen-heading">From recommendation to <em>confirmed session</em></h2>
+  <p class="screen-desc">Once users complete the guided flow, the platform translates their inputs into a tailored recommendation and booking experience. The transition into scheduling feels like a natural continuation of the journey rather than a separate task. The final flow was designed to feel simple, calm, and intentional from selection to confirmation.</p>
   <div class="screen-grid-2">
     <div class="screen-item"><img src="images/booking.png" alt="Booking"></div>
     <div class="screen-item"><img src="images/success.png" alt="Success"></div>
@@ -755,10 +755,11 @@ body::before {
   </div>
   <div class="outcome-grid">
     <div>
-      <h2 class="outcome-heading" data-headline>Clarity that<br>converts to<br><em>bookings</em></h2>
+      <h2 class="outcome-heading" data-headline>Designing<br>clarity into<br><em>the experience</em></h2>
     </div>
     <div>
-      <p class="outcome-text">The final experience transforms a complex and often overwhelming process into a clear, structured journey. By reducing friction and guiding users step-by-step, the design improves clarity, builds confidence, and increases the likelihood of session bookings.</p>
+      <p class="outcome-text">The final product transforms what can often feel like an overwhelming process into a guided and structured journey. By simplifying decisions and maintaining progression throughout the experience, the design encourages confidence, direction, and action.</p>
+      <p class="outcome-text">Rather than asking users to figure everything out on their own, the platform provides a clearer path forward, one step at a time.</p>
       <div class="tags-wrap">
         <span class="tag">UX Research</span>
         <span class="tag">Wireframing</span>
